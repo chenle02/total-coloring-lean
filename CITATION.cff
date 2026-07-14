@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite the software release and associated research."
+title: "Total Coloring Lean"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Chen
+    given-names: Le
+  - family-names: Shan
+    given-names: Songling
+repository-code: "https://github.com/chenle02/total-coloring-lean"
+url: "https://github.com/chenle02/total-coloring-lean"
+license: MIT
+keywords:
+  - formal verification
+  - graph coloring
+  - Lean 4
+  - total coloring
