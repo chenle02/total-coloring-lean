@@ -6,17 +6,20 @@ boundaries take priority over breadth or automation.
 
 ## Scientific boundary
 
-- The proved layer includes conditional auxiliary decoding, one-hole filling,
-  exact distinguished-set safety for a two-color swap, properness under an
-  explicit boundary-closure hypothesis, and the finite-set/arithmetic core of
-  the critical degree-sum argument.
+- The proved layer includes conditional auxiliary decoding; the structural
+  class `A_D` and deletion closure; deleted-edge/one-hole transport; exact
+  complete and partial `J`-rainbow swap safety; physical two-color components
+  and boundary closure; finite missing-color counts; and the critical
+  degree-sum checkpoint conditional on an explicitly outside-edge-minimal
+  noncolorable member, including finite extraction of such a minimum from any
+  assumed fixed-vertex, fixed-`J` counterexample and the residual degree sum.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
-- Do not silently discharge physical obligations: a Kempe component must be
-  shown to satisfy boundary closure, and the critical degree-sum theorem must
-  be supplied with graph-theoretically derived missing-set disjointness and
-  lower bounds.
+- Do not promote conditional extraction from an assumed counterexample into
+  existence of a counterexample or into the all-orders extension theorem.
+  Fans, endpoint location, and the crossing argument remain separate
+  obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

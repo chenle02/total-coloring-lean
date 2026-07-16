@@ -4,9 +4,12 @@
 
 `total-coloring-lean` is a Lean 4 library for formal definitions and
 kernel-checked proof foundations in total-coloring research. Its verified
-layer includes the conditional auxiliary reduction, one-hole completion,
-exact distinguished-edge safety for two-color swaps, and the finite-set
-arithmetic in the critical degree-sum argument.
+layer includes conditional auxiliary decoding, the structural class `A_D`
+and its deletion closure, deleted-edge/one-hole transport, physical
+two-color components with exact distinguished-edge safety, and the full
+critical degree-sum checkpoint for a hypothetical edge-minimal noncolorable
+member, including extraction of such a minimum from any fixed-`V`, fixed-`J`
+counterexample.
 
 ## Current proof boundary
 
@@ -18,12 +21,29 @@ The library currently proves:
 - the conditional auxiliary decoding theorem;
 - partial proper edge colorings and the theorem that a color missing at both
   endpoints properly fills the unique uncolored edge;
+- the matching-plus-full-star definition of `A_D`, its pair-level wrapper,
+  and closure under deletion of an edge outside `J`;
+- the exact bridge between stable `Sym2` distinguished finsets and the edge
+  subtype used by colorings;
 - the exact `J`-rainbow two-color swap criterion, including the unused-color
   and same-side unique-carrier cases;
-- preservation of properness under an explicit two-color boundary-closure
-  hypothesis;
-- the cardinality and natural-number arithmetic deriving
-  `D + 4 <= degreeU + degreeV` from disjoint endpoint missing sets; and
+- physical two-color reachability components for complete and partial edge
+  assignments, including proofs that they supply boundary closure and preserve
+  properness and the unique hole;
+- explicit transport of a valid rainbow coloring of `H - e` to a valid
+  rainbow one-hole coloring of `H`;
+- finite-palette missing-color finsets, blocked-fill disjointness, and the
+  sharp one-hole missing-color count;
+- the conditional minimal-counterexample checkpoint deriving
+  `D + 4 <= degreeU + degreeV` for every edge outside `J`, without separately
+  assumed missing-set or cardinality bounds;
+- the zero-outside-edge base coloring and hence existence of an outside edge
+  in every supplied minimal noncolorable member;
+- finite extraction of an outside-edge-minimal noncolorable member from any
+  counterexample on the same finite vertex type and stable `J`;
+- the residual bound
+  `D + 2 <= degree_(H-J)(u) + degree_(H-J)(v)` for every outside edge in the
+  conditional critical state; and
 - tiny positive and negative examples.
 
 The library does **not** currently prove:
@@ -35,11 +55,9 @@ The library does **not** currently prove:
   program;
 - the Hajnal–Szemerédi theorem or a construction of the required equitable
   partition;
-- a physical Kempe-component API proving the boundary-closure hypothesis;
-- a bridge applying the complete-assignment swap theorem to a one-hole partial
-  coloring, or equivalently to the edge-deleted graph;
-- missing-set disjointness and its cardinality hypotheses from a formalized
-  minimal nonextendable `A_D` instance; or
+- the split-star transfer or the actual pair/singleton construction;
+- ordered fans, shifts, dependency reachability, endpoint-location lemmas, or
+  the direct-entry crossing argument; or
 - completeness of any external graph census.
 
 Bounded computations remain finite evidence. Checking every stored positive
@@ -58,20 +76,37 @@ in scope.
   properness boundary condition.
 - `TotalColoring.Critical`: disjoint-finset counting and the critical
   degree-sum arithmetic.
+- `TotalColoring.AuxiliaryClass`: the witnessed and pair-level definitions of
+  `A_D` and structural deletion closure.
+- `TotalColoring.Distinguished`: stable-`J` to edge-subtype transport,
+  cardinality, and coverage.
+- `TotalColoring.DeletionBridge`: transport from a coloring of `H - e` to a
+  one-hole partial coloring of `H`.
+- `TotalColoring.PartialSwap`: exact swap safety for partial assignments.
+- `TotalColoring.Kempe` and `TotalColoring.PartialKempe`: physical two-color
+  reachability components and boundary closure.
+- `TotalColoring.Missing` and `TotalColoring.MissingCount`: endpoint missing
+  finsets, direct-fill obstruction, and sharp one-hole counts.
+- `TotalColoring.CriticalState`: the explicit outside-edge-minimal
+  noncolorable interface, blocked one-hole state, and degree-sum checkpoint.
+- `TotalColoring.MinimalExtraction`: finite extraction of the minimal critical
+  state from an arbitrary fixed-`V`, fixed-`J` counterexample.
+- `TotalColoring.ResidualDegree`: exact removal of one distinguished incidence
+  at each noncenter vertex and the residual critical degree sum.
 - `TotalColoring.Examples`: tiny acceptance and rejection checks.
 
 ## Relation to the paper proof program
 
-The modules formalize stable seams used by the proof program; they do not
-replace its remaining graph-theoretic argument. The next dependency chain is
-to define finite palettes and distinguished sets, formalize the class `A_D`
-and its deletion-minimal one-hole state, derive the endpoint missing-set
-hypotheses, bridge partial one-hole states to swaps on the edge-deleted graph,
-and show that an actual two-color component satisfies the abstract
-boundary-closure condition. Fans, shifts, endpoint-location lemmas, the
-direct-entry crossing argument, and the uniform `A_D` extension theorem remain
-later kernel obligations. No manuscript theorem is considered Lean-verified
-until those obligations close and the authors lock the theorem statement.
+The modules now kernel-check the paper proof program through its critical
+degree-sum checkpoint, conditional on a hypothetical outside-edge-minimal
+noncolorable member, and now extracts such a minimum from any assumed
+fixed-`V`, fixed-`J` counterexample. They do not prove that a counterexample
+exists or that every `A_D` member is colorable. The auxiliary-proof track next
+requires ordered fans and shifts, dependency reachability, endpoint-location
+lemmas, and the direct-entry crossing argument. The reduction track still
+requires the split-star and pair/singleton construction. No manuscript theorem
+is considered Lean-verified until those obligations close and the authors
+lock the theorem statement.
 
 ## Trust boundary
 
