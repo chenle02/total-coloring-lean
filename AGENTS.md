@@ -21,17 +21,21 @@ boundaries take priority over breadth or automation.
   components, literal fan-prefix repair after a center-avoiding component
   swap, and the conditional critical-state dichotomy that a genuine terminal
   component meets the center or fails exact `SwapCompatibleOn`. The
-  multiplicity-two fan premise remains explicit in the checked conditional
-  incidence count.
+  finite global layer now proves that, in every valid finite partial
+  assignment, each genuine two-color component has at most two endpoints,
+  without choosing a path/cycle classification. In the supplied critical
+  state it also proves multiplicity at most one on all dependency-reachable
+  leaves, and hence on every selected fan, for a color unused on `J`. The
+  general multiplicity-two fan premise remains explicit in the checked
+  conditional incidence count.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  Global path/cycle classification and two-endpoint capacity, spare and
-  general leaf multiplicity, carrier location, fan capacity and maximality,
-  endpoint location, root pivots, and the crossing argument remain separate
-  obligations.
+  Global path/cycle classification, general leaf multiplicity for colors used
+  on `J`, carrier location, fan capacity and maximality, endpoint location,
+  root pivots, and the crossing argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.
@@ -69,12 +73,15 @@ Run from the repository root before every commit:
 lake exe cache get
 lake build
 lake env leanchecker
-if git grep -n -E \
+if rg -n \
+  --glob '*.lean' \
+  --glob '!.lake/**' \
   '(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|$)' \
-  -- '*.lean'; then
+  .; then
   exit 1
 fi
 git diff --check
+git diff --cached --check
 ```
 
 Commit `lake-manifest.json`. Change `lean-toolchain` and the mathlib revision

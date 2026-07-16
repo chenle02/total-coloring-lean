@@ -1,4 +1,5 @@
 import TotalColoring.FanPrefixRepair
+import TotalColoring.TwoColorEndpointCapacity
 
 /-!
 # Tiny Wave 4 regression fixtures
@@ -33,7 +34,25 @@ theorem alphaAssignment_supported :
     alphaAssignment.TwoColorSupported 0 1 k2Edge := by
   exact Or.inl rfl
 
+theorem alphaAssignment_valid : alphaAssignment.Valid := by
+  have nonDiag_eq :
+      ∀ z : Sym2 (Fin 2), ¬z.IsDiag → z = s(0, 1) := by
+    intro z
+    induction z using Sym2.inductionOn with
+    | _ i j =>
+        intro hnonDiag
+        fin_cases i <;> fin_cases j <;> simp at hnonDiag ⊢
+  have edge_eq (e : K2.edgeSet) : e = k2Edge := by
+    apply Subtype.ext
+    exact nonDiag_eq e.1 (K2.not_isDiag_of_mem_edgeSet e.2)
+  intro e f c hef hec
+  exact (hef.ne ((edge_eq e).trans (edge_eq f).symm)).elim
+
 theorem color_one_missing_at_zero : alphaAssignment.MissingAt 0 1 := by
+  intro e he
+  simp [alphaAssignment]
+
+theorem color_one_missing_at_one : alphaAssignment.MissingAt 1 1 := by
   intro e he
   simp [alphaAssignment]
 
@@ -49,6 +68,41 @@ theorem alphaComponent_meets_zero :
     alphaAssignment.root_mem_twoColorReachabilityClass 0 1 k2Edge, ?_⟩
   change (0 : Fin 2) ∈ (k2Edge : Sym2 (Fin 2))
   simp [k2Edge]
+
+theorem alphaComponent_meets_one :
+    EdgeSetMeetsVertex
+      (alphaAssignment.TwoColorReachabilityClass 0 1 k2Edge) 1 := by
+  refine ⟨k2Edge,
+    alphaAssignment.root_mem_twoColorReachabilityClass 0 1 k2Edge, ?_⟩
+  change (1 : Fin 2) ∈ (k2Edge : Sym2 (Fin 2))
+  simp [k2Edge]
+
+/-- The one-edge component has both ambient vertices as endpoints. -/
+theorem one_edge_component_named_endpoints :
+    EdgeSetIsEndpoint
+        (alphaAssignment.TwoColorReachabilityClass 0 1 k2Edge) 0 ∧
+      EdgeSetIsEndpoint
+        (alphaAssignment.TwoColorReachabilityClass 0 1 k2Edge) 1 := by
+  let hK :=
+    PartialEdgeAssignment.isTwoColorKempeComponent_reachabilityClass
+      alphaAssignment 0 1 k2Edge alphaAssignment_supported
+  exact ⟨
+    PartialEdgeAssignment.edgeSetIsEndpoint_of_missing_right_of_component_meets
+      alphaAssignment_valid hK color_one_missing_at_zero
+        alphaComponent_meets_zero,
+    PartialEdgeAssignment.edgeSetIsEndpoint_of_missing_right_of_component_meets
+      alphaAssignment_valid hK color_one_missing_at_one
+        alphaComponent_meets_one⟩
+
+/-- The global endpoint theorem is sharp on the one-edge component. -/
+theorem one_edge_component_endpoint_capacity :
+    ({v : Fin 2 | EdgeSetIsEndpoint
+      (alphaAssignment.TwoColorReachabilityClass 0 1 k2Edge) v} :
+      Set (Fin 2)).ncard ≤ 2 := by
+  exact PartialEdgeAssignment.edgeSetIsEndpoint_ncard_le_two_of_component
+    alphaAssignment_valid
+    (PartialEdgeAssignment.isTwoColorKempeComponent_reachabilityClass
+      alphaAssignment 0 1 k2Edge alphaAssignment_supported)
 
 /-- A one-edge physical component exchanges the missing endpoint label. -/
 theorem one_edge_component_swap_flips_missing_label :

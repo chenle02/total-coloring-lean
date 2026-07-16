@@ -6,6 +6,7 @@ import TotalColoring.Critical
 import TotalColoring.CriticalAllLeaf
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount
+import TotalColoring.CriticalSpareMultiplicity
 import TotalColoring.CriticalState
 import TotalColoring.DeletionBridge
 import TotalColoring.Dependency
@@ -33,5 +34,6 @@ import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.SimpleReachability
 import TotalColoring.Total
+import TotalColoring.TwoColorEndpointCapacity
 import TotalColoring.TwoColorGeometry
 import TotalColoring.Wave4Examples
