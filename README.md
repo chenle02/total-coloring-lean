@@ -174,13 +174,14 @@ They also check global endpoint capacity, retain the stronger multiplicity-one
 result for colors unused on `J`, and extract a minimum from any assumed fixed-
 `V`, fixed-`J` counterexample. They do not prove the still-open used-color
 multiplicity-two bound, the later uniform/recentered matching-location result,
-that a counterexample exists, or that every `A_D` member is colorable. The
+full survival of a preselected fan sequence under a through-center swap, that
+a counterexample exists, or that every `A_D` member is colorable. The
 auxiliary-proof track next requires spare-center exclusion, fan
-capacity/maximality, uniform endpoint location and recentering, root pivots,
-and the direct-entry crossing argument. The reduction track still requires the
-split-star and pair/singleton construction. No manuscript theorem is considered
-Lean-verified until those obligations close and the authors lock the theorem
-statement.
+capacity/maximality, full through-center selected-sequence survival, uniform
+endpoint location and recentering, root pivots, and the direct-entry crossing
+argument. The reduction track still requires the split-star and
+pair/singleton construction. No manuscript theorem is considered Lean-verified
+until those obligations close and the authors lock the theorem statement.
 
 ## Trust boundary
 

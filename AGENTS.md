@@ -36,9 +36,9 @@ boundaries take priority over breadth or automation.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
   The used-color multiplicity-two strengthening, spare-center exclusion,
-  uniform/recentered carrier location, fan capacity and maximality, endpoint
-  location, root pivots, and the crossing argument remain separate
-  obligations.
+  full through-center selected-sequence survival, uniform/recentered carrier
+  location, fan capacity and maximality, endpoint location, root pivots, and
+  the crossing argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.
