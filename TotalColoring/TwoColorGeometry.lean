@@ -1,0 +1,433 @@
+import TotalColoring.PartialKempe
+
+/-!
+# Vertex geometry of partial two-color components
+
+`PartialKempe` realizes a physical two-color component as an edge
+reachability class in the line graph.  Fan arguments also need the vertex
+view of that same object: a proper two-color subgraph has no branching, a
+vertex missing one of the two colors is an endpoint whenever the component
+meets it, and swapping the component exchanges which of the two colors is
+missing there.
+
+This module proves those local geometric facts directly from incidence,
+validity, and full reachability-class closure.  It does not yet choose or
+classify a global path/cycle walk, and it makes no maximal-fan or criticality
+claim.
+-/
+
+namespace TotalColoring
+
+universe u v
+
+/-- An edge set meets a vertex when it contains an incident edge. -/
+def EdgeSetMeetsVertex {V : Type u} {G : SimpleGraph V}
+    (K : Set G.edgeSet) (v : V) : Prop :=
+  ∃ e, e ∈ K ∧ Incident v e
+
+/-- An edge set avoids a vertex when none of its edges is incident there. -/
+def EdgeSetAvoidsVertex {V : Type u} {G : SimpleGraph V}
+    (K : Set G.edgeSet) (v : V) : Prop :=
+  ∀ {e}, e ∈ K → ¬Incident v e
+
+theorem edgeSetAvoidsVertex_iff_not_meets {V : Type u} {G : SimpleGraph V}
+    {K : Set G.edgeSet} {v : V} :
+    EdgeSetAvoidsVertex K v ↔ ¬EdgeSetMeetsVertex K v := by
+  constructor
+  · intro havoid hmeet
+    rcases hmeet with ⟨e, heK, hev⟩
+    exact havoid heK hev
+  · intro hnot e heK hev
+    exact hnot ⟨e, heK, hev⟩
+
+/-- A vertex is an endpoint of an edge set when exactly one edge of the set
+is incident there. -/
+def EdgeSetIsEndpoint {V : Type u} {G : SimpleGraph V}
+    (K : Set G.edgeSet) (v : V) : Prop :=
+  ∃ e, e ∈ K ∧ Incident v e ∧
+    ∀ {f}, f ∈ K → Incident v f → f = e
+
+/-- A vertex is internal to an edge set when two distinct edges of the set are
+incident there. -/
+def EdgeSetIsInternal {V : Type u} {G : SimpleGraph V}
+    (K : Set G.edgeSet) (v : V) : Prop :=
+  ∃ e f, e ∈ K ∧ f ∈ K ∧ Incident v e ∧ Incident v f ∧ e ≠ f
+
+namespace PartialEdgeAssignment
+
+variable {V : Type u} {G : SimpleGraph V} {C : Type v}
+
+/-- Two distinct incident edges are adjacent in the line graph. -/
+private theorem lineGraph_adj_of_incident {v : V} {e f : G.edgeSet}
+    (hef : e ≠ f) (he : Incident v e) (hf : Incident v f) :
+    G.lineGraph.Adj e f := by
+  exact SimpleGraph.lineGraph_adj_iff_exists.mpr ⟨hef, v, he, hf⟩
+
+/-- Properness makes an incident edge of a fixed actual color unique. -/
+theorem edge_eq_of_incident_of_color_eq
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {v : V} {e f : G.edgeSet} {c : C}
+    (he : Incident v e) (hf : Incident v f)
+    (hec : a.color e = some c) (hfc : a.color f = some c) :
+    e = f := by
+  by_contra hef
+  exact (hvalid e f c (lineGraph_adj_of_incident hef he hf) hec) hfc
+
+/-- Every member of a genuine physical component is supported by one of its
+two colors. -/
+theorem twoColorSupported_of_mem_component
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    {e : G.edgeSet} (heK : e ∈ K) :
+    a.TwoColorSupported alpha beta e := by
+  rcases hK with ⟨root, hroot, rfl⟩
+  exact a.twoColorSupported_of_mem_reachabilityClass alpha beta hroot heK
+
+/-- At a vertex met by a physical component, every other incident supported
+edge belongs to that same component.  This is the load-bearing conversion
+from line-graph reachability to vertex-component closure. -/
+theorem mem_component_of_mem_of_incident_supported
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    {v : V} {e f : G.edgeSet} (heK : e ∈ K)
+    (he : Incident v e) (hf : Incident v f)
+    (hfsupported : a.TwoColorSupported alpha beta f) :
+    f ∈ K := by
+  rcases hK with ⟨root, hroot, rfl⟩
+  have hesupported : a.TwoColorSupported alpha beta e :=
+    a.twoColorSupported_of_mem_reachabilityClass alpha beta hroot heK
+  by_cases hef : e = f
+  · simpa [hef] using heK
+  · exact heK.tail
+      ⟨lineGraph_adj_of_incident hef he hf, hesupported, hfsupported⟩
+
+/-- A reachability class with a supported root is a genuine physical
+component. -/
+theorem isTwoColorKempeComponent_reachabilityClass
+    (a : PartialEdgeAssignment G C) (alpha beta : C) (root : G.edgeSet)
+    (hroot : a.TwoColorSupported alpha beta root) :
+    a.IsTwoColorKempeComponent alpha beta
+      (a.TwoColorReachabilityClass alpha beta root) :=
+  ⟨root, hroot, rfl⟩
+
+/-- Local path/cycle geometry: among any three incident edges supported by
+two colors in a proper partial coloring, two are equal.  Equivalently, the
+physical two-color subgraph has vertex degree at most two and cannot branch.
+-/
+theorem twoColorSupported_incident_edges_no_branch
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {v : V} {e f g : G.edgeSet}
+    (he : Incident v e) (hf : Incident v f) (hg : Incident v g)
+    (hes : a.TwoColorSupported alpha beta e)
+    (hfs : a.TwoColorSupported alpha beta f)
+    (hgs : a.TwoColorSupported alpha beta g) :
+    e = f ∨ e = g ∨ f = g := by
+  rcases hes with healpha | hebeta
+  · rcases hfs with hfalpha | hfbeta
+    · exact Or.inl (edge_eq_of_incident_of_color_eq hvalid he hf healpha hfalpha)
+    · rcases hgs with hgalpha | hgbeta
+      · exact Or.inr <| Or.inl <|
+          edge_eq_of_incident_of_color_eq hvalid he hg healpha hgalpha
+      · exact Or.inr <| Or.inr <|
+          edge_eq_of_incident_of_color_eq hvalid hf hg hfbeta hgbeta
+  · rcases hfs with hfalpha | hfbeta
+    · rcases hgs with hgalpha | hgbeta
+      · exact Or.inr <| Or.inr <|
+          edge_eq_of_incident_of_color_eq hvalid hf hg hfalpha hgalpha
+      · exact Or.inr <| Or.inl <|
+          edge_eq_of_incident_of_color_eq hvalid he hg hebeta hgbeta
+    · exact Or.inl (edge_eq_of_incident_of_color_eq hvalid he hf hebeta hfbeta)
+
+/-- If a genuine two-color component meets a vertex at which the first color
+is missing, then that vertex is an endpoint of the component. -/
+theorem edgeSetIsEndpoint_of_missing_left_of_component_meets
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {K : Set G.edgeSet} {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (hmissing : a.MissingAt v alpha)
+    (hmeets : EdgeSetMeetsVertex K v) :
+    EdgeSetIsEndpoint K v := by
+  rcases hmeets with ⟨e, heK, he⟩
+  have hes := twoColorSupported_of_mem_component a hK heK
+  have hebeta : a.color e = some beta := hes.resolve_left (hmissing e he)
+  refine ⟨e, heK, he, ?_⟩
+  intro f hfK hf
+  have hfs := twoColorSupported_of_mem_component a hK hfK
+  have hfbeta : a.color f = some beta := hfs.resolve_left (hmissing f hf)
+  exact edge_eq_of_incident_of_color_eq hvalid hf he hfbeta hebeta
+
+/-- Symmetric endpoint statement when the second color is missing. -/
+theorem edgeSetIsEndpoint_of_missing_right_of_component_meets
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {K : Set G.edgeSet} {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (hmissing : a.MissingAt v beta)
+    (hmeets : EdgeSetMeetsVertex K v) :
+    EdgeSetIsEndpoint K v := by
+  rcases hmeets with ⟨e, heK, he⟩
+  have hes := twoColorSupported_of_mem_component a hK heK
+  have healpha : a.color e = some alpha := hes.resolve_right (hmissing e he)
+  refine ⟨e, heK, he, ?_⟩
+  intro f hfK hf
+  have hfs := twoColorSupported_of_mem_component a hK hfK
+  have hfalpha : a.color f = some alpha := hfs.resolve_right (hmissing f hf)
+  exact edge_eq_of_incident_of_color_eq hvalid hf he hfalpha healpha
+
+/-- Exact endpoint characterization.  At a met vertex of a proper physical
+component, degree one is equivalent to at least one of the two colors being
+missing. -/
+theorem edgeSetIsEndpoint_iff_meets_and_missing
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {K : Set G.edgeSet} {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) :
+    EdgeSetIsEndpoint K v ↔
+      EdgeSetMeetsVertex K v ∧
+        (a.MissingAt v alpha ∨ a.MissingAt v beta) := by
+  constructor
+  · rintro ⟨e, heK, he, hunique⟩
+    refine ⟨⟨e, heK, he⟩, ?_⟩
+    rcases twoColorSupported_of_mem_component a hK heK with
+      healpha | hebeta
+    · right
+      intro f hf hfbeta
+      have hfK := mem_component_of_mem_of_incident_supported a hK heK he hf
+        (Or.inr hfbeta)
+      have hfe := hunique hfK hf
+      subst f
+      exact halphabeta (Option.some.inj (healpha.symm.trans hfbeta))
+    · left
+      intro f hf hfalpha
+      have hfK := mem_component_of_mem_of_incident_supported a hK heK he hf
+        (Or.inl hfalpha)
+      have hfe := hunique hfK hf
+      subst f
+      exact halphabeta (Option.some.inj (hfalpha.symm.trans hebeta))
+  · rintro ⟨hmeets, hmissing | hmissing⟩
+    · exact edgeSetIsEndpoint_of_missing_left_of_component_meets
+        hvalid hK hmissing hmeets
+    · exact edgeSetIsEndpoint_of_missing_right_of_component_meets
+        hvalid hK hmissing hmeets
+
+/-- Exact internal-vertex characterization.  A met vertex is internal to a
+proper physical component precisely when both component colors occur there.
+-/
+theorem edgeSetIsInternal_iff_meets_and_present_both
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {K : Set G.edgeSet} {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) :
+    EdgeSetIsInternal K v ↔
+      EdgeSetMeetsVertex K v ∧ ¬a.MissingAt v alpha ∧
+        ¬a.MissingAt v beta := by
+  constructor
+  · rintro ⟨e, f, heK, hfK, he, hf, hef⟩
+    refine ⟨⟨e, heK, he⟩, ?_, ?_⟩
+    · intro hmissing
+      rcases edgeSetIsEndpoint_of_missing_left_of_component_meets
+          hvalid hK hmissing ⟨e, heK, he⟩ with
+        ⟨carrier, hcarrierK, hcarrier, hunique⟩
+      exact hef ((hunique heK he).trans (hunique hfK hf).symm)
+    · intro hmissing
+      rcases edgeSetIsEndpoint_of_missing_right_of_component_meets
+          hvalid hK hmissing ⟨e, heK, he⟩ with
+        ⟨carrier, hcarrierK, hcarrier, hunique⟩
+      exact hef ((hunique heK he).trans (hunique hfK hf).symm)
+  · rintro ⟨⟨e, heK, he⟩, halphaPresent, hbetaPresent⟩
+    have hexistsAlpha : ∃ f, Incident v f ∧ a.color f = some alpha := by
+      by_contra hno
+      apply halphaPresent
+      intro f hf hfalpha
+      exact hno ⟨f, hf, hfalpha⟩
+    have hexistsBeta : ∃ f, Incident v f ∧ a.color f = some beta := by
+      by_contra hno
+      apply hbetaPresent
+      intro f hf hfbeta
+      exact hno ⟨f, hf, hfbeta⟩
+    rcases hexistsAlpha with ⟨falpha, hfalphaInc, hfalpha⟩
+    rcases hexistsBeta with ⟨fbeta, hfbetaInc, hfbeta⟩
+    have hfalphaK := mem_component_of_mem_of_incident_supported
+      a hK heK he hfalphaInc (Or.inl hfalpha)
+    have hfbetaK := mem_component_of_mem_of_incident_supported
+      a hK heK he hfbetaInc (Or.inr hfbeta)
+    refine ⟨falpha, fbeta, hfalphaK, hfbetaK, hfalphaInc,
+      hfbetaInc, ?_⟩
+    intro hEq
+    subst fbeta
+    exact halphabeta (Option.some.inj (hfalpha.symm.trans hfbeta))
+
+/-- Every met vertex of a proper physical two-color component is exactly in
+the local path/cycle dichotomy: endpoint or internal. -/
+theorem endpoint_or_internal_of_component_meets
+    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
+    {alpha beta : C} {K : Set G.edgeSet} {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta)
+    (hmeets : EdgeSetMeetsVertex K v) :
+    EdgeSetIsEndpoint K v ∨ EdgeSetIsInternal K v := by
+  classical
+  by_cases halpha : a.MissingAt v alpha
+  · exact Or.inl <|
+      edgeSetIsEndpoint_of_missing_left_of_component_meets
+        hvalid hK halpha hmeets
+  · by_cases hbeta : a.MissingAt v beta
+    · exact Or.inl <|
+        edgeSetIsEndpoint_of_missing_right_of_component_meets
+          hvalid hK hbeta hmeets
+    · exact Or.inr <|
+        (edgeSetIsInternal_iff_meets_and_present_both
+          hvalid hK halphabeta).2 ⟨hmeets, halpha, hbeta⟩
+
+section Swap
+
+variable [DecidableEq C]
+
+/-- Swapping an edge set that avoids a vertex preserves every missing-color
+predicate at that vertex, in both directions. -/
+theorem missingAt_swapOn_iff_of_avoidsVertex
+    (a : PartialEdgeAssignment G C) (alpha beta : C) (K : Set G.edgeSet)
+    [DecidablePred (· ∈ K)] {v : V} (havoid : EdgeSetAvoidsVertex K v)
+    (c : C) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  constructor
+  · intro hswap e he
+    have heK : e ∉ K := fun hmem ↦ havoid hmem he
+    simpa [PartialEdgeAssignment.swapOn_color_of_not_mem a alpha beta K heK]
+      using hswap e he
+  · intro hold e he
+    have heK : e ∉ K := fun hmem ↦ havoid hmem he
+    simpa [PartialEdgeAssignment.swapOn_color_of_not_mem a alpha beta K heK]
+      using hold e he
+
+/-- At a component endpoint missing the first color, a full component swap
+makes the second color missing. -/
+theorem missingAt_right_swapOn_of_missing_left_of_component_meets
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) (hmissing : a.MissingAt v alpha)
+    (hmeets : EdgeSetMeetsVertex K v) :
+    (a.swapOn alpha beta K).MissingAt v beta := by
+  rcases hmeets with ⟨e, heK, he⟩
+  intro f hf
+  by_cases hfK : f ∈ K
+  · have hfs := twoColorSupported_of_mem_component a hK hfK
+    rcases hfs with hfalpha | hfbeta
+    · exact (hmissing f hf hfalpha).elim
+    · rw [PartialEdgeAssignment.swapOn_color_of_mem a alpha beta K hfK, hfbeta]
+      simp [halphabeta]
+  · rw [PartialEdgeAssignment.swapOn_color_of_not_mem a alpha beta K hfK]
+    intro hfbeta
+    apply hfK
+    exact mem_component_of_mem_of_incident_supported a hK heK he hf
+      (Or.inr hfbeta)
+
+/-- At a component endpoint missing the second color, a full component swap
+makes the first color missing. -/
+theorem missingAt_left_swapOn_of_missing_right_of_component_meets
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) (hmissing : a.MissingAt v beta)
+    (hmeets : EdgeSetMeetsVertex K v) :
+    (a.swapOn alpha beta K).MissingAt v alpha := by
+  rcases hmeets with ⟨e, heK, he⟩
+  intro f hf
+  by_cases hfK : f ∈ K
+  · have hfs := twoColorSupported_of_mem_component a hK hfK
+    rcases hfs with hfalpha | hfbeta
+    · rw [PartialEdgeAssignment.swapOn_color_of_mem a alpha beta K hfK, hfalpha]
+      simp [Ne.symm halphabeta]
+    · exact (hmissing f hf hfbeta).elim
+  · rw [PartialEdgeAssignment.swapOn_color_of_not_mem a alpha beta K hfK]
+    intro hfalpha
+    apply hfK
+    exact mem_component_of_mem_of_incident_supported a hK heK he hf
+      (Or.inl hfalpha)
+
+/-- Exact endpoint label transport for the first color.  At every vertex met
+by the component, the first color is missing after the swap exactly when the
+second color was missing before it. -/
+theorem missingAt_left_swapOn_iff_of_component_meets
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) (hmeets : EdgeSetMeetsVertex K v) :
+    (a.swapOn alpha beta K).MissingAt v alpha ↔ a.MissingAt v beta := by
+  constructor
+  · intro hswap f hf hfbeta
+    rcases hmeets with ⟨e, heK, he⟩
+    have hfK := mem_component_of_mem_of_incident_supported
+      a hK heK he hf (Or.inr hfbeta)
+    apply hswap f hf
+    rw [PartialEdgeAssignment.swapOn_color_of_mem a alpha beta K hfK,
+      hfbeta]
+    simp
+  · intro hmissing
+    exact missingAt_left_swapOn_of_missing_right_of_component_meets
+      a hK halphabeta hmissing hmeets
+
+/-- Exact endpoint label transport for the second color. -/
+theorem missingAt_right_swapOn_iff_of_component_meets
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta) (hmeets : EdgeSetMeetsVertex K v) :
+    (a.swapOn alpha beta K).MissingAt v beta ↔ a.MissingAt v alpha := by
+  constructor
+  · intro hswap f hf hfalpha
+    rcases hmeets with ⟨e, heK, he⟩
+    have hfK := mem_component_of_mem_of_incident_supported
+      a hK heK he hf (Or.inl hfalpha)
+    apply hswap f hf
+    rw [PartialEdgeAssignment.swapOn_color_of_mem a alpha beta K hfK,
+      hfalpha]
+    simp
+  · intro hmissing
+    exact missingAt_right_swapOn_of_missing_left_of_component_meets
+      a hK halphabeta hmissing hmeets
+
+/-- Swapping `alpha` and `beta` leaves every third-color missing predicate
+unchanged, whether or not the component meets the vertex. -/
+theorem missingAt_other_swapOn_iff
+    (a : PartialEdgeAssignment G C) {alpha beta c : C}
+    (K : Set G.edgeSet) [DecidablePred (· ∈ K)] {v : V}
+    (hcalpha : c ≠ alpha) (hcbeta : c ≠ beta) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  constructor
+  · intro hswap e he
+    by_cases heK : e ∈ K
+    · intro hec
+      apply hswap e he
+      rw [PartialEdgeAssignment.swapOn_color_of_mem a alpha beta K heK, hec]
+      simp [Equiv.swap_apply_of_ne_of_ne hcalpha hcbeta]
+    · intro hec
+      apply hswap e he
+      simpa [PartialEdgeAssignment.swapOn_color_of_not_mem
+        a alpha beta K heK] using hec
+  · intro hold e he
+    by_cases heK : e ∈ K
+    · intro hswapc
+      apply hold e he
+      rw [PartialEdgeAssignment.swapOn_color_of_mem
+        a alpha beta K heK] at hswapc
+      cases hecolor : a.color e with
+      | none => simp [hecolor] at hswapc
+      | some d =>
+          have hdc : Equiv.swap alpha beta d = c :=
+            Option.some.inj (by simpa [hecolor] using hswapc)
+          have hdc' : d = c := by
+            rw [Equiv.swap_apply_eq_iff,
+              Equiv.swap_apply_of_ne_of_ne hcalpha hcbeta] at hdc
+            exact hdc
+          exact congrArg some hdc'
+    · intro hswapc
+      apply hold e he
+      simpa [PartialEdgeAssignment.swapOn_color_of_not_mem
+        a alpha beta K heK] using hswapc
+
+end Swap
+
+end PartialEdgeAssignment
+
+end TotalColoring

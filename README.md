@@ -9,9 +9,10 @@ and its deletion closure, deleted-edge/one-hole transport, physical
 two-color components with exact distinguished-edge safety, and the full
 critical degree-sum checkpoint for a hypothetical edge-minimal noncolorable
 member, including extraction of such a minimum from any fixed-`V`, fixed-`J`
-counterexample. The next checked layer formalizes simple ordered fan paths,
-legal hole shifts, dependency reachability, and center--reachable-leaf
-elementarity inside that conditional critical state.
+counterexample. The next checked layers formalize simple ordered fan paths,
+legal hole shifts, dependency reachability, center--reachable-leaf
+elementarity, local vertex geometry of genuine physical two-color components,
+and all-leaf fan-prefix repair inside that conditional critical state.
 
 ## Current proof boundary
 
@@ -56,6 +57,15 @@ The library currently proves:
   invariance and persistence of terminal-leaf missing colors;
 - center--reachable-leaf elementarity for every supplied minimal
   noncolorable member;
+- local no-branching plus exact endpoint/internal missing-color geometry for
+  genuine partial two-color components, with unsupported raw reachability
+  roots kept outside the genuine-component interface;
+- literal nonempty fan-prefix extraction, including the singleton root case,
+  and structural prefix repair after a physical component swap that avoids
+  the fan center;
+- in a supplied minimal critical state, the conditional all-leaf dichotomy
+  that a genuine two-color component meeting the selected terminal leaf
+  either meets the center or fails the exact `SwapCompatibleOn` condition;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -71,9 +81,11 @@ The library does **not** currently prove:
 - the Hajnal–Szemerédi theorem or a construction of the required equitable
   partition;
 - the split-star transfer or the actual pair/singleton construction;
-- all-leaf Kempe prefix repair, leaf-multiplicity and carrier-location lemmas,
-  fan capacity and global maximality, endpoint-location lemmas, root pivots,
-  or the direct-entry crossing argument; or
+- global path/cycle classification or an at-most-two-component-endpoints
+  theorem, spare-color leaf multiplicity, general leaf-multiplicity and
+  carrier-location lemmas, fan capacity and global maximality,
+  endpoint-location lemmas, root pivots, or the direct-entry crossing
+  argument; or
 - completeness of any external graph census.
 
 Bounded computations remain finite evidence. Checking every stored positive
@@ -116,27 +128,35 @@ in scope.
   dependency paths and their exact simple-fan realization.
 - `TotalColoring.FanShift` and `TotalColoring.CriticalFan`: legal iterated fan
   shifts and conditional center--reachable-leaf elementarity.
+- `TotalColoring.TwoColorGeometry`: local vertex no-branching,
+  endpoint/internal characterization, and exact missing-label transport for
+  genuine partial two-color components.
+- `TotalColoring.FanPrefix`, `TotalColoring.FanPrefixRepair`, and
+  `TotalColoring.CriticalAllLeaf`: literal fan prefixes, structural repair
+  after a center-avoiding component swap, and the conditional
+  meet-center-or-incompatible all-leaf theorem.
 - `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
   `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
   `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
   multiplicity two retained as an explicit hypothesis.
-- `TotalColoring.Examples`: tiny acceptance and rejection checks.
+- `TotalColoring.Examples` and `TotalColoring.Wave4Examples`: tiny acceptance,
+  rejection, unsupported-root, endpoint-swap, and singleton-prefix checks.
 
 ## Relation to the paper proof program
 
 The modules now kernel-check the paper proof program through the critical
-degree-sum checkpoint and the first fan layer: simple fan generation, legal
-hole shifting, dependency reachability, and center--reachable-leaf
-elementarity, all conditional on a hypothetical outside-edge-minimal
-noncolorable member. They also extract such a minimum from any assumed
-fixed-`V`, fixed-`J` counterexample. They do not prove that a counterexample
-exists or that every `A_D` member is colorable. The auxiliary-proof track next
-requires vertex-level all-leaf Kempe closure, multiplicity and
-carrier-location lemmas, fan capacity/maximality, endpoint location, root
-pivots, and the direct-entry crossing argument. The reduction track still
-requires the split-star and pair/singleton construction. No manuscript theorem
-is considered Lean-verified until those obligations close and the authors
-lock the theorem statement.
+degree-sum checkpoint, legal fan shifts, center--reachable-leaf elementarity,
+and the prefix-repair slice of all-leaf Kempe closure, all conditional on a
+hypothetical outside-edge-minimal noncolorable member. They also extract such
+a minimum from any assumed fixed-`V`, fixed-`J` counterexample. They do not
+prove that a counterexample exists or that every `A_D` member is colorable.
+The auxiliary-proof track next requires global two-color endpoint capacity,
+spare and general leaf multiplicity, carrier-location lemmas, fan
+capacity/maximality, endpoint location, root pivots, and the direct-entry
+crossing argument. The reduction track still requires the split-star and
+pair/singleton construction. No manuscript theorem is considered
+Lean-verified until those obligations close and the authors lock the theorem
+statement.
 
 ## Trust boundary
 

@@ -3,6 +3,7 @@ import TotalColoring.AuxiliaryClass
 import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
 import TotalColoring.Critical
+import TotalColoring.CriticalAllLeaf
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount
 import TotalColoring.CriticalState
@@ -14,6 +15,8 @@ import TotalColoring.Fan
 import TotalColoring.FanCount
 import TotalColoring.FanLeaves
 import TotalColoring.FanMissingCount
+import TotalColoring.FanPrefix
+import TotalColoring.FanPrefixRepair
 import TotalColoring.FanReachability
 import TotalColoring.FanShift
 import TotalColoring.Graph
@@ -30,3 +33,5 @@ import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.SimpleReachability
 import TotalColoring.Total
+import TotalColoring.TwoColorGeometry
+import TotalColoring.Wave4Examples

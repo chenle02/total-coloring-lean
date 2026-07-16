@@ -16,14 +16,20 @@ boundaries take priority over breadth or automation.
   It now also includes oriented center spokes, literal and finite fan shifts,
   simple center-dependency reachability, exact fan-path/reachability
   correspondence, and center--reachable-leaf elementarity in that conditional
-  critical state. The multiplicity-two fan premise remains explicit in the
-  checked conditional incidence count.
+  critical state. It further includes local no-branching and exact
+  endpoint/internal missing-color geometry for genuine partial two-color
+  components, literal fan-prefix repair after a center-avoiding component
+  swap, and the conditional critical-state dichotomy that a genuine terminal
+  component meets the center or fails exact `SwapCompatibleOn`. The
+  multiplicity-two fan premise remains explicit in the checked conditional
+  incidence count.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  All-leaf Kempe closure, leaf multiplicity, fan capacity and maximality,
+  Global path/cycle classification and two-endpoint capacity, spare and
+  general leaf multiplicity, carrier location, fan capacity and maximality,
   endpoint location, root pivots, and the crossing argument remain separate
   obligations.
 - A checked positive assignment proves that assignment is valid. It does not
