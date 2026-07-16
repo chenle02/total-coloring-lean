@@ -29,21 +29,27 @@ boundaries take priority over breadth or automation.
   distinguished carriers in the matching. It also proves that if an unused
   color is missing at the center, every palette color has reachable
   multiplicity at most one, so any supplied repeated or triply missing color
-  excludes unused colors from the center. The general multiplicity-two fan
-  premise remains explicit in the checked conditional incidence count; the
-  local carrier theorem is not the later uniform or recentered matching-
-  location result; and the current spare-center theorem does not itself
-  produce a repeated color from a fresh maximal fan.
+  excludes unused colors from the center. On the canonical full dependency-
+  reachable set `W`, it now proves the incidence lower bound
+  `I(W) >= 2|W| + 1` and the occurring missing-color capacity
+  `r(W) <= |W|`. Thus some color is missing at exactly three reachable
+  leaves, and every color unused on `J` is absent from the fan center in every
+  supplied minimal critical valid `J`-rainbow one-hole state whose root edge
+  lies outside `J`. This closes critical-state spare-center exclusion without
+  introducing a new `MaximalFan` structure. The general multiplicity-two fan
+  premise remains explicit only in the earlier conditional incidence-count
+  interface, and the local carrier theorem is not the later uniform or
+  recentered matching-location result.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  The used-color multiplicity-two strengthening, the maximal-fan bridge
-  producing a repeated reachable color for global spare-center exclusion,
-  full through-center selected-sequence survival, uniform/recentered carrier
-  location, fan capacity and maximality, endpoint location, root pivots, and
-  the crossing argument remain separate obligations.
+  The used-color multiplicity-two strengthening, cross-state or global
+  maximality properties of the canonical reachable set, full through-center
+  survival of a fixed selected sequence, uniform/recentered carrier location,
+  fan capacity, endpoint location, root pivots, and the crossing argument
+  remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

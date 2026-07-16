@@ -15,8 +15,9 @@ elementarity, local vertex geometry of genuine physical two-color components,
 all-leaf fan-prefix repair, global two-endpoint capacity for valid finite
 partial assignments, both critical component-closure directions, spare-color
 multiplicity one, general reachable-leaf multiplicity at most three, the local
-saturated matching-carrier theorem, and conditional spare-center exclusion
-inside that critical state.
+saturated matching-carrier theorem, exact missing-color counting on the full
+dependency-reachable set, and global spare-center exclusion inside every
+supplied critical state.
 
 ## Current proof boundary
 
@@ -81,9 +82,13 @@ The library currently proves:
   saturated three-leaf theorem placing both unique distinguished carriers in
   the matching part of the fixed auxiliary presentation;
 - if a color unused on `J` is missing at the center, every palette color is
-  missing at at most one dependency-reachable or selected-fan leaf; hence a
-  repeated, and in particular triply missing, reachable color excludes every
-  unused color from the center;
+  missing at at most one dependency-reachable or selected-fan leaf;
+- for the canonical full dependency-reachable set `W`, the sharp bounds
+  `I(W) >= 2|W| + 1` on missing-color incidences and `r(W) <= |W|` on occurring
+  missing colors, forcing a color to be missing at exactly three reachable
+  leaves; hence every color unused on `J` is not missing at the fan center in
+  every supplied minimal critical valid `J`-rainbow one-hole state whose root
+  edge lies outside `J`;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -100,10 +105,10 @@ The library does **not** currently prove:
   partition;
 - the split-star transfer or the actual pair/singleton construction;
 - global path/cycle classification, the used-color multiplicity-two
-  strengthening, the maximal-fan bridge producing a repeated reachable color
-  in every relevant critical state, full through-center survival of a fixed
-  selected sequence, fan capacity and global maximality, uniform/recentered
-  endpoint-location lemmas, root pivots, or the direct-entry crossing argument;
+  strengthening, cross-state or global maximality of the canonical reachable
+  set, full through-center survival of a fixed selected sequence, fan capacity
+  and uniform/recentered endpoint-location lemmas, recentering, root pivots, or
+  the direct-entry crossing argument;
   or
 - completeness of any external graph census.
 
@@ -170,8 +175,13 @@ in scope.
   not claim the later uniform or recentered matching-location result.
 - `TotalColoring.CriticalSpareCenter`: multiplicity at most one for every
   reachable color when an unused color is missing at the center, plus the
-  resulting two-leaf and triply missing residual spare-center exclusions; it
-  does not produce the repeated color required by a global application.
+  resulting two-leaf and triply missing residual spare-center exclusions.
+- `TotalColoring.CriticalReachableCount`: the canonical finite dependency-
+  reachable set, its bounds `I(W) >= 2|W| + 1` and `r(W) <= |W|`, the resulting
+  exact triply missing color, and spare-center exclusion in every supplied
+  minimal critical valid `J`-rainbow one-hole state whose root edge lies
+  outside `J`; this is a within-state theorem, not a cross-state or global
+  maximality result for `W`.
 - `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
   `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
   `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
@@ -188,18 +198,23 @@ both directions of prefix-repaired component closure, global reachable-leaf
 multiplicity at most three, and the local three-leaf matching-carrier theorem.
 They also check global endpoint capacity, retain the stronger multiplicity-one
 result for colors unused on `J`, prove the stronger center-spare consequence
-that every color then has reachable multiplicity at most one, and exclude a
-spare at the center whenever a repeated or triply missing reachable color is
-supplied. They also extract a minimum from any assumed fixed-`V`, fixed-`J`
-counterexample. They do not prove the maximal-fan bridge which supplies such a
-repeated color in every application, the still-open used-color multiplicity-
-two bound, the later uniform/recentered matching-location result, full survival
-of a preselected fan sequence under a through-center swap, that a
+that every color then has reachable multiplicity at most one. On the canonical
+full dependency-reachable set `W`, they prove `I(W) >= 2|W| + 1` and
+`r(W) <= |W|`, obtain a color missing at exactly three reachable leaves, and
+therefore exclude every color unused on `J` from the fan center in every
+supplied minimal critical valid `J`-rainbow one-hole state whose root edge lies
+outside `J`. This closes the within-state spare-center step without a new
+`MaximalFan` structure. They also extract a minimum from any assumed fixed-`V`,
+fixed-`J` counterexample. They do not prove cross-state or global maximality
+properties of `W`, the still-open used-color multiplicity-two bound, the later
+uniform/recentered matching-location result, full survival of a preselected fan
+sequence under a through-center swap, fan capacity, recentering, that a
 counterexample exists, or that every `A_D` member is colorable. The auxiliary-
-proof track next requires that maximal-fan bridge, fan capacity/maximality,
-full through-center selected-sequence survival, uniform endpoint location and
-recentering, root pivots, and the direct-entry crossing argument. The reduction
-track still requires the split-star and pair/singleton construction. No
+proof track next requires the later maximality and fan-capacity statements,
+full through-center selected-
+sequence survival, uniform endpoint location and recentering, root pivots, and
+the direct-entry crossing argument. The reduction track still requires the
+split-star and pair/singleton construction. No all-orders extension or
 manuscript theorem is considered Lean-verified until those obligations close
 and the authors lock the theorem statement.
 
