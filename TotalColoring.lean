@@ -1,7 +1,7 @@
 import TotalColoring.Auxiliary
 import TotalColoring.AuxiliaryClass
-import TotalColoring.Certificate
 import TotalColoring.CenterSpoke
+import TotalColoring.Certificate
 import TotalColoring.Critical
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount
