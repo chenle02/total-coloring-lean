@@ -1,5 +1,8 @@
 import TotalColoring.Auxiliary
 import TotalColoring.Certificate
+import TotalColoring.Critical
 import TotalColoring.Examples
 import TotalColoring.Graph
+import TotalColoring.Partial
+import TotalColoring.RainbowSwap
 import TotalColoring.Total

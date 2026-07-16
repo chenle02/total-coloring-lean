@@ -6,11 +6,17 @@ boundaries take priority over breadth or automation.
 
 ## Scientific boundary
 
-- The current proved result is conditional decoding: a proper auxiliary edge
-  coloring that is rainbow on a structurally valid distinguished family yields
-  a valid total coloring.
+- The proved layer includes conditional auxiliary decoding, one-hole filling,
+  exact distinguished-set safety for a two-color swap, properness under an
+  explicit boundary-closure hypothesis, and the finite-set/arithmetic core of
+  the critical degree-sum argument.
 - Do not state that this repository proves the Total Coloring Conjecture, the
-  proposed universal rainbow-extension statement, or all finite orders.
+  all-orders `A_D` rainbow-extension theorem, the proposed high-degree
+  manuscript theorem, or all finite orders.
+- Do not silently discharge physical obligations: a Kempe component must be
+  shown to satisfy boundary closure, and the critical degree-sum theorem must
+  be supplied with graph-theoretically derived missing-set disjointness and
+  lower bounds.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

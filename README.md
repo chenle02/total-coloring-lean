@@ -3,10 +3,10 @@
 [![Lean CI](https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml/badge.svg)](https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml)
 
 `total-coloring-lean` is a Lean 4 library for formal definitions and
-proof-producing certificate checks in total-coloring research. Its first
-verified result is the conditional auxiliary reduction: a proper auxiliary
-edge coloring that is rainbow on the distinguished family decodes to a valid
-total coloring when the stated structural obligations hold.
+kernel-checked proof foundations in total-coloring research. Its verified
+layer includes the conditional auxiliary reduction, one-hole completion,
+exact distinguished-edge safety for two-color swaps, and the finite-set
+arithmetic in the critical degree-sum argument.
 
 ## Current proof boundary
 
@@ -15,7 +15,15 @@ The library currently proves:
 - semantic definitions of total and edge colorings;
 - executable finite checkers and theorems characterizing their acceptance;
 - soundness of the total-, edge-, rainbow-, and combined auxiliary checkers;
-- the conditional auxiliary decoding theorem; and
+- the conditional auxiliary decoding theorem;
+- partial proper edge colorings and the theorem that a color missing at both
+  endpoints properly fills the unique uncolored edge;
+- the exact `J`-rainbow two-color swap criterion, including the unused-color
+  and same-side unique-carrier cases;
+- preservation of properness under an explicit two-color boundary-closure
+  hypothesis;
+- the cardinality and natural-number arithmetic deriving
+  `D + 4 <= degreeU + degreeV` from disjoint endpoint missing sets; and
 - tiny positive and negative examples.
 
 The library does **not** currently prove:
@@ -23,8 +31,15 @@ The library does **not** currently prove:
 - the Total Coloring Conjecture;
 - existence of the required rainbow auxiliary edge coloring;
 - the proposed high-degree theorem with either `Δ + 2` or `Δ + 3` colors;
+- the all-orders `A_D` rainbow-extension theorem from the companion proof
+  program;
 - the Hajnal–Szemerédi theorem or a construction of the required equitable
-  partition; or
+  partition;
+- a physical Kempe-component API proving the boundary-closure hypothesis;
+- a bridge applying the complete-assignment swap theorem to a one-hole partial
+  coloring, or equivalently to the edge-deleted graph;
+- missing-set disjointness and its cardinality hypotheses from a formalized
+  minimal nonextendable `A_D` instance; or
 - completeness of any external graph census.
 
 Bounded computations remain finite evidence. Checking every stored positive
@@ -37,7 +52,26 @@ in scope.
 - `TotalColoring.Total`: semantic total- and edge-coloring assignments.
 - `TotalColoring.Auxiliary`: structural extension data and conditional decoding.
 - `TotalColoring.Certificate`: executable checkers and soundness theorems.
+- `TotalColoring.Partial`: partial edge colorings, missing colors, one-hole
+  filling, and conversion of complete partial assignments.
+- `TotalColoring.RainbowSwap`: exact `J`-rainbow swap safety and the separate
+  properness boundary condition.
+- `TotalColoring.Critical`: disjoint-finset counting and the critical
+  degree-sum arithmetic.
 - `TotalColoring.Examples`: tiny acceptance and rejection checks.
+
+## Relation to the paper proof program
+
+The modules formalize stable seams used by the proof program; they do not
+replace its remaining graph-theoretic argument. The next dependency chain is
+to define finite palettes and distinguished sets, formalize the class `A_D`
+and its deletion-minimal one-hole state, derive the endpoint missing-set
+hypotheses, bridge partial one-hole states to swaps on the edge-deleted graph,
+and show that an actual two-color component satisfies the abstract
+boundary-closure condition. Fans, shifts, endpoint-location lemmas, the
+direct-entry crossing argument, and the uniform `A_D` extension theorem remain
+later kernel obligations. No manuscript theorem is considered Lean-verified
+until those obligations close and the authors lock the theorem statement.
 
 ## Trust boundary
 
