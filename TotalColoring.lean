@@ -8,6 +8,7 @@ import TotalColoring.CriticalComponentClosure
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount
 import TotalColoring.CriticalMatchingCarriers
+import TotalColoring.CriticalSpareCenter
 import TotalColoring.CriticalSpareMultiplicity
 import TotalColoring.CriticalState
 import TotalColoring.CriticalThroughCenter

@@ -26,16 +26,21 @@ boundaries take priority over breadth or automation.
   critical state it proves multiplicity at most one on all dependency-
   reachable leaves for a color unused on `J`, multiplicity at most three for
   every color, and the local saturated three-leaf theorem placing both unique
-  distinguished carriers in the matching. The general multiplicity-two fan
-  premise remains explicit in the checked conditional incidence count, and
-  the local carrier theorem is not the later uniform or recentered
-  matching-location result.
+  distinguished carriers in the matching. It also proves that if an unused
+  color is missing at the center, every palette color has reachable
+  multiplicity at most one, so any supplied repeated or triply missing color
+  excludes unused colors from the center. The general multiplicity-two fan
+  premise remains explicit in the checked conditional incidence count; the
+  local carrier theorem is not the later uniform or recentered matching-
+  location result; and the current spare-center theorem does not itself
+  produce a repeated color from a fresh maximal fan.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  The used-color multiplicity-two strengthening, spare-center exclusion,
+  The used-color multiplicity-two strengthening, the maximal-fan bridge
+  producing a repeated reachable color for global spare-center exclusion,
   full through-center selected-sequence survival, uniform/recentered carrier
   location, fan capacity and maximality, endpoint location, root pivots, and
   the crossing argument remain separate obligations.
