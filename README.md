@@ -9,7 +9,9 @@ and its deletion closure, deleted-edge/one-hole transport, physical
 two-color components with exact distinguished-edge safety, and the full
 critical degree-sum checkpoint for a hypothetical edge-minimal noncolorable
 member, including extraction of such a minimum from any fixed-`V`, fixed-`J`
-counterexample.
+counterexample. The next checked layer formalizes simple ordered fan paths,
+legal hole shifts, dependency reachability, and center--reachable-leaf
+elementarity inside that conditional critical state.
 
 ## Current proof boundary
 
@@ -43,7 +45,20 @@ The library currently proves:
   counterexample on the same finite vertex type and stable `J`;
 - the residual bound
   `D + 2 <= degree_(H-J)(u) + degree_(H-J)(v)` for every outside edge in the
-  conditional critical state; and
+  conditional critical state;
+- literal two-edge hole moves and finite duplicate-free edge shifts, with
+  exact properness, unique-hole, and distinguished-rainbow preservation
+  criteria;
+- explicitly oriented center spokes, simple `J`-free linear fan paths, and
+  the exact correspondence between those paths and center-dependency
+  reachability;
+- kernel-derived legality of every fan shift, including center missing-color
+  invariance and persistence of terminal-leaf missing colors;
+- center--reachable-leaf elementarity for every supplied minimal
+  noncolorable member;
+- arbitrary-vertex missing-color lower bounds and the conditional fan count
+  giving `|W| + 1` distinct leaf-missing colors when the still-unproved
+  multiplicity-two premise is supplied; and
 - tiny positive and negative examples.
 
 The library does **not** currently prove:
@@ -56,8 +71,9 @@ The library does **not** currently prove:
 - the Hajnal–Szemerédi theorem or a construction of the required equitable
   partition;
 - the split-star transfer or the actual pair/singleton construction;
-- ordered fans, shifts, dependency reachability, endpoint-location lemmas, or
-  the direct-entry crossing argument; or
+- all-leaf Kempe prefix repair, leaf-multiplicity and carrier-location lemmas,
+  fan capacity and global maximality, endpoint-location lemmas, root pivots,
+  or the direct-entry crossing argument; or
 - completeness of any external graph census.
 
 Bounded computations remain finite evidence. Checking every stored positive
@@ -93,17 +109,31 @@ in scope.
   state from an arbitrary fixed-`V`, fixed-`J` counterexample.
 - `TotalColoring.ResidualDegree`: exact removal of one distinguished incidence
   at each noncenter vertex and the residual critical degree sum.
+- `TotalColoring.Fan` and `TotalColoring.CenterSpoke`: generic hole shifts and
+  explicitly oriented center edges.
+- `TotalColoring.SimpleReachability`, `TotalColoring.Dependency`,
+  `TotalColoring.OrderedFan`, and `TotalColoring.FanReachability`: loop-erased
+  dependency paths and their exact simple-fan realization.
+- `TotalColoring.FanShift` and `TotalColoring.CriticalFan`: legal iterated fan
+  shifts and conditional center--reachable-leaf elementarity.
+- `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
+  `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
+  `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
+  multiplicity two retained as an explicit hypothesis.
 - `TotalColoring.Examples`: tiny acceptance and rejection checks.
 
 ## Relation to the paper proof program
 
-The modules now kernel-check the paper proof program through its critical
-degree-sum checkpoint, conditional on a hypothetical outside-edge-minimal
-noncolorable member, and now extracts such a minimum from any assumed
+The modules now kernel-check the paper proof program through the critical
+degree-sum checkpoint and the first fan layer: simple fan generation, legal
+hole shifting, dependency reachability, and center--reachable-leaf
+elementarity, all conditional on a hypothetical outside-edge-minimal
+noncolorable member. They also extract such a minimum from any assumed
 fixed-`V`, fixed-`J` counterexample. They do not prove that a counterexample
 exists or that every `A_D` member is colorable. The auxiliary-proof track next
-requires ordered fans and shifts, dependency reachability, endpoint-location
-lemmas, and the direct-entry crossing argument. The reduction track still
+requires vertex-level all-leaf Kempe closure, multiplicity and
+carrier-location lemmas, fan capacity/maximality, endpoint location, root
+pivots, and the direct-entry crossing argument. The reduction track still
 requires the split-star and pair/singleton construction. No manuscript theorem
 is considered Lean-verified until those obligations close and the authors
 lock the theorem statement.

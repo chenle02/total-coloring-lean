@@ -13,12 +13,18 @@ boundaries take priority over breadth or automation.
   degree-sum checkpoint conditional on an explicitly outside-edge-minimal
   noncolorable member, including finite extraction of such a minimum from any
   assumed fixed-vertex, fixed-`J` counterexample and the residual degree sum.
+  It now also includes oriented center spokes, literal and finite fan shifts,
+  simple center-dependency reachability, exact fan-path/reachability
+  correspondence, and center--reachable-leaf elementarity in that conditional
+  critical state. The multiplicity-two fan premise remains explicit in the
+  checked conditional incidence count.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  Fans, endpoint location, and the crossing argument remain separate
+  All-leaf Kempe closure, leaf multiplicity, fan capacity and maximality,
+  endpoint location, root pivots, and the crossing argument remain separate
   obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
