@@ -22,47 +22,6 @@ namespace TotalColoring
 
 universe u
 
-namespace PartialEdgeAssignment
-
-variable {V : Type u} {G : SimpleGraph V} {C : Type*}
-
-/-- A color which is not missing at a vertex is witnessed by an incident edge
-of that actual color. -/
-theorem exists_incident_colored_edge_of_not_missing
-    (a : PartialEdgeAssignment G C) {v : V} {c : C}
-    (hnot : ¬a.MissingAt v c) :
-    ∃ e : G.edgeSet, Incident v e ∧ a.color e = some c := by
-  classical
-  rw [MissingAt] at hnot
-  push Not at hnot
-  exact hnot
-
-/-- Two genuine components for the same ordered color pair which both meet a
-vertex missing the first color are equal.  Validity makes their incident
-second-color edges equal, supplying the common member. -/
-theorem components_eq_of_meet_vertex_missing_left
-    {a : PartialEdgeAssignment G C} (hvalid : a.Valid)
-    {alpha beta : C} {K L : Set G.edgeSet}
-    (hK : a.IsTwoColorKempeComponent alpha beta K)
-    (hL : a.IsTwoColorKempeComponent alpha beta L)
-    {v : V} (hmissing : a.MissingAt v alpha)
-    (hKv : EdgeSetMeetsVertex K v) (hLv : EdgeSetMeetsVertex L v) :
-    K = L := by
-  rcases hKv with ⟨e, heK, hve⟩
-  rcases hLv with ⟨f, hfL, hvf⟩
-  have hebeta : a.color e = some beta :=
-    (twoColorSupported_of_mem_component a hK heK).resolve_left
-      (hmissing e hve)
-  have hfbeta : a.color f = some beta :=
-    (twoColorSupported_of_mem_component a hL hfL).resolve_left
-      (hmissing f hvf)
-  have hef : e = f :=
-    edge_eq_of_incident_of_color_eq hvalid hve hvf hebeta hfbeta
-  subst f
-  exact isTwoColorKempeComponent_eq_of_common_member a hK hL heK hfL
-
-end PartialEdgeAssignment
-
 namespace IsOutsideEdgeMinimalNoncolorable
 
 variable {V : Type u} [Fintype V] [DecidableEq V]

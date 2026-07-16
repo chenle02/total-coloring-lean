@@ -18,24 +18,27 @@ boundaries take priority over breadth or automation.
   correspondence, and center--reachable-leaf elementarity in that conditional
   critical state. It further includes local no-branching and exact
   endpoint/internal missing-color geometry for genuine partial two-color
-  components, literal fan-prefix repair after a center-avoiding component
-  swap, and the conditional critical-state dichotomy that a genuine terminal
-  component meets the center or fails exact `SwapCompatibleOn`. The
-  finite global layer now proves that, in every valid finite partial
-  assignment, each genuine two-color component has at most two endpoints,
-  without choosing a path/cycle classification. In the supplied critical
-  state it also proves multiplicity at most one on all dependency-reachable
-  leaves, and hence on every selected fan, for a color unused on `J`. The
-  general multiplicity-two fan premise remains explicit in the checked
-  conditional incidence count.
+  components, literal fan-prefix repair in both the center-avoiding and
+  through-center directions, and the corresponding exact critical component
+  closure dichotomies. The finite global layer proves that, in every valid
+  finite partial assignment, each genuine two-color component has at most two
+  endpoints, without choosing a path/cycle classification. In the supplied
+  critical state it proves multiplicity at most one on all dependency-
+  reachable leaves for a color unused on `J`, multiplicity at most three for
+  every color, and the local saturated three-leaf theorem placing both unique
+  distinguished carriers in the matching. The general multiplicity-two fan
+  premise remains explicit in the checked conditional incidence count, and
+  the local carrier theorem is not the later uniform or recentered
+  matching-location result.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  Global path/cycle classification, general leaf multiplicity for colors used
-  on `J`, carrier location, fan capacity and maximality, endpoint location,
-  root pivots, and the crossing argument remain separate obligations.
+  The used-color multiplicity-two strengthening, spare-center exclusion,
+  uniform/recentered carrier location, fan capacity and maximality, endpoint
+  location, root pivots, and the crossing argument remain separate
+  obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

@@ -97,6 +97,20 @@ theorem isUniqueColorOn_of_rainbowOn (a : PartialEdgeAssignment G C)
   by_contra hne
   exact (hrainbow.2 he hcarrier hne) (hce.trans hcolor.symm)
 
+/-- On a rainbow distinguished set, every color which is used there has a
+unique carrier. -/
+theorem exists_uniqueColorOn_of_not_colorUnusedOn
+    (a : PartialEdgeAssignment G C) (J : Set G.edgeSet)
+    (hrainbow : a.RainbowOn J) {c : C}
+    (hused : ¬a.ColorUnusedOn J c) :
+    ∃ carrier : G.edgeSet, a.IsUniqueColorOn J c carrier := by
+  classical
+  rw [ColorUnusedOn] at hused
+  push Not at hused
+  rcases hused with ⟨carrier, hcarrierJ, hcarrierColor⟩
+  exact ⟨carrier,
+    a.isUniqueColorOn_of_rainbowOn J hrainbow hcarrierJ hcarrierColor⟩
+
 /-- The exact distinguished-set compatibility condition for a partial
 two-color swap: every `α`-edge and every `β`-edge in `J` lie on the same side
 of `K`. -/
@@ -207,6 +221,21 @@ theorem swapCompatibleOn_of_unique_same_side (a : PartialEdgeAssignment G C)
   intro e he hce f hf hcf
   rw [huniqueα he hce, huniqueβ hf hcf]
   exact hsame
+
+/-- With exhibited unique carriers for both colors, exact swap compatibility
+is precisely the statement that the two carriers lie on the same side of the
+swap set. -/
+theorem swapCompatibleOn_iff_of_uniqueColorOn
+    (a : PartialEdgeAssignment G C) (J K : Set G.edgeSet)
+    {alpha beta : C} {eAlpha eBeta : G.edgeSet}
+    (hAlpha : a.IsUniqueColorOn J alpha eAlpha)
+    (hBeta : a.IsUniqueColorOn J beta eBeta) :
+    a.SwapCompatibleOn J alpha beta K ↔
+      (eAlpha ∈ K ↔ eBeta ∈ K) := by
+  constructor
+  · intro hcompatible
+    exact hcompatible hAlpha.1 hAlpha.2.1 hBeta.1 hBeta.2.1
+  · exact a.swapCompatibleOn_of_unique_same_side J K hAlpha hBeta
 
 /-- Rainbow safety when one swap color is unused on `J`. -/
 theorem rainbowOn_swapOn_of_unused_left [DecidableEq C]

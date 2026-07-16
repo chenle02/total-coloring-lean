@@ -87,36 +87,6 @@ namespace PartialEdgeAssignment
 
 variable {V : Type u} {G : SimpleGraph V} {C : Type v}
 
-/-- Any two edges in one genuine component are mutually reachable in the
-supported two-color line graph. -/
-theorem twoColorReachable_of_mem_of_mem_component
-    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
-    (hK : a.IsTwoColorKempeComponent alpha beta K)
-    {e f : G.edgeSet} (heK : e ∈ K) (hfK : f ∈ K) :
-    a.TwoColorReachable alpha beta e f := by
-  rcases hK with ⟨root, hroot, rfl⟩
-  exact (a.twoColorReachable_symm alpha beta heK).trans hfK
-
-/-- Genuine components for the same ordered color pair which share an edge
-are equal. -/
-theorem isTwoColorKempeComponent_eq_of_common_member
-    (a : PartialEdgeAssignment G C) {alpha beta : C}
-    {K L : Set G.edgeSet}
-    (hK : a.IsTwoColorKempeComponent alpha beta K)
-    (hL : a.IsTwoColorKempeComponent alpha beta L)
-    {e : G.edgeSet} (heK : e ∈ K) (heL : e ∈ L) : K = L := by
-  apply Set.Subset.antisymm
-  · intro f hfK
-    rcases hL with ⟨root, hroot, hLdef⟩
-    rw [hLdef] at heL ⊢
-    exact heL.trans
-      (twoColorReachable_of_mem_of_mem_component a hK heK hfK)
-  · intro f hfL
-    rcases hK with ⟨root, hroot, hKdef⟩
-    rw [hKdef] at heK ⊢
-    exact heK.trans
-      (twoColorReachable_of_mem_of_mem_component a hL heL hfL)
-
 /-- Reachability from a member of a genuine component stays inside that
 component. -/
 theorem mem_component_of_mem_of_twoColorReachable

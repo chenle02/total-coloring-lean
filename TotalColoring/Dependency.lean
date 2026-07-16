@@ -182,6 +182,18 @@ theorem centerReachable_eq_root_or_isCenterTarget
   | tail _ hstep _ =>
       exact Or.inr (centerDependency_isCenterTarget hstep)
 
+/-- If the reachable root differs from the center, then every vertex reached
+from it also differs from the center. -/
+theorem centerReachable_ne_center
+    (a : PartialEdgeAssignment G C) (J : Set G.edgeSet)
+    {center root target : V} (hroot : root ≠ center)
+    (hreach : a.CenterReachable J center root target) :
+    target ≠ center := by
+  rcases centerReachable_eq_root_or_isCenterTarget hreach with htarget | htarget
+  · subst target
+    exact hroot
+  · exact isCenterTarget_ne_center htarget
+
 /-- Root reachability never leaves the physical vertex universe. -/
 theorem centerReachable_mem_centerPhysicalSet
     {a : PartialEdgeAssignment G C} {J : Set G.edgeSet}

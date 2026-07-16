@@ -4,10 +4,14 @@ import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
 import TotalColoring.Critical
 import TotalColoring.CriticalAllLeaf
+import TotalColoring.CriticalComponentClosure
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount
+import TotalColoring.CriticalMatchingCarriers
 import TotalColoring.CriticalSpareMultiplicity
 import TotalColoring.CriticalState
+import TotalColoring.CriticalThroughCenter
+import TotalColoring.CriticalUsedColorMultiplicity
 import TotalColoring.DeletionBridge
 import TotalColoring.Dependency
 import TotalColoring.Distinguished
@@ -18,6 +22,7 @@ import TotalColoring.FanLeaves
 import TotalColoring.FanMissingCount
 import TotalColoring.FanPrefix
 import TotalColoring.FanPrefixRepair
+import TotalColoring.FanPrefixRepairThroughCenter
 import TotalColoring.FanReachability
 import TotalColoring.FanShift
 import TotalColoring.Graph
