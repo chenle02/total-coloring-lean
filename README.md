@@ -47,8 +47,8 @@ The library currently proves:
   `D + 2 <= degree_(H-J)(u) + degree_(H-J)(v)` for every outside edge in the
   conditional critical state;
 - literal two-edge hole moves and finite duplicate-free edge shifts, with
-  exact properness, unique-hole, and distinguished-rainbow preservation
-  criteria;
+  exact properness and unique-hole criteria plus explicit sufficient
+  distinguished-rainbow preservation conditions;
 - explicitly oriented center spokes, simple `J`-free linear fan paths, and
   the exact correspondence between those paths and center-dependency
   reachability;
