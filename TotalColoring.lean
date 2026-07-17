@@ -63,6 +63,7 @@ import TotalColoring.FanShift
 import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
 import TotalColoring.HighDegreeComplementMatching
+import TotalColoring.HighDegreeTotalColoring
 import TotalColoring.Kempe
 import TotalColoring.MatchingExact
 import TotalColoring.MatchingLowerBound
