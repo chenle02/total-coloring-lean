@@ -66,7 +66,7 @@ theorem exists_pairSingletonWitness_of_highDegree [Fintype V] [Nonempty V]
   exact PairSingletonWitness.ofComplementMatching_distinguished_card
     hHG hmatching hDle hcard
 
-/-- Nonempty finite graphs in the high-degree regime admit a valid total
+/-- Nonempty finite graphs in the high-degree regime have a valid total
 coloring assignment in `ExtensionPalette (G.maxDegree + 1)`. -/
 theorem exists_valid_assignment_of_highDegree_nonempty [Fintype V]
     [Nonempty V] [DecidableEq V] (G : SimpleGraph V)
@@ -87,7 +87,7 @@ theorem exists_valid_assignment_of_highDegree_nonempty [Fintype V]
 
 end Auxiliary
 
-/-- Every finite graph in the high-degree regime admits a valid total
+/-- Every finite graph in the high-degree regime has a valid total
 coloring assignment in `ExtensionPalette (G.maxDegree + 1)`, including the
 empty graph. -/
 theorem exists_valid_assignment_of_highDegree [Fintype V] [DecidableEq V]
