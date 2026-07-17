@@ -47,6 +47,7 @@ import TotalColoring.DependencyMobileSwap
 import TotalColoring.DependencySwap
 import TotalColoring.Distinguished
 import TotalColoring.Dominator
+import TotalColoring.EmptyAssignment
 import TotalColoring.EquitablePairSingleton
 import TotalColoring.Examples
 import TotalColoring.Fan
