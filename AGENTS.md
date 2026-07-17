@@ -45,17 +45,21 @@ boundaries take priority over breadth or automation.
   `LinearFanPath` literally: a post-swap path exists with the identical root
   and tail. This closes full fixed selected-sequence survival, not merely an
   existential surviving-prefix statement, and needs no terminal-hole, carrier,
-  unused-color, maximality, or fan-capacity hypothesis.
+  unused-color, maximality, or fan-capacity hypothesis. Building on global
+  spare-center exclusion, it also proves the centered carrier-label rotation
+  wrapper: a genuine center-meeting swap between a center-missing color and a
+  color unused on `J` crosses the unique distinguished carrier of the former,
+  makes that edge the unique distinguished carrier of the latter, makes the
+  former unused on `J`, and preserves the designated fan path exactly.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
   The used-color multiplicity-two strengthening, cross-state or global
-  maximality properties of the canonical reachable set, the centered carrier-
-  label rotation wrapper, uniform/recentered carrier location, fan capacity,
-  recentering and uniform endpoint location, root pivots, and the crossing
-  argument remain separate obligations.
+  maximality properties of the canonical reachable set, uniform/recentered
+  matching-`M` carrier location, fan capacity, recentering and uniform endpoint
+  location, root pivots, and the crossing argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

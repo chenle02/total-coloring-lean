@@ -4,6 +4,7 @@ import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
 import TotalColoring.Critical
 import TotalColoring.CriticalAllLeaf
+import TotalColoring.CriticalCenteredRotation
 import TotalColoring.CriticalComponentClosure
 import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCount

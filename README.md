@@ -18,7 +18,8 @@ multiplicity one, general reachable-leaf multiplicity at most three, the local
 saturated matching-carrier theorem, exact missing-color counting on the full
 dependency-reachable set, global spare-center exclusion inside every supplied
 critical state, and literal survival of a designated full linear fan path
-through a safe component swap meeting the center.
+through a safe component swap meeting the center, together with the centered
+spare/carrier-label rotation wrapper above those results.
 
 ## Current proof boundary
 
@@ -78,6 +79,13 @@ The library currently proves:
   post-swap path exists with the identical root and tail. This strengthens
   existential surviving-prefix repair and uses no terminal-hole, carrier,
   unused-color, maximality, or fan-capacity hypothesis;
+- in that state, if `alpha` is missing at the center and `delta` is unused on
+  `J`, every genuine `alpha`-`delta` component meeting the center contains the
+  unique distinguished `alpha`-carrier. Its safe swap recolors that carrier
+  into the unique distinguished `delta`-carrier, makes `alpha` unused on `J`,
+  preserves validity, the unique hole and the rainbow invariant, and preserves
+  the designated fan path with exactly the same root and tail. This does not
+  locate the carrier in matching `M`;
 - global at-most-two endpoint capacity for every genuine physical two-color
   component of a valid finite partial assignment, obtained from connectedness
   and degree at most two without selecting a path/cycle classification;
@@ -113,7 +121,7 @@ The library does **not** currently prove:
 - the split-star transfer or the actual pair/singleton construction;
 - global path/cycle classification, the used-color multiplicity-two
   strengthening, cross-state or global maximality of the canonical reachable
-  set, the centered carrier-label rotation wrapper, fan capacity and
+  set, uniform centered-carrier location in matching `M`, fan capacity and
   uniform/recentered endpoint-location lemmas, recentering, root pivots, or the
   direct-entry crossing argument;
   or
@@ -176,6 +184,12 @@ in scope.
   center, with exactly the same root and tail; this closes fixed selected-
   sequence survival without terminal-hole, carrier, unused-color, maximality,
   or fan-capacity assumptions.
+- `TotalColoring.CriticalCenteredRotation`: transport of unused distinguished
+  colors under a component swap, containment of the unique distinguished
+  center-hole carrier in every genuine center-meeting spare component, and the
+  full carrier-label rotation wrapper preserving validity, the unique hole,
+  the rainbow invariant, the new unique distinguished carrier, and the exact
+  designated fan sequence. It does not place that carrier in matching `M`.
 - `TotalColoring.CriticalSpareMultiplicity`: conditional multiplicity one for
   colors unused on `J`, first on all dependency-reachable leaves and then on
   finite fan leaf sets.
@@ -221,13 +235,17 @@ fixed-`J` counterexample. For a designated `LinearFanPath`, they further prove
 literal preservation of its full root and tail under a safe genuine two-color
 component swap meeting the center (with the left color missing there), closing
 the fixed selected-sequence survival obligation without terminal-hole,
-carrier, unused-color, maximality, or fan-capacity assumptions. They do not
-prove cross-state or global maximality properties of `W`, the still-open used-
-color multiplicity-two bound, the later centered carrier-label rotation
-wrapper or uniform/recentered matching-location result, fan capacity,
-recentering, that a counterexample exists, or that every `A_D` member is
-colorable. The auxiliary-proof track next requires those later maximality,
-rotation-wrapper, and fan-capacity statements, uniform endpoint location and
+carrier, unused-color, maximality, or fan-capacity assumptions. Above these
+results, they prove the centered carrier-label rotation wrapper: the genuine
+center-meeting component crosses the unique distinguished center-hole carrier,
+turns it into the unique distinguished spare carrier, makes the old label
+unused on `J`, and retains the exact fan sequence. They do not prove that this
+carrier lies in matching `M`,
+cross-state or global maximality properties of `W`, the still-open used-color
+multiplicity-two bound, the uniform/recentered matching-location result, fan
+capacity, recentering, that a counterexample exists, or that every `A_D` member
+is colorable. The auxiliary-proof track next requires those later maximality,
+matching-location, and fan-capacity statements, uniform endpoint location and
 recentering, root pivots, and the direct-entry crossing argument. The reduction
 track still requires the split-star and pair/singleton construction. No all-
 orders extension or manuscript theorem is considered Lean-verified until those
