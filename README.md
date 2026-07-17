@@ -38,6 +38,16 @@ packaged: the kernel checks their exact missing-color and dependency-column
 updates, inclusion of the old reachable set, and equality of the physical
 reachable finset under global maximality.
 
+The terminal auxiliary layer now formalizes nonfinal direct-entry positioning,
+directed dominator regions, robust-column expansion, the exact one-, two-, and
+three-external-source split, and the centered crossing/detachment
+contradiction. It assembles these into
+`IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD`; finite minimal
+extraction then proves
+`MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`. Precisely,
+for every finite `V`, every formal `InAuxiliaryClass D H J` has a proper
+`Fin (D + 2)` edge coloring which is rainbow on `J`.
+
 ## Current proof boundary
 
 The library currently proves:
@@ -155,6 +165,16 @@ The library currently proves:
 - the exact ordinary-graph balanced fixed-witness simultaneous-exchange
   criterion and the arithmetic interface verifying the BKW endpoint-list
   thresholds through `D = 6` and the exact direct residue at `D = 7`;
+- the completed direct-entry chain: iterated nonfinal root positioning,
+  directed-dominator external-source analysis, robust exclusion of the one-
+  and three-external-source cases, and the crossing/component/detachment
+  contradiction for the two-source case;
+- the critical contradiction
+  `IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD` and the finite
+  extraction theorem
+  `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`, with the
+  exact conclusion
+  `InAuxiliaryClass D H J → HasValidRainbowColoring D H J`;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -163,18 +183,15 @@ The library currently proves:
 The library does **not** currently prove:
 
 - the Total Coloring Conjecture;
-- existence of the required rainbow auxiliary edge coloring;
+- an unrestricted total-coloring theorem for all finite graph orders;
 - the proposed high-degree theorem with either `Δ + 2` or `Δ + 3` colors;
-- the all-orders `A_D` rainbow-extension theorem from the companion proof
-  program;
 - the Hajnal–Szemerédi theorem or a construction of the required equitable
   partition;
 - the split-star transfer or the actual pair/singleton construction;
-- global path/cycle classification, the used-color multiplicity-two
-  strengthening, direct-entry positioning along an iterated pivot path,
-  dominator regions, robust-token expansion, the centered crossing and
-  detached-component argument, or the assembled all-orders contradiction;
-  or
+- a formal derivation of a total-coloring corollary from the checked
+  auxiliary `Fin (D + 2)` edge-coloring palette, or the stronger `D + 1`
+  auxiliary target;
+- any novelty claim for the checked auxiliary theorem;
 - completeness of any external graph census.
 
 Bounded computations remain finite evidence. Checking every stored positive
@@ -287,6 +304,30 @@ in scope.
 - `TotalColoring.CriticalRootPivot`: literal one-step root pivots, exact
   missing-color and dependency-column updates, old-reachability containment,
   and global-maximal reachable-finset equality.
+- `TotalColoring.DependencyMobileSwap`,
+  `TotalColoring.CriticalCenteredGlobalRotation`, and
+  `TotalColoring.CriticalDirectEntry`: dependency transport for the mobile
+  swaps, globally maximal centered rotations, and iterated nonfinal root-pivot
+  positioning at a reachable direct color target.
+- `TotalColoring.Dominator`, `TotalColoring.CriticalDominator`,
+  `TotalColoring.CriticalDominatorPivot`,
+  `TotalColoring.CriticalDominatorCases`,
+  `TotalColoring.CriticalRobustColumn`, and
+  `TotalColoring.CriticalRobustExpansion`: directed dominator regions,
+  external missing-source columns, pivot transport, robust expansion, and the
+  one- and three-external-source exclusions.
+- `TotalColoring.TwoColorPath`,
+  `TotalColoring.CriticalCrossingPlacement`,
+  `TotalColoring.CriticalCrossingExternality`,
+  `TotalColoring.CriticalCrossingComponents`,
+  `TotalColoring.CriticalDetachedPivot`, and
+  `TotalColoring.CriticalTwoExternalCase`: physical path ordering, centered
+  crossing placement and externality, component comparison, detached-pivot
+  repair, and the two-external-source contradiction.
+- `TotalColoring.CriticalDominatorClosure` and
+  `TotalColoring.CriticalAllDClosure`: exhaustion of the exact `k = 1, 2, 3`
+  split, the final critical contradiction, and
+  `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`.
 - `TotalColoring.BalancedFixedWitnessExchange`: exact preservation criterion
   for color-blind ordered witnesses under a simultaneous union of physical
   two-color components.
@@ -332,15 +373,19 @@ center-incident carrier.  The recentered layer places every reachable hole on
 a matching carrier and proves literal `z = 0`.  The global-maximality and
 two-exchange layers then contradict the frozen alternative, so every triple
 at a global maximum is mobile.  Literal root pivots preserve the same physical
-`W` and have an exact checked dependency-column update.  The library still
-does not prove the used-color multiplicity-two bound, direct-entry positioning,
-the dominator trichotomy, robust-token expansion, centered crossing,
-detachment, that a counterexample exists, or that every `A_D` member is
-colorable. The auxiliary-proof track next requires those direct-entry,
-dominator, crossing, and assembly statements. The reduction
-track still requires the split-star and pair/singleton construction. No all-
-orders extension or manuscript theorem is considered Lean-verified until those
-obligations close and the authors lock the theorem statement.
+`W` and have an exact checked dependency-column update. The subsequent
+direct-entry, dominator, robust-column, crossing, and detachment modules close
+the three external-source cases and assemble the critical contradiction.
+Consequently the library now proves, for arbitrary finite `V` and arbitrary
+`D`, the exact implication
+`InAuxiliaryClass D H J → HasValidRainbowColoring D H J`.
+
+This is the all-orders formal auxiliary `D + 2` result only. The used-color
+multiplicity-two statement remains unproved but is bypassed by the checked
+route. The split-star transfer, concrete pair/singleton construction,
+Hajnal–Szemerédi input, and any end-to-end total-coloring corollary remain on a
+separate reduction track. The manuscript theorem, stronger palette, author
+approval, and novelty are outside the checked conclusion.
 
 ## Trust boundary
 

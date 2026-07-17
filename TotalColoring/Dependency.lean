@@ -49,6 +49,13 @@ def IsCenterTarget (a : PartialEdgeAssignment G C) (J : Set G.edgeSet)
   ∃ (e : G.edgeSet) (c : C),
     (e : Sym2 V) = s(center, target) ∧ e ∉ J ∧ a.color e = some c
 
+/-- A target witnessed by a center edge carrying one specified color. -/
+def IsCenterColorTarget (a : PartialEdgeAssignment G C) (J : Set G.edgeSet)
+    (center target : V) (color : C) : Prop :=
+  ∃ e : G.edgeSet,
+    (e : Sym2 V) = s(center, target) ∧ e ∉ J ∧
+      a.color e = some color
+
 /-- The physical vertex universe used by the dependency digraph: the root
 together with the heads of colored center edges outside `J`. -/
 def centerPhysicalSet (a : PartialEdgeAssignment G C) (J : Set G.edgeSet)
@@ -62,6 +69,17 @@ theorem centerDependency_isCenterTarget
     a.IsCenterTarget J center target := by
   rcases h with ⟨e, c, hends, heJ, hcolor, -⟩
   exact ⟨e, c, hends, heJ, hcolor⟩
+
+theorem isCenterTarget_iff_exists_isCenterColorTarget
+    {a : PartialEdgeAssignment G C} {J : Set G.edgeSet}
+    {center target : V} :
+    a.IsCenterTarget J center target ↔
+      ∃ color : C, a.IsCenterColorTarget J center target color := by
+  constructor
+  · rintro ⟨edge, color, hends, hedgeJ, hcolor⟩
+    exact ⟨color, edge, hends, hedgeJ, hcolor⟩
+  · rintro ⟨color, edge, hends, hedgeJ, hcolor⟩
+    exact ⟨edge, color, hends, hedgeJ, hcolor⟩
 
 /-- A dependency cannot be a loop: its witnessing color is present on an edge
 incident with the target, but is required to be missing there. -/
@@ -109,6 +127,29 @@ theorem centerEdge_eq_of_endpoints
     e = f := by
   apply Subtype.ext
   exact he.trans hf.symm
+
+/-- For a fixed colored center target, incoming dependencies are exactly the
+sources missing its specified color. -/
+theorem IsCenterColorTarget.centerDependency_iff_missingAt
+    {a : PartialEdgeAssignment G C} {J : Set G.edgeSet}
+    {center target : V} {color : C}
+    (htarget : a.IsCenterColorTarget J center target color)
+    (source : V) :
+    a.CenterDependency J center source target ↔
+      a.MissingAt source color := by
+  rcases htarget with ⟨targetEdge, htargetEnds, htargetJ, htargetColor⟩
+  constructor
+  · rintro ⟨edge, dependencyColor, hedgeEnds, _hedgeJ,
+      hedgeColor, hsourceMissing⟩
+    have hedgeEq : edge = targetEdge :=
+      centerEdge_eq_of_endpoints hedgeEnds htargetEnds
+    subst edge
+    have hcolorEq : dependencyColor = color :=
+      Option.some.inj (hedgeColor.symm.trans htargetColor)
+    simpa [hcolorEq] using hsourceMissing
+  · intro hsourceMissing
+    exact ⟨targetEdge, color, htargetEnds, htargetJ,
+      htargetColor, hsourceMissing⟩
 
 /-- If `center-root` is the unique hole, no dependency can enter `root`.
 There is only one simple edge with those endpoints, and it is uncolored. -/

@@ -71,16 +71,25 @@ boundaries take priority over breadth or automation.
   and dependency-column updates, old-reachability containment, and equality
   of the physical reachable finset under global maximality. The library also
   contains the exact ordinary balanced fixed-witness exchange criterion and
-  the fixed-`D` BKW threshold arithmetic interface through `D = 6`.
+  the fixed-`D` BKW threshold arithmetic interface through `D = 6`. The final
+  auxiliary layer kernel-checks iterated direct-entry positioning, the
+  directed-dominator `k = 1, 2, 3` split (including robust-column expansion
+  and the crossing/detachment branch), and the resulting critical
+  contradiction. Finite minimal extraction yields exactly
+  `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`: for finite
+  `V`, `InAuxiliaryClass D H J` implies `HasValidRainbowColoring D H J`, a
+  proper `Fin (D + 2)` edge coloring rainbow on `J`.
 - Do not state that this repository proves the Total Coloring Conjecture, the
-  all-orders `A_D` rainbow-extension theorem, the proposed high-degree
-  manuscript theorem, or all finite orders.
-- Do not promote conditional extraction from an assumed counterexample into
-  existence of a counterexample or into the all-orders extension theorem.
-  The used-color multiplicity-two strengthening, iterated direct-entry
-  positioning, dominator regions, robust-token expansion, centered crossing,
-  detached-component contradiction, and final all-orders assembly remain
-  separate obligations.
+  proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
+  total-coloring conclusion, or an unrestricted total-coloring theorem for
+  all finite graph orders.
+- The checked all-orders theorem is confined to the exact formal predicate
+  `InAuxiliaryClass`. Its `D + 2` palette is an auxiliary edge-coloring
+  palette, not a `Delta + 2` total coloring. The equitable-partition,
+  pair/singleton, and split-star construction needed to instantiate the
+  manuscript reduction remains outside this theorem.
+- Kernel verification establishes correctness of the formal statement, not
+  novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.
