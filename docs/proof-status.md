@@ -102,12 +102,15 @@ The checked results do **not** prove:
 - Public Lean CI run
   [`29588129760`](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760)
   passed at that exact commit.
-- The conditional transfer theorem was introduced at `9bdcdec…` and its exact
-  staged tree passed the full Easley build and leanchecker gate in Slurm job
-  `5387732` (`COMPLETED`, exit `0:0`).
-- At this documentation revision, `main` is still at `0d3fb4b…` and does not
-  contain the conditional transfer. The proof commit is on the unmerged branch
-  `agent/auxiliary-transfer`; its public CI receipt is pending.
+- The conditional transfer theorem was introduced at `9bdcdec…`; its proof
+  source passed the full Easley build and leanchecker gate in Slurm job
+  `5387732` (`COMPLETED`, exit `0:0`). The exact merged tree `c332155a…` then
+  passed the same complete gate in job `5387751` (`COMPLETED`, exit `0:0`).
+- PR [#6](https://github.com/chenle02/total-coloring-lean/pull/6)
+  merged the transfer into `main` at `8ec71e7…`. Public Lean CI run
+  [`29597109189`](https://github.com/chenle02/total-coloring-lean/actions/runs/29597109189)
+  passed at PR head `16fca45…`, whose Git tree is identical to the merge
+  commit's tree.
 - Release `v0.1.0` predates both declarations. Cite an exact commit until a
   later release includes the result used.
 

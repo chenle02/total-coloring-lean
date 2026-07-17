@@ -9,15 +9,16 @@
   "distribution": {
     "default_branch": {
       "name": "main",
-      "commit": "0d3fb4bcc9bb77e7dcd2da4fc3e37f4d7dbf647a",
+      "commit": "8ec71e7064c0f2683af26f0cd8a0341639116ddb",
       "contains_all_orders_auxiliary_result": true,
-      "contains_conditional_transfer": false
+      "contains_conditional_transfer": true
     },
     "proof_branch": {
       "name": "agent/auxiliary-transfer",
       "proof_commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
-      "merge_status": "unmerged",
-      "pull_request": null
+      "merge_status": "merged",
+      "pull_request": 6,
+      "merge_commit": "8ec71e7064c0f2683af26f0cd8a0341639116ddb"
     }
   },
   "verified_results": [
@@ -74,8 +75,10 @@
     "conditional_transfer_easley_job": "5387732",
     "conditional_transfer_easley_state": "COMPLETED",
     "conditional_transfer_easley_exit_code": "0:0",
-    "conditional_transfer_public_ci_run": null,
-    "conditional_transfer_public_ci_conclusion": "pending",
+    "conditional_transfer_exact_tree": "c332155a2d7bd3d5688c426160186c4b3e7b60c1",
+    "conditional_transfer_exact_tree_easley_job": "5387751",
+    "conditional_transfer_public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29597109189",
+    "conditional_transfer_public_ci_conclusion": "success",
     "latest_release": "v0.1.0",
     "latest_release_contains_all_verified_results": false
   }

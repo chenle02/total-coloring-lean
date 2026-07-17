@@ -4,7 +4,7 @@
 
 Treat the Lean declarations at commit `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb` as authoritative for the conditional transfer, and commit `310b82c174ab2281581900897d4646875575e89b` as its all-orders auxiliary source. Do not identify `D` with a graph maximum degree outside a proved construction. The transfer theorem proves a total coloring only for a supplied extension and does not imply a `Delta + 3` or `Delta + 2` bound. The latest release, v0.1.0, predates both results; cite the exact release or commit actually used.
 
-Distribution state at this revision: `main` is at `0d3fb4bcc9bb77e7dcd2da4fc3e37f4d7dbf647a` and does not contain the conditional transfer. Commit `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb` belongs to the unmerged branch `agent/auxiliary-transfer`; public CI for that branch is pending.
+Distribution state at this revision: `main` contains the conditional transfer through merge commit `8ec71e7064c0f2683af26f0cd8a0341639116ddb` from PR #6. The proof declaration was introduced at `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb`; public Lean CI run `29597109189` succeeded at PR head `16fca45d4054665e3a2a4d2e2bcb81c1001d8a5e`, whose Git tree is identical to the merge commit's tree.
 
 ## Essential
 
