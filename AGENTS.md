@@ -59,19 +59,28 @@ boundaries take priority over breadth or automation.
   literal center carrier is either mobile outside `J`, forcing `4 <= |W|`, or
   is the unique distinguished carrier in matching `M`. Matching-center
   carrier colors form a subsingleton, so two distinct triples force at least
-  one mobile carrier. One exceptional frozen branch remains live: `M` is off
-  the auxiliary star center `x`, not the current fan center.
+  one mobile carrier. The recentered layer now proves fresh matching-carrier
+  location at either endpoint of every supplied critical hole and transports
+  the same literal carrier to every dependency-reachable missing color. Thus
+  no unused-on-`J` color has a hole on canonical `W`, and the center/reachable
+  colors satisfy the matching/star capacity bounds. A finite global interface
+  chooses an oriented one-hole state of maximum canonical reach-card. The
+  checked two-exchange strict-growth argument eliminates the exceptional
+  frozen triple at that state, so every triple there is mobile. Literal
+  one-step root pivots are also checked, including their exact missing-color
+  and dependency-column updates, old-reachability containment, and equality
+  of the physical reachable finset under global maximality. The library also
+  contains the exact ordinary balanced fixed-witness exchange criterion and
+  the fixed-`D` BKW threshold arithmetic interface through `D = 6`.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
-  The used-color multiplicity-two strengthening, cross-state or global
-  maximality properties of the canonical reachable set, mobility of every
-  triply missing color, contradiction of the one exceptional frozen
-  matching-carrier branch, uniform/recentered carrier and endpoint location
-  across changed centers or states, recentering, root pivots, and the crossing
-  argument remain separate obligations.
+  The used-color multiplicity-two strengthening, iterated direct-entry
+  positioning, dominator regions, robust-token expansion, centered crossing,
+  detached-component contradiction, and final all-orders assembly remain
+  separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.

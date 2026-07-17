@@ -28,6 +28,15 @@ alternative: it is mobile outside `J`, or it is the unique distinguished
 carrier in matching `M`. Matching permits at most one frozen color at a fixed
 center, so two distinct triply missing colors force at least one mobile
 carrier and `4 <= |W|`.
+The recentered layer now places every center- or reachable-missing color on a
+unique matching carrier, proves literal `z = 0`, and gives the matching/star
+capacity bounds.  A finite global maximization interface supplies an oriented
+one-hole state of maximum canonical reach-card.  At such a state, the checked
+two-exchange strict-growth argument eliminates the exceptional frozen triple,
+so every triply missing color is mobile.  Literal one-step root pivots are also
+packaged: the kernel checks their exact missing-color and dependency-column
+updates, inclusion of the old reachable set, and equality of the physical
+reachable finset under global maximality.
 
 ## Current proof boundary
 
@@ -124,9 +133,28 @@ The library currently proves:
   `4 <= |W|`, or is the unique distinguished carrier and belongs to matching
   `M`; colors carried at the fixed center by matching edges form a
   subsingleton, so two distinct triply missing colors force at least one
-  mobile carrier. The one permitted frozen branch remains live: `M` is off
-  the auxiliary star center `x`, not the current fan center, and no
-  contradiction is asserted;
+  mobile carrier;
+- the saturated equality profile forced by a unique frozen triple: exactly
+  one occurring color is triple, every other occurring color is double,
+  the occurring-color injection is tight, and the missing-incidence lower
+  bound is an equality;
+- fresh matching-carrier location at either endpoint of every supplied
+  critical hole, transport of the same literal carrier to every
+  dependency-reachable missing color through a legal fan shift, the literal
+  theorem that no unused-on-`J` color is missing on canonical `W`, and the
+  resulting matching/star capacity bounds;
+- existence of a globally canonical-reach-card-maximal oriented one-hole
+  state in every supplied minimal noncolorable member;
+- the strict-growth frozen-triple theorem and its consequence that, at a
+  globally maximal state, every color missing at three reachable vertices
+  has a non-`J` center carrier and forces `4 <= |W|`;
+- literal root pivots along a fan step, including exact missing-color and
+  dependency-column transport, containment of the old canonical reachable
+  set, and equality of the physical reachable finset under global
+  reach-card maximality;
+- the exact ordinary-graph balanced fixed-witness simultaneous-exchange
+  criterion and the arithmetic interface verifying the BKW endpoint-list
+  thresholds through `D = 6` and the exact direct residue at `D = 7`;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -143,11 +171,9 @@ The library does **not** currently prove:
   partition;
 - the split-star transfer or the actual pair/singleton construction;
 - global path/cycle classification, the used-color multiplicity-two
-  strengthening, cross-state or global maximality of the canonical reachable
-  set, mobility of every triply missing color, contradiction of the one
-  exceptional frozen matching-carrier branch, uniform/recentered carrier and
-  endpoint-location lemmas across changed centers or states, recentering,
-  root pivots, or the direct-entry crossing argument;
+  strengthening, direct-entry positioning along an iterated pivot path,
+  dominator regions, robust-token expansion, the centered crossing and
+  detached-component argument, or the assembled all-orders contradiction;
   or
 - completeness of any external graph census.
 
@@ -243,8 +269,30 @@ in scope.
   `4 <= |W|`, or the literal unique distinguished carrier in matching `M`;
   matching-center carrier colors form a subsingleton, so two distinct triples
   force one mobile carrier. The exact-existence theorem is a corollary. The
-  matching is off the auxiliary center `x`, not the current fan center, and
-  one frozen branch is not contradicted.
+  matching is off the auxiliary center `x`, not the current fan center; the
+  later global-maximality layer eliminates this local frozen branch.
+- `TotalColoring.FanSaturatedProfile` and
+  `TotalColoring.CriticalSaturatedProfile`: finite equality-profile arithmetic
+  and its critical frozen-triple specialization.
+- `TotalColoring.CriticalRecenteredLocation` and
+  `TotalColoring.CriticalRecenteredCapacity`: fresh endpoint and reachable
+  matching-carrier location, literal `z = 0`, and the matching/star capacity
+  inequalities.
+- `TotalColoring.CriticalGlobalMaximal`: oriented one-hole states and existence
+  of a state maximizing canonical reachable cardinality.
+- `TotalColoring.DependencySwap` and
+  `TotalColoring.CriticalFrozenMobility`: exact dependency transport through
+  the two exchanges, strict reachable-set growth, and elimination of every
+  frozen triple at a global maximum.
+- `TotalColoring.CriticalRootPivot`: literal one-step root pivots, exact
+  missing-color and dependency-column updates, old-reachability containment,
+  and global-maximal reachable-finset equality.
+- `TotalColoring.BalancedFixedWitnessExchange`: exact preservation criterion
+  for color-blind ordered witnesses under a simultaneous union of physical
+  two-color components.
+- `TotalColoring.FixedDListThreshold`: kernel-checked arithmetic for the BKW
+  local list-demand interface through `D = 6` and its exact `D = 7` residues;
+  it does not formalize the external BKW theorem.
 - `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
   `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
   `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
@@ -280,19 +328,16 @@ unused on `J`, and retains the exact fan sequence. Independently of that
 rotation, the state-local physical-universe argument proves
 `|W| + a <= D + z`; an explicitly mobile triple also forces `4 <= |W|`.
 For every supplied triply missing color, a state-local dichotomy supplies its
-center-incident carrier: either it is mobile, or it is the unique distinguished
-carrier in matching `M`. Matching-center carrier colors form a subsingleton,
-so two distinct triples force at least one mobile carrier and `4 <= |W|`; the
-exact triple chosen by the reachable-set count is a corollary. One frozen
-matching branch remains live because `M` is off the auxiliary center `x`, not
-the current fan center. They do not prove that every triple is mobile,
-cross-state or global maximality properties of `W`, the still-open used-color
-multiplicity-two bound, uniform/recentered carrier location and reachable-hole
-propagation across changed centers or states, recentering, that a counterexample
-exists, or that every `A_D` member is colorable. The auxiliary-
-proof track next requires those later mobility, maximality, matching-location,
-uniform endpoint-location and recentering statements, root pivots, and the
-direct-entry crossing argument. The reduction
+center-incident carrier.  The recentered layer places every reachable hole on
+a matching carrier and proves literal `z = 0`.  The global-maximality and
+two-exchange layers then contradict the frozen alternative, so every triple
+at a global maximum is mobile.  Literal root pivots preserve the same physical
+`W` and have an exact checked dependency-column update.  The library still
+does not prove the used-color multiplicity-two bound, direct-entry positioning,
+the dominator trichotomy, robust-token expansion, centered crossing,
+detachment, that a counterexample exists, or that every `A_D` member is
+colorable. The auxiliary-proof track next requires those direct-entry,
+dominator, crossing, and assembly statements. The reduction
 track still requires the split-star and pair/singleton construction. No all-
 orders extension or manuscript theorem is considered Lean-verified until those
 obligations close and the authors lock the theorem statement.

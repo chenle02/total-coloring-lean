@@ -93,6 +93,25 @@ theorem degree_le_parameter (h : IsAuxiliaryClassMember D H x J M) (v : V) :
 theorem two_le_parameter (h : IsAuxiliaryClassMember D H x J M) : 2 ≤ D :=
   h.center_degree.1.trans h.center_degree.2
 
+/-- The matching part and the full center star partition the distinguished
+set, so their cardinalities add to the fixed class parameter. -/
+theorem card_matching_add_center_degree_eq_parameter
+    (h : IsAuxiliaryClassMember D H x J M) :
+    M.card + H.degree x = D := by
+  have hdisjoint : Disjoint M (H.incidenceFinset x) := by
+    apply Finset.disjoint_left.mpr
+    intro e heM heStar
+    exact h.matching_off_center heM
+      ((H.mem_incidenceFinset x e).1 heStar).2
+  calc
+    M.card + H.degree x =
+        M.card + (H.incidenceFinset x).card := by
+      rw [SimpleGraph.card_incidenceFinset_eq_degree]
+    _ = (M ∪ H.incidenceFinset x).card := by
+      rw [Finset.card_union_of_disjoint hdisjoint]
+    _ = J.card := by rw [h.decomposition]
+    _ = D := h.card_distinguished
+
 /-- Deleting a pair outside `J` leaves the center's incidence finset
 unchanged.  The pair need not be an edge; the principal deletion theorem adds
 the edge-membership hypothesis matching the mathematical use case. -/

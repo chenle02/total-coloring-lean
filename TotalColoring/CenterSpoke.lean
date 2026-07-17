@@ -23,6 +23,23 @@ namespace CenterSpoke
 
 variable {V : Type u} {G : SimpleGraph V} {center : V}
 
+/-- Reverse the orientation of a spoke while retaining the same literal
+underlying edge. -/
+def reverse (spoke : CenterSpoke G center) : CenterSpoke G spoke.leaf where
+  leaf := center
+  edge := spoke.edge
+  endpoints := spoke.endpoints.trans Sym2.eq_swap
+
+@[simp]
+theorem reverse_leaf (spoke : CenterSpoke G center) :
+    spoke.reverse.leaf = center :=
+  rfl
+
+@[simp]
+theorem reverse_edge (spoke : CenterSpoke G center) :
+    spoke.reverse.edge = spoke.edge :=
+  rfl
+
 /-- The center is incident with its spoke edge. -/
 theorem center_incident (spoke : CenterSpoke G center) :
     Incident center spoke.edge := by
@@ -86,6 +103,12 @@ theorem ext {p q : CenterSpoke G center} (h : p.leaf = q.leaf) : p = q := by
             exact pEndpoints.trans qEndpoints.symm
           subst qEdge
           rfl
+
+@[simp]
+theorem reverse_reverse (spoke : CenterSpoke G center) :
+    spoke.reverse.reverse = spoke := by
+  apply ext
+  rfl
 
 /-- Distinct spokes have both distinct leaves and distinct edges. -/
 theorem ne_iff_leaf_ne {p q : CenterSpoke G center} :

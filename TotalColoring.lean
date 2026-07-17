@@ -1,5 +1,6 @@
 import TotalColoring.Auxiliary
 import TotalColoring.AuxiliaryClass
+import TotalColoring.BalancedFixedWitnessExchange
 import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
 import TotalColoring.Critical
@@ -10,8 +11,14 @@ import TotalColoring.CriticalFan
 import TotalColoring.CriticalFanCapacity
 import TotalColoring.CriticalFanCount
 import TotalColoring.CriticalFixedSequence
+import TotalColoring.CriticalFrozenMobility
+import TotalColoring.CriticalGlobalMaximal
 import TotalColoring.CriticalMatchingCarriers
 import TotalColoring.CriticalReachableCount
+import TotalColoring.CriticalRecenteredCapacity
+import TotalColoring.CriticalRecenteredLocation
+import TotalColoring.CriticalRootPivot
+import TotalColoring.CriticalSaturatedProfile
 import TotalColoring.CriticalSpareCenter
 import TotalColoring.CriticalSpareMultiplicity
 import TotalColoring.CriticalState
@@ -20,6 +27,7 @@ import TotalColoring.CriticalTripleDichotomy
 import TotalColoring.CriticalUsedColorMultiplicity
 import TotalColoring.DeletionBridge
 import TotalColoring.Dependency
+import TotalColoring.DependencySwap
 import TotalColoring.Distinguished
 import TotalColoring.Examples
 import TotalColoring.Fan
@@ -30,7 +38,9 @@ import TotalColoring.FanPrefix
 import TotalColoring.FanPrefixRepair
 import TotalColoring.FanPrefixRepairThroughCenter
 import TotalColoring.FanReachability
+import TotalColoring.FanSaturatedProfile
 import TotalColoring.FanShift
+import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
 import TotalColoring.Kempe
 import TotalColoring.MinimalExtraction

@@ -1,5 +1,6 @@
 import TotalColoring.OrderedFan
 import TotalColoring.Fan
+import TotalColoring.PartialSwap
 
 /-!
 # Shifting a hole along an ordered fan
@@ -209,6 +210,36 @@ theorem rainbowOn_shift (F : LinearFanPath a J center)
     a F.shiftSequence J hrainbow
   intro e heJ heFan
   exact F.edge_not_mem heFan heJ
+
+/-- A fan shift leaves every unique distinguished color carrier literally
+unchanged, because every shifted fan edge lies outside `J`. -/
+theorem isUniqueColorOn_shift_iff (F : LinearFanPath a J center)
+    {c : C} {carrier : G.edgeSet} :
+    F.shift.IsUniqueColorOn J c carrier ↔
+      a.IsUniqueColorOn J c carrier := by
+  have hcolorEq : ∀ {e : G.edgeSet}, e ∈ J →
+      F.shift.color e = a.color e := by
+    intro e heJ
+    apply F.shift_color_of_not_mem
+    intro heFan
+    exact F.edge_not_mem heFan heJ
+  constructor
+  · rintro ⟨hcarrierJ, hcarrierColor, hunique⟩
+    refine ⟨hcarrierJ, ?_, ?_⟩
+    · rw [← hcolorEq hcarrierJ]
+      exact hcarrierColor
+    · intro e heJ heColor
+      apply hunique heJ
+      rw [hcolorEq heJ]
+      exact heColor
+  · rintro ⟨hcarrierJ, hcarrierColor, hunique⟩
+    refine ⟨hcarrierJ, ?_, ?_⟩
+    · rw [hcolorEq hcarrierJ]
+      exact hcarrierColor
+    · intro e heJ heColor
+      apply hunique heJ
+      rw [← hcolorEq heJ]
+      exact heColor
 
 /-- Combined fan-shift preservation theorem. -/
 theorem valid_oneHoleAt_rainbowOn_shift (F : LinearFanPath a J center)
