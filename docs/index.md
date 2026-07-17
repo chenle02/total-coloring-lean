@@ -36,7 +36,10 @@
       On a finite vertex type with decidable equality, given a supplied
       <code>PairSingletonWitness</code>, Lean also constructs the ordinary
       auxiliary graph, packages its conflict-preserving <code>Extension</code>,
-      and proves selector membership.
+      proves selector membership and exact coverage, and proves the qualitative
+      matching-plus-full-star structure. A conditional theorem packages the
+      complete structural class witness once its three numerical hypotheses
+      are supplied.
     </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
@@ -46,9 +49,9 @@
       This is not the Total Coloring Conjecture, not the proposed high-degree
       total-coloring theorem, and not an end-to-end reduction from an arbitrary
       graph. Constructing the witness from an equitable partition, proving its
-      matching-plus-star and numerical <code>InAuxiliaryClass</code>
-      obligations, relating <code>D</code> to the original maximum degree, the
-      stronger palette, and novelty remain separate.
+      exact distinguished cardinality, maximum-degree bound, and center-degree
+      range, relating <code>D</code> to the original maximum degree, the stronger
+      palette, and novelty remain separate.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>

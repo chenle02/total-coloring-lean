@@ -76,9 +76,45 @@ with decidable equality, a supplied
     Once the singleton/pair relation itself is supplied, Lean has checked the
     graph construction and all three conflict maps needed by the decoder.
 
-This result does not construct `P` from an equitable partition. It also does
-not yet prove the matching-plus-full-star structure, degree/cardinality
-identities, `InAuxiliaryClass`, or a relation between `D` and `G.maxDegree`.
+The structural layer at commit
+`7aa102b0211c36c6d69f03bc051a5c2706f62c9d`, exact Git tree
+`4b6440a0df108f47f5c120e7e0187c058a462138`, also kernel-checks:
+
+- `P.distinguished_exact_coverage`: every copied original vertex `some v`
+  lies on exactly one member of `P.distinguished`;
+- `P.matchingPart_isEdgeMatching` and `P.matchingPart_off_center`: the
+  off-center distinguished family `P.matchingPart` is a matching and contains
+  no edge through the new center `none`;
+- `P.matchingPart_avoids_center_neighbors`: no endpoint of that matching is
+  adjacent to the center in `P.auxiliaryGraph`; and
+- `P.distinguished_decomposition`: the distinguished family is exactly
+  `P.matchingPart` together with the full incidence star at `none`.
+
+The conditional theorem
+`P.isAuxiliaryClassMember_of_numeric D` then proves
+
+```text
+IsAuxiliaryClassMember D P.auxiliaryGraph none
+  P.distinguished P.matchingPart
+```
+
+from exactly these three supplied numerical hypotheses:
+
+```text
+P.distinguished.card = D
+P.auxiliaryGraph.maxDegree ≤ D
+2 ≤ P.auxiliaryGraph.degree none ∧ P.auxiliaryGraph.degree none ≤ D
+```
+
+!!! success "Plain-language reading"
+
+    The qualitative matching-plus-full-star structure of the concrete
+    supplied-witness construction is checked. Only the three displayed
+    numerical class obligations remain hypotheses of the structural theorem.
+
+This result does not construct `P` from an equitable partition, prove any of
+those numerical hypotheses, identify `D` with a parameter of `G`, or establish
+the end-to-end total-coloring theorem.
 
 ## Structural hypothesis
 
@@ -103,10 +139,10 @@ The checked results do **not** prove:
 - either proposed high-degree total-coloring conclusion;
 - the equitable-partition input and construction of a
   `PairSingletonWitness` from it;
-- proof that `P.distinguished` has the required matching-plus-full-star
-  structure;
-- the degree, exact-cardinality, center-range, and remaining hypotheses needed
-  for `InAuxiliaryClass D P.auxiliaryGraph P.distinguished`;
+- `P.distinguished.card = D`;
+- `P.auxiliaryGraph.maxDegree ≤ D`;
+- `2 ≤ P.auxiliaryGraph.degree none` and
+  `P.auxiliaryGraph.degree none ≤ D`;
 - the resulting end-to-end total-coloring corollary from an arbitrary input
   graph;
 - any identification of `D` with the maximum degree of `G`;
@@ -140,8 +176,15 @@ The checked results do **not** prove:
   tree `883b6895…` passed cache refresh, leaf, umbrella, full package,
   Quickstart, forbidden-token, and leanchecker gates in Easley job `5387831`
   (`COMPLETED`, exit `0:0`). It is not on `main` unless PR #8 has since merged.
-- Release `v0.1.0` predates all three declarations. Cite an exact commit until
-  a later release includes the result used.
+- The qualitative structural layer is commit `7aa102b…`, exact Git tree
+  `4b6440a0df108f47f5c120e7e0187c058a462138`. Exact-tree leaf job `5387867`
+  passed. Full Easley job `5387870` then passed cache refresh, umbrella and
+  package builds, Quickstart, forbidden-token, and leanchecker gates
+  (`COMPLETED`, exit `0:0`, node402); independent trust job `5387882` also
+  passed. Earlier job `5387869` was canceled before running because of its
+  scheduler delay and is not a verification receipt.
+- Release `v0.1.0` predates these result layers. Cite an exact commit or
+  verified source tree until a later release includes the result used.
 
 For tools, the same boundary is mirrored in
 [`claim-boundary.json`](claim-boundary.json). The Lean declarations at the

@@ -1,9 +1,10 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "project": "Total Coloring Lean",
   "authority": {
-    "kind": "Lean declarations at a pinned git commit",
-    "commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
+    "kind": "Lean declarations at pinned git commits",
+    "commit": "7aa102b0211c36c6d69f03bc051a5c2706f62c9d",
+    "tree": "4b6440a0df108f47f5c120e7e0187c058a462138",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -16,7 +17,8 @@
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
-      "proof_commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
+      "proof_commit": "7aa102b0211c36c6d69f03bc051a5c2706f62c9d",
+      "proof_tree": "4b6440a0df108f47f5c120e7e0187c058a462138",
       "merge_status": "unmerged",
       "pull_request_state": "draft",
       "pull_request": 8,
@@ -58,11 +60,27 @@
       "module": "TotalColoring.PairSingletonExtension",
       "source_path": "TotalColoring/PairSingletonExtension.lean",
       "introduced_in_commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
+      "structural_layer_commit": "7aa102b0211c36c6d69f03bc051a5c2706f62c9d",
+      "structural_layer_tree": "4b6440a0df108f47f5c120e7e0187c058a462138",
       "signature_summary": "{V : Type u} -> {G : SimpleGraph V} -> [Fintype V] -> [DecidableEq V] -> (P : Auxiliary.PairSingletonWitness G) -> (v : V) -> P.extension.classEdge v in distinguishedEdgeSet P.auxiliaryGraph P.distinguished",
       "scope": "a supplied PairSingletonWitness on a finite original vertex type",
       "palette": "not applicable",
-      "output_kind": "concrete auxiliary graph and conflict-preserving Extension data, plus proved selector membership",
-      "conclusion_expansion": "P.auxiliaryGraph is defined on Option V; P.extension is an Auxiliary.Extension G P.auxiliaryGraph; every selector lies in the corresponding distinguishedEdgeSet. This does not prove InAuxiliaryClass or a relation between D and the maximum degree of G."
+      "output_kind": "concrete auxiliary graph and conflict-preserving Extension data, selector membership, qualitative auxiliary-class structure, and conditional structural-class membership",
+      "structural_declarations": [
+        "TotalColoring.Auxiliary.PairSingletonWitness.distinguished_exact_coverage",
+        "TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_isEdgeMatching",
+        "TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_off_center",
+        "TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_avoids_center_neighbors",
+        "TotalColoring.Auxiliary.PairSingletonWitness.distinguished_decomposition"
+      ],
+      "conditional_class_declaration": "TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_numeric",
+      "conditional_class_conclusion": "IsAuxiliaryClassMember D P.auxiliaryGraph none P.distinguished P.matchingPart",
+      "conditional_class_hypotheses": [
+        "P.distinguished.card = D",
+        "P.auxiliaryGraph.maxDegree <= D",
+        "2 <= P.auxiliaryGraph.degree none and P.auxiliaryGraph.degree none <= D"
+      ],
+      "conclusion_expansion": "P.auxiliaryGraph is defined on Option V; P.extension is an Auxiliary.Extension G P.auxiliaryGraph; every selector lies in the corresponding distinguishedEdgeSet; each copied original vertex has exact distinguished-edge coverage; matchingPart is an off-center matching whose endpoints avoid center neighbors; and distinguished is matchingPart union the full center incidence star. The conditional theorem isAuxiliaryClassMember_of_numeric supplies IsAuxiliaryClassMember only after the three listed numerical hypotheses are provided. It does not construct the witness, prove those numerical hypotheses, identify D with a parameter of G, or prove an end-to-end total-coloring theorem."
     }
   ],
   "not_proved": [
@@ -71,8 +89,9 @@
     "the proposed high-degree total-coloring theorem with Delta + 2 colors",
     "the proposed high-degree total-coloring theorem with Delta + 3 colors",
     "the equitable-partition input and construction of a PairSingletonWitness from it",
-    "the matching-plus-full-star structure of the supplied witness's distinguished edge set",
-    "the degree, exact-cardinality, center-range, and remaining hypotheses needed for InAuxiliaryClass D P.auxiliaryGraph P.distinguished",
+    "P.distinguished.card = D for the supplied witness",
+    "P.auxiliaryGraph.maxDegree <= D for the supplied witness",
+    "2 <= P.auxiliaryGraph.degree none and P.auxiliaryGraph.degree none <= D for the supplied witness",
     "an end-to-end corollary from an arbitrary input graph",
     "any identification of D with the maximum degree of G",
     "the stronger D + 1 auxiliary palette",
@@ -101,6 +120,21 @@
     "pair_singleton_extension_easley_state": "COMPLETED",
     "pair_singleton_extension_easley_exit_code": "0:0",
     "pair_singleton_extension_exact_tree": "883b6895fe322624b3f2b8f4fa2684ff2ac81424",
+    "pair_singleton_structural_exact_tree": "4b6440a0df108f47f5c120e7e0187c058a462138",
+    "pair_singleton_structural_leaf_easley_job": "5387867",
+    "pair_singleton_structural_leaf_easley_state": "COMPLETED",
+    "pair_singleton_structural_leaf_easley_exit_code": "0:0",
+    "pair_singleton_structural_full_gate_easley_job": "5387870",
+    "pair_singleton_structural_full_gate_state": "COMPLETED",
+    "pair_singleton_structural_full_gate_exit_code": "0:0",
+    "pair_singleton_structural_full_gate_node": "node402",
+    "pair_singleton_structural_full_gate_elapsed": "00:17:20",
+    "pair_singleton_structural_full_gate_max_rss_kb": 137753596,
+    "pair_singleton_structural_independent_trust_job": "5387882",
+    "pair_singleton_structural_independent_trust_state": "COMPLETED",
+    "pair_singleton_structural_independent_trust_exit_code": "0:0",
+    "pair_singleton_structural_superseded_job": "5387869",
+    "pair_singleton_structural_superseded_job_state": "CANCELED_BEFORE_RUN",
     "latest_release": "v0.1.0",
     "latest_release_contains_all_verified_results": false
   }

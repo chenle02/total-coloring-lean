@@ -32,13 +32,18 @@ This page gives coding assistants a small, safe context window for the project.
 - Keep all transfer hypotheses explicit: the supplied `Auxiliary.Extension`,
   selector membership in `J`, and auxiliary-class membership. On a finite
   vertex type with decidable equality, a supplied `PairSingletonWitness` now
-  gives the extension and selector-membership seam, but construction of that
-  witness and the `InAuxiliaryClass` proof remain open.
+  gives the extension and selector-membership seam, exact selector coverage,
+  and the qualitative matching-plus-full-star structure. Its conditional
+  `isAuxiliaryClassMember_of_numeric` theorem still requires exact
+  distinguished cardinality, the maximum-degree bound, and the center-degree
+  range. Construction of the witness and proofs of those numerical facts
+  remain open.
 - Never claim the Total Coloring Conjecture, a high-degree total-coloring
   theorem, the stronger `D + 1` auxiliary palette, or novelty.
 - Do not say release `v0.1.0` contains these results; use commit `310b82c…`
   for the all-orders auxiliary theorem, `9bdcdec…` for the conditional
-  transfer, `dc2a318…` for the supplied-witness seam, or a later release that
+  transfer, `dc2a318…` for the original supplied-witness seam, `7aa102b…` for
+  the qualitative structural layer, or a later release that
   actually includes the declaration.
 
 ## Repository map

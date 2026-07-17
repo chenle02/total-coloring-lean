@@ -62,8 +62,29 @@ decidable equality, given
 `P : TotalColoring.Auxiliary.PairSingletonWitness G`, Lean defines the ordinary
 graph `P.auxiliaryGraph` on `Option V`, packages
 `P.extension : Auxiliary.Extension G P.auxiliaryGraph`, and proves
-`P.classEdge_mem_distinguishedEdgeSet`. This does not construct `P` from an
-equitable partition or prove `InAuxiliaryClass` for the resulting graph.
+`P.classEdge_mem_distinguishedEdgeSet`. The structural layer at
+[`7aa102b`](https://github.com/chenle02/total-coloring-lean/commit/7aa102b0211c36c6d69f03bc051a5c2706f62c9d)
+additionally proves exact distinguished-edge coverage of every copied
+original vertex,
+defines the off-center `P.matchingPart`, proves that it is a matching whose
+endpoints avoid the center and all center neighbors, and proves
+
+```text
+P.distinguished =
+  P.matchingPart ∪ P.auxiliaryGraph.incidenceFinset none.
+```
+
+Finally, `P.isAuxiliaryClassMember_of_numeric D` supplies the complete
+`IsAuxiliaryClassMember` witness once these three numerical facts are given:
+
+```text
+P.distinguished.card = D
+P.auxiliaryGraph.maxDegree ≤ D
+2 ≤ P.auxiliaryGraph.degree none ∧ P.auxiliaryGraph.degree none ≤ D.
+```
+
+Lean does not construct `P` from an equitable partition or prove those three
+numerical facts.
 
 ```lean
 import TotalColoring
@@ -86,9 +107,13 @@ The conditional transfer was introduced at
 The supplied-witness extension seam was introduced at
 [`dc2a318`](https://github.com/chenle02/total-coloring-lean/commit/dc2a318be1dd1475b90c492ad460c4180a3fbdec)
 on draft PR [#8](https://github.com/chenle02/total-coloring-lean/pull/8); it is
-not on `main` unless that PR has since been merged. Release `v0.1.0` predates
-all three results; cite the exact commit or a later release that contains the
-declaration used.
+not on `main` unless that PR has since been merged. The qualitative structural
+layer is commit `7aa102b…`, exact Git tree
+`4b6440a0df108f47f5c120e7e0187c058a462138`. Its full cache-refresh, build,
+Quickstart, forbidden-token, and leanchecker gate passed on Easley in job
+`5387870` (`COMPLETED`, exit `0:0`); independent trust job `5387882` also
+passed. Release `v0.1.0` predates these result layers; cite the exact commit or
+a later release that actually contains them.
 
 ### Exact boundary
 
@@ -98,10 +123,9 @@ The library does **not** currently formalize:
 - either proposed high-degree total-coloring conclusion;
 - the equitable-partition input and construction of a
   `PairSingletonWitness` from it;
-- proof that the supplied witness's distinguished edges have the required
-  matching-plus-full-star structure;
-- the degree, exact-cardinality, center-range, and remaining hypotheses needed
-  for `InAuxiliaryClass D P.auxiliaryGraph P.distinguished`;
+- the three numerical hypotheses required by
+  `PairSingletonWitness.isAuxiliaryClassMember_of_numeric`: exact distinguished
+  cardinality, the maximum-degree bound, and the center-degree range;
 - any identification of `D` with the maximum degree of the original graph;
 - the resulting end-to-end reduction from an arbitrary input graph;
 - the stronger auxiliary `D + 1` palette; or

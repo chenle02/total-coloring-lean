@@ -14,12 +14,24 @@ internal lemma.
 
 ## Supplied pair/singleton constructor seam
 
+The structural declarations in this section are commit `7aa102b…` on draft
+PR #8, exact source tree
+`4b6440a0df108f47f5c120e7e0187c058a462138`; they are not on `main` unless
+that PR has since merged.
+
 | Declaration | Module | Purpose |
 | --- | --- | --- |
 | `TotalColoring.Auxiliary.PairSingletonWitness` | `PairSingletonExtension` | A supplied fixed partition relation into independent singleton and pair classes; the finite constructor uses a finite vertex type with decidable equality |
 | `TotalColoring.Auxiliary.PairSingletonWitness.auxiliaryGraph` | `PairSingletonExtension` | The ordinary auxiliary graph on `Option V` |
 | `TotalColoring.Auxiliary.PairSingletonWitness.extension` | `PairSingletonExtension` | The conflict-preserving extension from the original graph into that auxiliary graph |
 | `TotalColoring.Auxiliary.PairSingletonWitness.classEdge_mem_distinguishedEdgeSet` | `PairSingletonExtension` | Every decoder selector belongs to the constructed distinguished edge set |
+| `TotalColoring.Auxiliary.PairSingletonWitness.distinguished_exact_coverage` | `PairSingletonExtension` | Every copied original vertex lies on exactly one distinguished edge |
+| `TotalColoring.Auxiliary.PairSingletonWitness.matchingPart` | `PairSingletonExtension` | The off-center part of the distinguished family |
+| `TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_isEdgeMatching` | `PairSingletonExtension` | The off-center distinguished family is a matching |
+| `TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_off_center` | `PairSingletonExtension` | No matching-part edge contains the new center |
+| `TotalColoring.Auxiliary.PairSingletonWitness.matchingPart_avoids_center_neighbors` | `PairSingletonExtension` | Matching endpoints are not neighbors of the new center |
+| `TotalColoring.Auxiliary.PairSingletonWitness.distinguished_decomposition` | `PairSingletonExtension` | The distinguished family is the matching part union the full center incidence star |
+| `TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_numeric` | `PairSingletonExtension` | Produces `IsAuxiliaryClassMember` conditional on exact distinguished cardinality, maximum-degree bound, and center degree in `[2, D]` |
 
 ## Terminal proof entrypoints
 
@@ -34,9 +46,12 @@ The composed transfer theorem remains conditional on a supplied
 `Auxiliary.Extension G H`, membership of every selector edge in the
 distinguished set, and `InAuxiliaryClass D H J`. A supplied
 `PairSingletonWitness` now discharges the first two pieces for its constructed
-graph. The library does not yet construct that witness from an equitable
-partition, prove `InAuxiliaryClass` for the constructed graph, or relate `D`
-to the original graph's maximum degree.
+graph. Its structural layer also discharges every qualitative field of
+`IsAuxiliaryClassMember`; `isAuxiliaryClassMember_of_numeric` leaves exactly
+three supplied numerical hypotheses. The library does not yet construct that
+witness from an equitable partition, prove those numerical facts, package an
+unconditional `InAuxiliaryClass` proof, or relate `D` to the original graph's
+maximum degree.
 
 ## Executable checker soundness
 

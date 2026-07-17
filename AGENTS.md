@@ -90,9 +90,14 @@ boundaries take priority over breadth or automation.
   decidable equality, the module `PairSingletonExtension` constructs the
   ordinary auxiliary graph on `Option V`, packages its conflict maps as an
   `Auxiliary.Extension`, and proves every selector belongs to the corresponding
-  distinguished edge set.
-  It does not construct the witness from an equitable partition or prove that
-  the resulting graph and distinguished set satisfy `InAuxiliaryClass`.
+  distinguished edge set. It also proves exact selector coverage, that the
+  off-center `matchingPart` is a matching avoiding the center and its
+  neighbors, and that the distinguished family is the matching part together
+  with the full center incidence star. The conditional theorem
+  `isAuxiliaryClassMember_of_numeric` supplies the complete structural witness
+  given exact distinguished cardinality, the maximum-degree bound, and the
+  center-degree range. It does not construct the witness from an equitable
+  partition or prove those three numerical hypotheses.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
   total-coloring conclusion, or an unrestricted total-coloring theorem for
@@ -102,9 +107,9 @@ boundaries take priority over breadth or automation.
   total-coloring palette only after a supplied extension is provided. No
   theorem here identifies `D` with `Delta(G) + 1`, so this is not a
   `Delta + 3` conclusion. The equitable-partition input, construction of a
-  `PairSingletonWitness` from it, matching-plus-full-star structure,
-  degree/cardinality bounds, `InAuxiliaryClass` proof, and parameter relation
-  needed to instantiate the manuscript reduction remain outside the checked
+  `PairSingletonWitness` from it, three numerical class obligations,
+  unconditional `InAuxiliaryClass` proof, and parameter relation needed to
+  instantiate the manuscript reduction remain outside the checked
   declarations.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
