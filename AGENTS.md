@@ -54,23 +54,24 @@ boundaries take priority over breadth or automation.
   separate state-local layer counts the physical universe exactly, proves the
   fan-capacity bound `|W| + a <= D + z`, and proves `4 <= |W|` when a triply
   missing color is explicitly supplied with a non-`J` center edge; it does not
-  use the centered rotation theorem. For one exact triple chosen by the
-  reachable-set count, it also proves a state-local dichotomy whose literal
-  center carrier is either mobile outside `J`, forcing `4 <= |W|`, or is the
-  unique distinguished carrier in matching `M`. The latter remains a live
-  frozen branch: `M` is off the auxiliary star center `x`, not the current fan
-  center.
+  use the centered rotation theorem. For every supplied color missing on at
+  least three reachable leaves, it also proves a state-local dichotomy whose
+  literal center carrier is either mobile outside `J`, forcing `4 <= |W|`, or
+  is the unique distinguished carrier in matching `M`. Matching-center
+  carrier colors form a subsingleton, so two distinct triples force at least
+  one mobile carrier. One exceptional frozen branch remains live: `M` is off
+  the auxiliary star center `x`, not the current fan center.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
   The used-color multiplicity-two strengthening, cross-state or global
-  maximality properties of the canonical reachable set, mobility of an
-  arbitrary triply missing color, contradiction of the chosen triple's frozen
-  matching-carrier branch, uniform/recentered matching-`M` carrier
-  location and center-incidence control, recentering and uniform endpoint
-  location, root pivots, and the crossing argument remain separate obligations.
+  maximality properties of the canonical reachable set, mobility of every
+  triply missing color, contradiction of the one exceptional frozen
+  matching-carrier branch, uniform/recentered carrier and endpoint location
+  across changed centers or states, recentering, root pivots, and the crossing
+  argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.
