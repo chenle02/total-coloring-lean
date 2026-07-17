@@ -1,5 +1,6 @@
 import TotalColoring.Auxiliary
 import TotalColoring.AuxiliaryClass
+import TotalColoring.AuxiliaryTransfer
 import TotalColoring.BalancedFixedWitnessExchange
 import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
