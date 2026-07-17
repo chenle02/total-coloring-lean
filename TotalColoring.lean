@@ -62,6 +62,7 @@ import TotalColoring.FanShift
 import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
 import TotalColoring.Kempe
+import TotalColoring.MatchingLowerBound
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount
