@@ -23,8 +23,10 @@
 
 > [!IMPORTANT]
 > This repository proves an all-orders **auxiliary edge-coloring theorem** and
-> a **conditional auxiliary-to-total transfer**. It does not prove the Total
-> Coloring Conjecture or an end-to-end high-degree total-coloring theorem.
+> a **conditional auxiliary-to-total transfer**. From an explicitly supplied
+> equitable independent partition it also proves a conditional
+> `Delta + 3` total-coloring result. It does not prove the Total Coloring
+> Conjecture or an end-to-end high-degree theorem from graph hypotheses alone.
 
 ## The checked results
 
@@ -74,17 +76,65 @@ P.distinguished =
   P.matchingPart ∪ P.auxiliaryGraph.incidenceFinset none.
 ```
 
-Finally, `P.isAuxiliaryClassMember_of_numeric D` supplies the complete
-`IsAuxiliaryClassMember` witness once these three numerical facts are given:
+The numerical bridge at public PR integration commit
+[`343b7b8`](https://github.com/chenle02/total-coloring-lean/commit/343b7b87b82532a9d8eade6d4cd43679eae1f7c9)
+additionally proves the exact identities
+
+```text
+P.auxiliaryGraph.degree (some v) = G.degree v + 1
+Fintype.card V + P.auxiliaryGraph.degree none =
+  2 * P.distinguished.card.
+```
+
+Thus `P.isAuxiliaryClassMember_of_class_count_and_bounds D` derives the former
+maximum-degree and center-degree obligations from
 
 ```text
 P.distinguished.card = D
-P.auxiliaryGraph.maxDegree ≤ D
-2 ≤ P.auxiliaryGraph.degree none ∧ P.auxiliaryGraph.degree none ≤ D.
+G.maxDegree + 1 ≤ D
+Fintype.card V + 2 ≤ 2 * D.
 ```
 
-Lean does not construct `P` from an equitable partition or prove those three
-numerical facts.
+Beyond the ambient `[Fintype V]`, `[DecidableEq V]`,
+`[DecidableRel G.Adj]`, and
+`[DecidableRel P.auxiliaryGraph.Adj]` typeclass requirements, the specialization
+`P.isAuxiliaryClassMember_of_highDegree` has only these additional
+proposition-valued hypotheses:
+
+```text
+P.distinguished.card = G.maxDegree + 1
+Fintype.card V ≤ 2 * G.maxDegree
+```
+
+It concludes `IsAuxiliaryClassMember (G.maxDegree + 1)` for the constructed
+auxiliary graph and distinguished family.
+
+The supplied-partition adapter is also checked. An
+`EquitableIndependentPartition G D` packages exactly `D` nonempty independent
+classes whose sizes differ by at most one. Given
+
+```text
+D ≤ Fintype.card V
+Fintype.card V < 2 * D,
+```
+
+`Q.toPairSingletonWitness` constructs the witness and `Q.distinguished_card`
+proves its concrete `J.card = D` identity. For a nonempty finite graph with
+decidable vertex equality and adjacency, the terminal theorem
+`Q.exists_valid_assignment_of_highDegreePartition` has the explicit inputs
+
+```text
+Q : EquitableIndependentPartition G (G.maxDegree + 1)
+Fintype.card V ≤ 2 * G.maxDegree
+```
+
+and produces a valid total assignment with palette
+`ExtensionPalette (G.maxDegree + 1)`, hence `G.maxDegree + 3` colors.
+
+What remains is existence of the supplied partition for every target graph,
+for example through the prospective complement-matching route, plus a separate
+empty-graph base case. The pinned Mathlib has no ready theorem for that
+existence step.
 
 ```lean
 import TotalColoring
@@ -96,6 +146,12 @@ import TotalColoring
 #check TotalColoring.Auxiliary.PairSingletonWitness.extension
 #check TotalColoring.Auxiliary.PairSingletonWitness
   .classEdge_mem_distinguishedEdgeSet
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .isAuxiliaryClassMember_of_highDegree
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .distinguished_card
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .exists_valid_assignment_of_highDegreePartition
 ```
 
 The all-orders theorem was introduced at commit
@@ -112,29 +168,52 @@ layer is commit `7aa102b…`, exact Git tree
 `4b6440a0df108f47f5c120e7e0187c058a462138`. Its full cache-refresh, build,
 Quickstart, forbidden-token, and leanchecker gate passed on Easley in job
 `5387870` (`COMPLETED`, exit `0:0`); independent trust job `5387882` also
-passed. Release `v0.1.0` predates these result layers; cite the exact commit or
-a later release that actually contains them.
+passed. The numerical layer was gated from private source commit
+`acb08de85f99c7db578e042e67d3f172c5599fcd`, exact tree
+`7207e2a282ff829fba9737e93154f46f385ef879`, then integrated with identical
+numerical Lean content at public PR commit `343b7b8…`, tree
+`9863f500b2671048f4dc386f497eb6523b065099`. Exact leaf job `5387926`, full
+build/checker job `5387929`, and independent trust-v3 job `5387978` all
+completed with exit `0:0`; Nova build-only job `5387933` also completed with
+exit `0:0`. Public [Lean CI](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994477)
+and [docs](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994502)
+passed at `343b7b8…`. Jobs `5387930` and `5387932` were diagnostic
+infrastructure failures, not verification receipts or proof failures. PR #8
+remains draft. The supplied-partition adapter is commit `a441fbf…`, exact code
+tree `0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7`; its source-archive SHA-256 is
+`736db25ca7d25fb0eed8431e435e80bc94287e1ae88f9dea806ddba2c1b544f4`.
+Leaf job `5387980`, Nova full build job `5387981`, and high-memory
+full/Quickstart/leanchecker trust job `5387982` all completed with exit `0:0`.
+The outgoing-cache SHA-256 is
+`94456901604a3b6ecde49368a4ba285fda03ecdca856b0c37f207624527e037a`.
+Release `v0.1.0` predates these result layers; cite the exact commit or a later
+release that actually contains them.
 
 ### Exact boundary
 
 The library does **not** currently formalize:
 
 - the Total Coloring Conjecture;
-- either proposed high-degree total-coloring conclusion;
-- the equitable-partition input and construction of a
-  `PairSingletonWitness` from it;
-- the three numerical hypotheses required by
-  `PairSingletonWitness.isAuxiliaryClassMember_of_numeric`: exact distinguished
-  cardinality, the maximum-degree bound, and the center-degree range;
-- any identification of `D` with the maximum degree of the original graph;
+- the stronger proposed high-degree `Delta + 2` total-coloring conclusion;
+- an end-to-end high-degree `Delta + 3` conclusion from graph hypotheses alone;
+- existence, for every nonempty graph in the intended high-degree regime, of
+  the required equitable independent partition with
+  `D = G.maxDegree + 1`;
+- the prospective complement-matching construction that would supply that
+  partition;
+- the separate empty-graph base case;
 - the resulting end-to-end reduction from an arbitrary input graph;
 - the stronger auxiliary `D + 1` palette; or
 - a novelty claim.
 
 In the all-orders theorem, `Fin (D + 2)` is the auxiliary edge-coloring
-palette; in the conditional transfer, the same type colors the supplied
-original graph. Because no theorem identifies `D` with `Delta(G) + 1`, this is
-not yet a `Delta + 3` total-coloring conclusion. See the
+palette; in the generic conditional transfer, the same type colors the
+supplied original graph while `D` remains abstract. The separate high-degree
+partition theorem does use `D = Delta(G) + 1` and checks a conditional
+`Delta + 3` total-coloring conclusion from an explicitly supplied equitable
+independent partition. Lean does not yet prove that this partition exists for
+every nonempty target graph, and the empty graph remains separate. This is
+therefore not yet an end-to-end `Delta + 3` theorem. See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).
 

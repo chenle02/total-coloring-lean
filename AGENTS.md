@@ -93,24 +93,44 @@ boundaries take priority over breadth or automation.
   distinguished edge set. It also proves exact selector coverage, that the
   off-center `matchingPart` is a matching avoiding the center and its
   neighbors, and that the distinguished family is the matching part together
-  with the full center incidence star. The conditional theorem
-  `isAuxiliaryClassMember_of_numeric` supplies the complete structural witness
-  given exact distinguished cardinality, the maximum-degree bound, and the
-  center-degree range. It does not construct the witness from an equitable
-  partition or prove those three numerical hypotheses.
+  with the full center incidence star. It also proves the exact copied-vertex
+  degree formula and center/class-count identity. The theorem
+  `isAuxiliaryClassMember_of_class_count_and_bounds` derives the former
+  maximum-degree and center-degree obligations from exact distinguished
+  cardinality, an original-graph degree bound, and an order bound. Its
+  specialization `isAuxiliaryClassMember_of_highDegree` uses
+  `P.distinguished.card = G.maxDegree + 1` and
+  `Fintype.card V <= 2 * G.maxDegree` to obtain structural membership with
+  parameter `G.maxDegree + 1`.
+- Given a supplied `EquitableIndependentPartition G D`, the module
+  `EquitablePairSingleton` now kernel-checks the adapter under
+  `D <= Fintype.card V` and `Fintype.card V < 2 * D`. It proves every class has
+  size one or two, constructs `Q.toPairSingletonWitness`, and proves
+  `(Q.toPairSingletonWitness ...).distinguished.card = D`. For a nonempty
+  finite graph, a supplied partition with `D = G.maxDegree + 1` and
+  `Fintype.card V <= 2 * G.maxDegree` produces `InAuxiliaryClass` and the
+  conditional terminal result
+  `Q.exists_valid_assignment_of_highDegreePartition`: a valid assignment with
+  palette `ExtensionPalette (G.maxDegree + 1) = Fin (G.maxDegree + 3)`.
+  Remaining unformalized inputs are existence of the required equitable
+  independent partition (or the complement-matching construction that would
+  supply it) and the separate empty-graph base case. The pinned Mathlib has no
+  ready theorem discharging that existence step.
 - Do not state that this repository proves the Total Coloring Conjecture, the
-  proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
-  total-coloring conclusion, or an unrestricted total-coloring theorem for
-  all finite graph orders.
+  end-to-end high-degree manuscript theorem from graph hypotheses alone, a
+  `Delta + 2` conclusion, or an unrestricted total-coloring theorem for all
+  finite graph orders. The checked `Delta + 3` conclusion is conditional on an
+  explicitly supplied equitable independent `Delta(G) + 1` partition and a
+  nonempty vertex type.
 - The checked all-orders theorem is confined to the exact formal predicate
   `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
-  total-coloring palette only after a supplied extension is provided. No
-  theorem here identifies `D` with `Delta(G) + 1`, so this is not a
-  `Delta + 3` conclusion. The equitable-partition input, construction of a
-  `PairSingletonWitness` from it, three numerical class obligations,
-  unconditional `InAuxiliaryClass` proof, and parameter relation needed to
-  instantiate the manuscript reduction remain outside the checked
-  declarations.
+  total-coloring palette only after a supplied extension is provided. The
+  generic transfer does not identify `D`. The supplied-partition adapter and
+  its conditional `D = Delta(G) + 1` terminal transfer are checked. Existence
+  of the required equitable independent `Delta(G) + 1` partition for each
+  nonempty target graph is not checked, and the empty graph remains separate.
+  Therefore the conditional result must not be promoted to an end-to-end
+  `Delta + 3` conclusion for arbitrary input graphs.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not

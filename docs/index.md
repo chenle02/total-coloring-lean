@@ -37,21 +37,32 @@
       <code>PairSingletonWitness</code>, Lean also constructs the ordinary
       auxiliary graph, packages its conflict-preserving <code>Extension</code>,
       proves selector membership and exact coverage, and proves the qualitative
-      matching-plus-full-star structure. A conditional theorem packages the
-      complete structural class witness once its three numerical hypotheses
-      are supplied.
+      matching-plus-full-star structure. Lean also proves exact degree/count
+      identities. Given the class count
+      <code>P.distinguished.card = G.maxDegree + 1</code> and density
+      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, the high-degree wrapper
+      packages the complete structural class witness with parameter
+      <code>G.maxDegree + 1</code>.
+    </p>
+    <p>
+      Given an explicit
+      <code>EquitableIndependentPartition G (G.maxDegree + 1)</code> on a
+      nonempty graph together with
+      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, Lean now constructs that
+      witness, proves the exact distinguished count, and returns a valid total
+      assignment with <code>G.maxDegree + 3</code> colors.
     </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
     <h2>What is not proved</h2>
     <p>
-      This is not the Total Coloring Conjecture, not the proposed high-degree
-      total-coloring theorem, and not an end-to-end reduction from an arbitrary
-      graph. Constructing the witness from an equitable partition, proving its
-      exact distinguished cardinality, maximum-degree bound, and center-degree
-      range, relating <code>D</code> to the original maximum degree, the stronger
-      palette, and novelty remain separate.
+      This is not the Total Coloring Conjecture and not an end-to-end theorem
+      from arbitrary graph input. The partition-to-witness adapter is checked,
+      but Lean does not yet produce the required equitable independent
+      <code>G.maxDegree + 1</code> partition for every nonempty target graph.
+      Complement matching is only a future existence route, and the empty graph
+      is separate. The stronger palette and novelty also remain separate.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -69,9 +80,13 @@ import TotalColoring
 #check TotalColoring.Auxiliary.PairSingletonWitness.extension
 #check TotalColoring.Auxiliary.PairSingletonWitness
   .classEdge_mem_distinguishedEdgeSet
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .isAuxiliaryClassMember_of_highDegree
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .exists_valid_assignment_of_highDegreePartition
 ```
 
-The two coloring declarations are propositional existence theorems. They do
+The three coloring declarations are propositional existence theorems. They do
 not compute a coloring from external data. For executable finite certificates,
 begin with `TotalColoring.Certificate` and its soundness theorems.
 
