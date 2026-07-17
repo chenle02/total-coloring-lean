@@ -22,11 +22,11 @@
 </div>
 
 > [!IMPORTANT]
-> This repository proves an all-orders **auxiliary edge-coloring theorem**. It
-> does not prove the Total Coloring Conjecture or an end-to-end high-degree
-> total-coloring theorem.
+> This repository proves an all-orders **auxiliary edge-coloring theorem** and
+> a **conditional auxiliary-to-total transfer**. It does not prove the Total
+> Coloring Conjecture or an end-to-end high-degree total-coloring theorem.
 
-## The checked result
+## The checked results
 
 For every finite formal member of the matching-plus-star auxiliary class, Lean
 proves the implication
@@ -43,19 +43,37 @@ It produces a propositional existence result: a proper auxiliary edge
 assignment with palette `Fin (D + 2)` whose colors are pairwise distinct on
 the distinguished set `J`.
 
+The library now also proves the exact composition theorem
+[`TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass`](https://github.com/chenle02/total-coloring-lean/blob/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb/TotalColoring/AuxiliaryTransfer.lean).
+Given a supplied conflict-preserving `Auxiliary.Extension G H`, proof that
+every vertex selector edge lies in the distinguished set, and
+`InAuxiliaryClass D H J`, it yields
+
+```text
+exists assignment : Assignment G (Fin (D + 2)), assignment.Valid.
+```
+
+This closes the abstract auxiliary-existence-theorem-to-decoder composition.
+It does not construct the extension from an arbitrary graph or relate `D` to
+that graph's maximum degree.
+
 ```lean
 import TotalColoring
 
 #check TotalColoring.MinimalExtraction
   .hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.Extension
+  .exists_valid_decode_of_inAuxiliaryClass
 ```
 
-The theorem was introduced at commit
+The all-orders theorem was introduced at commit
 [`310b82c`](https://github.com/chenle02/total-coloring-lean/commit/310b82c174ab2281581900897d4646875575e89b)
 and passed [public Lean CI at that exact
 commit](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760).
-Release `v0.1.0` predates this terminal theorem; cite the exact commit or a
-later release that contains it.
+The conditional transfer was introduced at
+[`9bdcdec`](https://github.com/chenle02/total-coloring-lean/commit/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb).
+Release `v0.1.0` predates both results; cite the exact commit or a later release
+that contains the declaration used.
 
 ### Exact boundary
 
@@ -64,13 +82,18 @@ The library does **not** currently formalize:
 - the Total Coloring Conjecture;
 - either proposed high-degree total-coloring conclusion;
 - the equitable-partition input;
-- the concrete pair/singleton auxiliary construction;
-- the split-star transfer or final total-coloring reduction;
+- the concrete pair/singleton split-star instantiation of
+  `Auxiliary.Extension`;
+- any identification of `D` with the maximum degree of the original graph;
+- an end-to-end reduction from an arbitrary input graph without supplied
+  extension, selector-membership, and auxiliary-class proofs;
 - the stronger auxiliary `D + 1` palette; or
 - a novelty claim.
 
-In particular, `Fin (D + 2)` is the auxiliary **edge-coloring** palette. It is
-not a `Delta + 2` total-coloring conclusion. See the
+In the all-orders theorem, `Fin (D + 2)` is the auxiliary edge-coloring
+palette; in the conditional transfer, the same type colors the supplied
+original graph. Because no theorem identifies `D` with `Delta(G) + 1`, this is
+not yet a `Delta + 3` total-coloring conclusion. See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).
 
@@ -99,6 +122,8 @@ auxiliary member
   → k = 1 / 2 / 3 external-source exhaustion
   → crossing and detachment contradiction
   → rainbow auxiliary coloring
+  → conditional decode through a supplied compatible extension
+  → valid total assignment
 ```
 
 The [proof architecture](docs/architecture.md) maps these stages to Lean

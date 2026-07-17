@@ -1,10 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at a pinned git commit",
-    "commit": "310b82c174ab2281581900897d4646875575e89b",
+    "commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
     "repository": "https://github.com/chenle02/total-coloring-lean"
+  },
+  "distribution": {
+    "default_branch": {
+      "name": "main",
+      "commit": "0d3fb4bcc9bb77e7dcd2da4fc3e37f4d7dbf647a",
+      "contains_all_orders_auxiliary_result": true,
+      "contains_conditional_transfer": false
+    },
+    "proof_branch": {
+      "name": "agent/auxiliary-transfer",
+      "proof_commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
+      "merge_status": "unmerged",
+      "pull_request": null
+    }
   },
   "verified_results": [
     {
@@ -19,6 +33,20 @@
       "palette": "Fin (D + 2)",
       "output_kind": "propositional existence",
       "conclusion_expansion": "There exists a proper edge assignment on H with colors Fin (D + 2) whose colors are pairwise distinct on distinguishedEdgeSet H J."
+    },
+    {
+      "id": "conditional-auxiliary-to-total-transfer",
+      "declaration": "TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass",
+      "supporting_declaration": "TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass",
+      "decoder_declaration": "TotalColoring.Auxiliary.Extension.decode_valid",
+      "module": "TotalColoring.AuxiliaryTransfer",
+      "source_path": "TotalColoring/AuxiliaryTransfer.lean",
+      "introduced_in_commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
+      "signature_summary": "{V : Type u} -> {W : Type v} -> {G : SimpleGraph V} -> {H : SimpleGraph W} -> [Fintype W] -> [DecidableEq W] -> (D : Nat) -> (X : Auxiliary.Extension G H) -> [DecidableRel H.Adj] -> (J : Finset (Sym2 W)) -> (forall vertex : V, X.classEdge vertex in distinguishedEdgeSet H J) -> InAuxiliaryClass D H J -> exists assignment : Assignment G (ExtensionPalette D), assignment.Valid",
+      "scope": "arbitrary original graph G with a supplied conflict-preserving extension into a finite formal auxiliary-class member H and explicit selector membership in J",
+      "palette": "ExtensionPalette D = Fin (D + 2)",
+      "output_kind": "propositional existence of a semantically valid total-coloring assignment",
+      "conclusion_expansion": "There exists assignment : Assignment G (Fin (D + 2)) with assignment.Valid; the theorem does not construct the extension or identify D with the maximum degree of G."
     }
   ],
   "not_proved": [
@@ -27,11 +55,11 @@
     "the proposed high-degree total-coloring theorem with Delta + 2 colors",
     "the proposed high-degree total-coloring theorem with Delta + 3 colors",
     "the equitable-partition input",
-    "the concrete pair/singleton auxiliary construction",
-    "the split-star transfer",
-    "an end-to-end decoding corollary from an arbitrary input graph",
+    "the concrete pair/singleton split-star instantiation of Auxiliary.Extension",
+    "an end-to-end corollary from an arbitrary input graph without supplied extension, selector-membership, and auxiliary-class proofs",
+    "any identification of D with the maximum degree of G",
     "the stronger D + 1 auxiliary palette",
-    "novelty of the formal auxiliary theorem"
+    "novelty of either formal result"
   ],
   "trust_boundary": [
     "Lean 4.32.0 kernel checking is authoritative for the formal declarations.",
@@ -41,10 +69,14 @@
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],
   "verification": {
-    "public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760",
-    "public_ci_conclusion": "success",
+    "all_orders_public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760",
+    "all_orders_public_ci_conclusion": "success",
+    "conditional_transfer_easley_job": "5387732",
+    "conditional_transfer_easley_state": "COMPLETED",
+    "conditional_transfer_easley_exit_code": "0:0",
+    "conditional_transfer_public_ci_run": null,
+    "conditional_transfer_public_ci_conclusion": "pending",
     "latest_release": "v0.1.0",
-    "latest_release_contains_this_result": false,
-    "default_branch_contains_this_result": true
+    "latest_release_contains_all_verified_results": false
   }
 }

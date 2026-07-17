@@ -26,6 +26,12 @@
       The terminal declaration is
       <code>MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass</code>.
     </p>
+    <p>
+      With a supplied compatible <code>Auxiliary.Extension</code> whose
+      selector edges lie in <code>distinguishedEdgeSet H J</code>, Lean
+      composes this result into a valid total assignment with the same
+      <code>Fin (D + 2)</code> palette.
+    </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
@@ -33,8 +39,9 @@
     <p>
       This is not the Total Coloring Conjecture, not the proposed high-degree
       total-coloring theorem, and not an end-to-end reduction from an arbitrary
-      graph. The equitable partition, pair/singleton construction, split-star
-      transfer, stronger palette, and novelty remain separate.
+      graph. The equitable partition, concrete pair/singleton split-star
+      constructor, relation between <code>D</code> and the original maximum
+      degree, stronger palette, and novelty remain separate.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -47,9 +54,11 @@ import TotalColoring
 
 #check TotalColoring.MinimalExtraction
   .hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.Extension
+  .exists_valid_decode_of_inAuxiliaryClass
 ```
 
-The declaration is a propositional existence theorem. It does not compute a
+Both declarations are propositional existence theorems. They do not compute a
 coloring from external data. For executable finite certificates, begin with
 `TotalColoring.Certificate` and its soundness theorems.
 

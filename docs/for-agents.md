@@ -5,7 +5,8 @@ This page gives coding assistants a small, safe context window for the project.
 ## Read order
 
 1. Read [`claim-boundary.json`](claim-boundary.json).
-2. Inspect the exact declaration in `TotalColoring/CriticalAllDClosure.lean`.
+2. Inspect the exact declarations in `TotalColoring/CriticalAllDClosure.lean`
+   and `TotalColoring/AuxiliaryTransfer.lean`.
 3. Use the [curated theorem index](theorem-index.md) to find public entrypoints.
 4. Read `AGENTS.md` before proposing or making repository changes.
 5. Read only the source modules needed for the current theorem or definition.
@@ -20,20 +21,28 @@ This page gives coding assistants a small, safe context window for the project.
 ## Mandatory claim guardrails
 
 - “All orders” means every finite formal `InAuxiliaryClass D H J`.
-- `Fin (D + 2)` is an auxiliary edge-coloring palette.
-- The result is a propositional existence theorem, not an executable extractor.
-- Keep the equitable partition, pair/singleton construction, split-star
-  transfer, and total-coloring decoder seam explicit.
+- In the all-orders auxiliary theorem, `Fin (D + 2)` is an edge-coloring
+  palette.
+- In the conditional transfer theorem, `Fin (D + 2)` becomes a total-coloring
+  palette only for the supplied `G`; no relation between `D` and `Delta(G)` is
+  proved.
+- Both results are propositional existence theorems, not executable
+  extractors.
+- Keep all transfer hypotheses explicit: the supplied `Auxiliary.Extension`,
+  selector membership in `J`, and auxiliary-class membership. The concrete
+  equitable partition and pair/singleton split-star constructor remain open.
 - Never claim the Total Coloring Conjecture, a high-degree total-coloring
   theorem, the stronger `D + 1` auxiliary palette, or novelty.
-- Do not say release `v0.1.0` contains the terminal theorem; use commit
-  `310b82c…` or a later release that actually includes it.
+- Do not say release `v0.1.0` contains either result; use commit `310b82c…`
+  for the all-orders auxiliary theorem, `9bdcdec…` for the conditional
+  transfer, or a later release that actually includes the declaration.
 
 ## Repository map
 
 | Need | Start here |
 | --- | --- |
 | Exact terminal theorem | `TotalColoring/CriticalAllDClosure.lean` |
+| Conditional auxiliary-to-total transfer | `TotalColoring/AuxiliaryTransfer.lean` |
 | Auxiliary predicate | `TotalColoring/AuxiliaryClass.lean` |
 | Semantic coloring definitions | `TotalColoring/Total.lean` |
 | Conditional decoding | `TotalColoring/Auxiliary.lean` |
@@ -52,9 +61,10 @@ This page gives coding assistants a small, safe context window for the project.
 ### Write downstream Lean
 
 > Write Lean code that applies
-> `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass` while keeping
-> `InAuxiliaryClass D H J` as an explicit hypothesis. Do not assume a concrete
-> reduction from a total-coloring instance.
+> `Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` while keeping
+> the supplied extension, selector-membership proof, and
+> `InAuxiliaryClass D H J` explicit. Do not assume a concrete reduction from a
+> total-coloring instance or identify `D` with the input graph's degree.
 
 ### Audit prose
 

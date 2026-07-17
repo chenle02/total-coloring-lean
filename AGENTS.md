@@ -79,15 +79,24 @@ boundaries take priority over breadth or automation.
   `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`: for finite
   `V`, `InAuxiliaryClass D H J` implies `HasValidRainbowColoring D H J`, a
   proper `Fin (D + 2)` edge coloring rainbow on `J`.
+- The composed declaration
+  `Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` proves a
+  conditional total-coloring transfer. Given a supplied conflict-preserving
+  `Auxiliary.Extension G H`, proof that every selector edge lies in
+  `distinguishedEdgeSet H J`, and `InAuxiliaryClass D H J`, it yields
+  `∃ assignment : Assignment G (Fin (D + 2)), assignment.Valid`. It does not
+  construct the extension or identify `D` with a parameter of `G`.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
   total-coloring conclusion, or an unrestricted total-coloring theorem for
   all finite graph orders.
 - The checked all-orders theorem is confined to the exact formal predicate
-  `InAuxiliaryClass`. Its `D + 2` palette is an auxiliary edge-coloring
-  palette, not a `Delta + 2` total coloring. The equitable-partition,
-  pair/singleton, and split-star construction needed to instantiate the
-  manuscript reduction remains outside this theorem.
+  `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
+  total-coloring palette only after a supplied extension is provided. No
+  theorem here identifies `D` with `Delta(G) + 1`, so this is not a
+  `Delta + 3` conclusion. The equitable-partition and concrete
+  pair/singleton split-star construction needed to instantiate the manuscript
+  reduction remain outside the checked declarations.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not
