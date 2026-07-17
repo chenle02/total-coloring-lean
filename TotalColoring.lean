@@ -4,6 +4,7 @@ import TotalColoring.AuxiliaryTransfer
 import TotalColoring.BalancedFixedWitnessExchange
 import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
+import TotalColoring.ComplementMatchingWitness
 import TotalColoring.Critical
 import TotalColoring.CriticalAllDClosure
 import TotalColoring.CriticalAllLeaf
