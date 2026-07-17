@@ -1,0 +1,114 @@
+:root {
+  --tc-indigo: #4338ca;
+  --tc-cyan: #0e7490;
+  --tc-amber: #b45309;
+  --tc-focus: #92400e;
+  --tc-ink: #172554;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--tc-indigo);
+  --md-accent-fg-color: var(--tc-amber);
+}
+
+[data-md-color-scheme="slate"] {
+  --tc-cyan: #67e8f9;
+  --tc-amber: #fbbf24;
+  --tc-focus: #fbbf24;
+  --md-accent-fg-color: var(--tc-amber);
+}
+
+.md-header {
+  background: linear-gradient(105deg, #312e81, #4338ca 58%, #0e7490);
+}
+
+.tc-hero {
+  margin: 0 0 2rem;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  border: 1px solid color-mix(in srgb, var(--tc-indigo), transparent 72%);
+  border-radius: 1.2rem;
+  background:
+    radial-gradient(circle at 90% 15%, rgb(8 145 178 / 18%), transparent 34%),
+    linear-gradient(135deg, rgb(67 56 202 / 12%), rgb(255 255 255 / 3%));
+}
+
+.tc-hero img {
+  display: block;
+  width: min(10rem, 38vw);
+  margin: 0 auto 1rem;
+  filter: drop-shadow(0 0.8rem 1.2rem rgb(30 41 59 / 18%));
+}
+
+.tc-hero h1,
+.tc-hero p {
+  text-align: center;
+}
+
+.tc-hero h1 {
+  margin-bottom: 0.4rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.tc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  margin-top: 1.3rem;
+}
+
+.tc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.tc-card {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.8rem;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 0.35rem 1.1rem rgb(15 23 42 / 7%);
+}
+
+.tc-card h2,
+.tc-card h3 {
+  margin-top: 0;
+}
+
+.tc-card--proved {
+  border-top: 0.3rem solid #059669;
+}
+
+.tc-card--boundary {
+  border-top: 0.3rem solid var(--tc-amber);
+}
+
+.tc-kicker {
+  color: var(--tc-cyan);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.md-typeset code {
+  border-radius: 0.28rem;
+}
+
+.md-typeset a:focus-visible,
+.md-button:focus-visible {
+  outline: 0.18rem solid var(--tc-focus);
+  outline-offset: 0.16rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

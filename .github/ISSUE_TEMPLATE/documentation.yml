@@ -1,0 +1,31 @@
+name: Documentation problem
+description: Report unclear, stale, inaccessible, or LLM-hostile documentation.
+title: "[Docs]: "
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Page or file
+      description: Link the page, heading, source file, or declaration.
+      placeholder: "https://… or docs/proof-status.md"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or hard to use?
+      description: Include the reader, tool, browser, or agent affected.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction
+      description: If this concerns mathematics, cite the authoritative Lean declaration or pinned commit.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: I am not using a documentation change to assert an unproved theorem or novelty claim.
+          required: true

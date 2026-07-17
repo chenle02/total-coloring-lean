@@ -1,430 +1,160 @@
-# Total Coloring Lean
+<div align="center">
+  <img src="docs/assets/logo.svg" width="150" alt="Total Coloring Lean graph logo">
+  <h1>Total Coloring Lean</h1>
+  <p><strong>Kernel-checked Lean 4 foundations for total coloring and auxiliary rainbow edge coloring.</strong></p>
 
-[![Lean CI](https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml/badge.svg)](https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml)
+  <p>
+    <a href="https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml"><img alt="Lean CI status" src="https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml/badge.svg"></a>
+    <a href="https://chenle02.github.io/total-coloring-lean/"><img alt="Project documentation" src="https://img.shields.io/badge/docs-GitHub%20Pages-4051b5?logo=materialformkdocs&logoColor=white"></a>
+    <a href="https://github.com/chenle02/total-coloring-lean/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/chenle02/total-coloring-lean?display_name=tag"></a>
+    <a href="lean-toolchain"><img alt="Lean version 4.32.0" src="https://img.shields.io/badge/Lean-4.32.0-0f766e"></a>
+    <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-4338ca"></a>
+    <a href="https://github.com/sponsors/chenle02"><img alt="Sponsor on GitHub" src="https://img.shields.io/badge/sponsor-GitHub-e11d48?logo=githubsponsors&logoColor=white"></a>
+  </p>
 
-`total-coloring-lean` is a Lean 4 library for formal definitions and
-kernel-checked proof foundations in total-coloring research. Its verified
-layer includes conditional auxiliary decoding, the structural class `A_D`
-and its deletion closure, deleted-edge/one-hole transport, physical
-two-color components with exact distinguished-edge safety, and the full
-critical degree-sum checkpoint for a hypothetical edge-minimal noncolorable
-member, including extraction of such a minimum from any fixed-`V`, fixed-`J`
-counterexample. The next checked layers formalize simple ordered fan paths,
-legal hole shifts, dependency reachability, center--reachable-leaf
-elementarity, local vertex geometry of genuine physical two-color components,
-all-leaf fan-prefix repair, global two-endpoint capacity for valid finite
-partial assignments, both critical component-closure directions, spare-color
-multiplicity one, general reachable-leaf multiplicity at most three, the local
-saturated matching-carrier theorem, exact missing-color counting on the full
-dependency-reachable set, global spare-center exclusion inside every supplied
-critical state, and literal survival of a designated full linear fan path
-through a safe component swap meeting the center, together with the centered
-spare/carrier-label rotation wrapper above those results. The state-local fan
-capacity layer also proves `|W| + a <= D + z`, and proves `4 <= |W|` when a
-triply missing color is explicitly supplied with a non-`J` center edge. For
-every supplied color missing on at least three reachable leaves, the next
-state-local layer exposes a center-incident carrier and proves the explicit
-alternative: it is mobile outside `J`, or it is the unique distinguished
-carrier in matching `M`. Matching permits at most one frozen color at a fixed
-center, so two distinct triply missing colors force at least one mobile
-carrier and `4 <= |W|`.
-The recentered layer now places every center- or reachable-missing color on a
-unique matching carrier, proves literal `z = 0`, and gives the matching/star
-capacity bounds.  A finite global maximization interface supplies an oriented
-one-hole state of maximum canonical reach-card.  At such a state, the checked
-two-exchange strict-growth argument eliminates the exceptional frozen triple,
-so every triply missing color is mobile.  Literal one-step root pivots are also
-packaged: the kernel checks their exact missing-color and dependency-column
-updates, inclusion of the old reachable set, and equality of the physical
-reachable finset under global maximality.
+  <p>
+    <a href="https://chenle02.github.io/total-coloring-lean/"><strong>Documentation</strong></a>
+    · <a href="docs/getting-started.md">Get started</a>
+    · <a href="docs/proof-status.md">Exact proof status</a>
+    · <a href="docs/theorem-index.md">Theorem index</a>
+    · <a href="llms.txt">LLM index</a>
+  </p>
+</div>
 
-The terminal auxiliary layer now formalizes nonfinal direct-entry positioning,
-directed dominator regions, robust-column expansion, the exact one-, two-, and
-three-external-source split, and the centered crossing/detachment
-contradiction. It assembles these into
-`IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD`; finite minimal
-extraction then proves
-`MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`. Precisely,
-for every finite `V`, every formal `InAuxiliaryClass D H J` has a proper
-`Fin (D + 2)` edge coloring which is rainbow on `J`.
+> [!IMPORTANT]
+> This repository proves an all-orders **auxiliary edge-coloring theorem**. It
+> does not prove the Total Coloring Conjecture or an end-to-end high-degree
+> total-coloring theorem.
 
-## Current proof boundary
+## The checked result
 
-The library currently proves:
+For every finite formal member of the matching-plus-star auxiliary class, Lean
+proves the implication
 
-- semantic definitions of total and edge colorings;
-- executable finite checkers and theorems characterizing their acceptance;
-- soundness of the total-, edge-, rainbow-, and combined auxiliary checkers;
-- the conditional auxiliary decoding theorem;
-- partial proper edge colorings and the theorem that a color missing at both
-  endpoints properly fills the unique uncolored edge;
-- the matching-plus-full-star definition of `A_D`, its pair-level wrapper,
-  and closure under deletion of an edge outside `J`;
-- the exact bridge between stable `Sym2` distinguished finsets and the edge
-  subtype used by colorings;
-- the exact `J`-rainbow two-color swap criterion, including the unused-color
-  and same-side unique-carrier cases;
-- physical two-color reachability components for complete and partial edge
-  assignments, including proofs that they supply boundary closure and preserve
-  properness and the unique hole;
-- explicit transport of a valid rainbow coloring of `H - e` to a valid
-  rainbow one-hole coloring of `H`;
-- finite-palette missing-color finsets, blocked-fill disjointness, and the
-  sharp one-hole missing-color count;
-- the conditional minimal-counterexample checkpoint deriving
-  `D + 4 <= degreeU + degreeV` for every edge outside `J`, without separately
-  assumed missing-set or cardinality bounds;
-- the zero-outside-edge base coloring and hence existence of an outside edge
-  in every supplied minimal noncolorable member;
-- finite extraction of an outside-edge-minimal noncolorable member from any
-  counterexample on the same finite vertex type and stable `J`;
-- the residual bound
-  `D + 2 <= degree_(H-J)(u) + degree_(H-J)(v)` for every outside edge in the
-  conditional critical state;
-- literal two-edge hole moves and finite duplicate-free edge shifts, with
-  exact properness and unique-hole criteria plus explicit sufficient
-  distinguished-rainbow preservation conditions;
-- explicitly oriented center spokes, simple `J`-free linear fan paths, and
-  the exact correspondence between those paths and center-dependency
-  reachability;
-- kernel-derived legality of every fan shift, including center missing-color
-  invariance and persistence of terminal-leaf missing colors;
-- center--reachable-leaf elementarity for every supplied minimal
-  noncolorable member;
-- local no-branching plus exact endpoint/internal missing-color geometry for
-  genuine partial two-color components, with unsupported raw reachability
-  roots kept outside the genuine-component interface;
-- literal nonempty fan-prefix extraction, including the singleton root case,
-  and structural prefix repair after a physical component swap that avoids
-  the fan center;
-- in a supplied minimal critical state, the conditional all-leaf dichotomy
-  that a genuine two-color component meeting the selected terminal leaf
-  either meets the center or fails the exact `SwapCompatibleOn` condition;
-- in a supplied minimal critical valid `J`-rainbow one-hole state, every safe
-  genuine two-color component swap meeting the center, with its left color
-  missing there, preserves a designated `LinearFanPath` literally: a
-  post-swap path exists with the identical root and tail. This strengthens
-  existential surviving-prefix repair and uses no terminal-hole, carrier,
-  unused-color, maximality, or fan-capacity hypothesis;
-- in that state, if `alpha` is missing at the center and `delta` is unused on
-  `J`, every genuine `alpha`-`delta` component meeting the center contains the
-  unique distinguished `alpha`-carrier. Its safe swap recolors that carrier
-  into the unique distinguished `delta`-carrier, makes `alpha` unused on `J`,
-  preserves validity, the unique hole and the rainbow invariant, and preserves
-  the designated fan path with exactly the same root and tail. This does not
-  locate the carrier in matching `M`;
-- global at-most-two endpoint capacity for every genuine physical two-color
-  component of a valid finite partial assignment, obtained from connectedness
-  and degree at most two without selecting a path/cycle classification;
-- in a supplied minimal critical state, multiplicity at most one on the whole
-  dependency-reachable leaf set, and hence on every selected fan, for every
-  color unused on `J`;
-- in the same state, multiplicity at most three on dependency-reachable and
-  selected-fan leaves for every palette color, together with the local
-  saturated three-leaf theorem placing both unique distinguished carriers in
-  the matching part of the fixed auxiliary presentation;
-- if a color unused on `J` is missing at the center, every palette color is
-  missing at at most one dependency-reachable or selected-fan leaf;
-- for the canonical full dependency-reachable set `W`, the sharp bounds
-  `I(W) >= 2|W| + 1` on missing-color incidences and `r(W) <= |W|` on occurring
-  missing colors, forcing a color to be missing at exactly three reachable
-  leaves; hence every color unused on `J` is not missing at the fan center in
-  every supplied minimal critical valid `J`-rainbow one-hole state whose root
-  edge lies outside `J`;
-- in the same state, if `a` is the number of center-missing colors and `z`
-  counts colors unused on `J` which are missing at some vertex of the canonical
-  reachable set `W`, the state-local fan-capacity bound
-  `|W| + a <= D + z`; separately, a
-  color missing at three reachable leaves and explicitly carried by a non-`J`
-  center edge forces `4 <= |W|`. This does not prove that an arbitrary triply
-  missing color is mobile;
-- for every supplied color missing on at least three reachable leaves, its
-  literal center-incident carrier is either outside `J`, in which case
-  `4 <= |W|`, or is the unique distinguished carrier and belongs to matching
-  `M`; colors carried at the fixed center by matching edges form a
-  subsingleton, so two distinct triply missing colors force at least one
-  mobile carrier;
-- the saturated equality profile forced by a unique frozen triple: exactly
-  one occurring color is triple, every other occurring color is double,
-  the occurring-color injection is tight, and the missing-incidence lower
-  bound is an equality;
-- fresh matching-carrier location at either endpoint of every supplied
-  critical hole, transport of the same literal carrier to every
-  dependency-reachable missing color through a legal fan shift, the literal
-  theorem that no unused-on-`J` color is missing on canonical `W`, and the
-  resulting matching/star capacity bounds;
-- existence of a globally canonical-reach-card-maximal oriented one-hole
-  state in every supplied minimal noncolorable member;
-- the strict-growth frozen-triple theorem and its consequence that, at a
-  globally maximal state, every color missing at three reachable vertices
-  has a non-`J` center carrier and forces `4 <= |W|`;
-- literal root pivots along a fan step, including exact missing-color and
-  dependency-column transport, containment of the old canonical reachable
-  set, and equality of the physical reachable finset under global
-  reach-card maximality;
-- the exact ordinary-graph balanced fixed-witness simultaneous-exchange
-  criterion and the arithmetic interface verifying the BKW endpoint-list
-  thresholds through `D = 6` and the exact direct residue at `D = 7`;
-- the completed direct-entry chain: iterated nonfinal root positioning,
-  directed-dominator external-source analysis, robust exclusion of the one-
-  and three-external-source cases, and the crossing/component/detachment
-  contradiction for the two-source case;
-- the critical contradiction
-  `IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD` and the finite
-  extraction theorem
-  `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`, with the
-  exact conclusion
-  `InAuxiliaryClass D H J → HasValidRainbowColoring D H J`;
-- arbitrary-vertex missing-color lower bounds and the conditional fan count
-  giving `|W| + 1` distinct leaf-missing colors when the still-unproved
-  multiplicity-two premise is supplied; and
-- tiny positive and negative examples.
-
-The library does **not** currently prove:
-
-- the Total Coloring Conjecture;
-- an unrestricted total-coloring theorem for all finite graph orders;
-- the proposed high-degree theorem with either `Δ + 2` or `Δ + 3` colors;
-- the Hajnal–Szemerédi theorem or a construction of the required equitable
-  partition;
-- the split-star transfer or the actual pair/singleton construction;
-- a formal derivation of a total-coloring corollary from the checked
-  auxiliary `Fin (D + 2)` edge-coloring palette, or the stronger `D + 1`
-  auxiliary target;
-- any novelty claim for the checked auxiliary theorem;
-- completeness of any external graph census.
-
-Bounded computations remain finite evidence. Checking every stored positive
-witness does not by itself prove that an external generator listed every graph
-in scope.
-
-## Modules
-
-- `TotalColoring.Graph`: incidence and finite line-graph decidability.
-- `TotalColoring.Total`: semantic total- and edge-coloring assignments.
-- `TotalColoring.Auxiliary`: structural extension data and conditional decoding.
-- `TotalColoring.Certificate`: executable checkers and soundness theorems.
-- `TotalColoring.Partial`: partial edge colorings, missing colors, one-hole
-  filling, and conversion of complete partial assignments.
-- `TotalColoring.RainbowSwap`: exact `J`-rainbow swap safety and the separate
-  properness boundary condition.
-- `TotalColoring.Critical`: disjoint-finset counting and the critical
-  degree-sum arithmetic.
-- `TotalColoring.AuxiliaryClass`: the witnessed and pair-level definitions of
-  `A_D` and structural deletion closure.
-- `TotalColoring.Distinguished`: stable-`J` to edge-subtype transport,
-  cardinality, and coverage.
-- `TotalColoring.DeletionBridge`: transport from a coloring of `H - e` to a
-  one-hole partial coloring of `H`.
-- `TotalColoring.PartialSwap`: exact swap safety for partial assignments.
-- `TotalColoring.Kempe` and `TotalColoring.PartialKempe`: physical two-color
-  reachability components and boundary closure.
-- `TotalColoring.Missing` and `TotalColoring.MissingCount`: endpoint missing
-  finsets, direct-fill obstruction, and sharp one-hole counts.
-- `TotalColoring.CriticalState`: the explicit outside-edge-minimal
-  noncolorable interface, blocked one-hole state, and degree-sum checkpoint.
-- `TotalColoring.MinimalExtraction`: finite extraction of the minimal critical
-  state from an arbitrary fixed-`V`, fixed-`J` counterexample.
-- `TotalColoring.ResidualDegree`: exact removal of one distinguished incidence
-  at each noncenter vertex and the residual critical degree sum.
-- `TotalColoring.Fan` and `TotalColoring.CenterSpoke`: generic hole shifts and
-  explicitly oriented center edges.
-- `TotalColoring.SimpleReachability`, `TotalColoring.Dependency`,
-  `TotalColoring.OrderedFan`, and `TotalColoring.FanReachability`: loop-erased
-  dependency paths and their exact simple-fan realization.
-- `TotalColoring.FanShift` and `TotalColoring.CriticalFan`: legal iterated fan
-  shifts and conditional center--reachable-leaf elementarity.
-- `TotalColoring.TwoColorGeometry`: local vertex no-branching,
-  endpoint/internal characterization, and exact missing-label transport for
-  genuine partial two-color components.
-- `TotalColoring.TwoColorEndpointCapacity`: connected component-vertex
-  geometry and the global at-most-two endpoint theorem.
-- `TotalColoring.FanPrefix`, `TotalColoring.FanPrefixRepair`,
-  `TotalColoring.FanPrefixRepairThroughCenter`, `TotalColoring.CriticalAllLeaf`,
-  and `TotalColoring.CriticalThroughCenter`: literal fan prefixes, structural
-  repair in both component directions, and the two exact critical closure
-  dichotomies.
-- `TotalColoring.CriticalComponentClosure`: genuine component construction and
-  endpoint closure at arbitrary dependency-reachable leaves.
-- `TotalColoring.CriticalFixedSequence`: literal preservation of a designated
-  `LinearFanPath` under a safe genuine two-color component swap through the
-  center, with exactly the same root and tail; this closes fixed selected-
-  sequence survival without terminal-hole, carrier, unused-color, maximality,
-  or fan-capacity assumptions.
-- `TotalColoring.CriticalCenteredRotation`: transport of unused distinguished
-  colors under a component swap, containment of the unique distinguished
-  center-hole carrier in every genuine center-meeting spare component, and the
-  full carrier-label rotation wrapper preserving validity, the unique hole,
-  the rainbow invariant, the new unique distinguished carrier, and the exact
-  designated fan sequence. It does not place that carrier in matching `M`.
-- `TotalColoring.CriticalSpareMultiplicity`: conditional multiplicity one for
-  colors unused on `J`, first on all dependency-reachable leaves and then on
-  finite fan leaf sets.
-- `TotalColoring.CriticalUsedColorMultiplicity`: multiplicity at most three
-  for every color on all dependency-reachable leaves, with a finite selected-
-  fan corollary; it does not claim the open used-color multiplicity-two bound.
-- `TotalColoring.CriticalMatchingCarriers`: the saturated three-leaf residual
-  theorem placing both unique distinguished carriers in the matching; it does
-  not claim the later uniform or recentered matching-location result.
-- `TotalColoring.CriticalSpareCenter`: multiplicity at most one for every
-  reachable color when an unused color is missing at the center, plus the
-  resulting two-leaf and triply missing residual spare-center exclusions.
-- `TotalColoring.CriticalReachableCount`: the canonical finite dependency-
-  reachable set, its bounds `I(W) >= 2|W| + 1` and `r(W) <= |W|`, the resulting
-  exact triply missing color, and spare-center exclusion in every supplied
-  minimal critical valid `J`-rainbow one-hole state whose root edge lies
-  outside `J`; this is a within-state theorem, not a cross-state or global
-  maximality result for `W`.
-- `TotalColoring.CriticalFanCapacity`: the two colors unused on `J`, the
-  exact bijection between the physical center-leaf universe and colors present
-  at the center, the head injection for unused colors missing nowhere on `W`,
-  the state-local additive capacity bound `|W| + a <= D + z`, and the separate lower bound
-  `4 <= |W|` under an explicit mobile-triple hypothesis. It does not prove
-  that every triple is mobile and does not use centered rotation.
-- `TotalColoring.CriticalTripleDichotomy`: classifies the center carrier of
-  every supplied triply missing color as either mobile outside `J`, forcing
-  `4 <= |W|`, or the literal unique distinguished carrier in matching `M`;
-  matching-center carrier colors form a subsingleton, so two distinct triples
-  force one mobile carrier. The exact-existence theorem is a corollary. The
-  matching is off the auxiliary center `x`, not the current fan center; the
-  later global-maximality layer eliminates this local frozen branch.
-- `TotalColoring.FanSaturatedProfile` and
-  `TotalColoring.CriticalSaturatedProfile`: finite equality-profile arithmetic
-  and its critical frozen-triple specialization.
-- `TotalColoring.CriticalRecenteredLocation` and
-  `TotalColoring.CriticalRecenteredCapacity`: fresh endpoint and reachable
-  matching-carrier location, literal `z = 0`, and the matching/star capacity
-  inequalities.
-- `TotalColoring.CriticalGlobalMaximal`: oriented one-hole states and existence
-  of a state maximizing canonical reachable cardinality.
-- `TotalColoring.DependencySwap` and
-  `TotalColoring.CriticalFrozenMobility`: exact dependency transport through
-  the two exchanges, strict reachable-set growth, and elimination of every
-  frozen triple at a global maximum.
-- `TotalColoring.CriticalRootPivot`: literal one-step root pivots, exact
-  missing-color and dependency-column updates, old-reachability containment,
-  and global-maximal reachable-finset equality.
-- `TotalColoring.DependencyMobileSwap`,
-  `TotalColoring.CriticalCenteredGlobalRotation`, and
-  `TotalColoring.CriticalDirectEntry`: dependency transport for the mobile
-  swaps, globally maximal centered rotations, and iterated nonfinal root-pivot
-  positioning at a reachable direct color target.
-- `TotalColoring.Dominator`, `TotalColoring.CriticalDominator`,
-  `TotalColoring.CriticalDominatorPivot`,
-  `TotalColoring.CriticalDominatorCases`,
-  `TotalColoring.CriticalRobustColumn`, and
-  `TotalColoring.CriticalRobustExpansion`: directed dominator regions,
-  external missing-source columns, pivot transport, robust expansion, and the
-  one- and three-external-source exclusions.
-- `TotalColoring.TwoColorPath`,
-  `TotalColoring.CriticalCrossingPlacement`,
-  `TotalColoring.CriticalCrossingExternality`,
-  `TotalColoring.CriticalCrossingComponents`,
-  `TotalColoring.CriticalDetachedPivot`, and
-  `TotalColoring.CriticalTwoExternalCase`: physical path ordering, centered
-  crossing placement and externality, component comparison, detached-pivot
-  repair, and the two-external-source contradiction.
-- `TotalColoring.CriticalDominatorClosure` and
-  `TotalColoring.CriticalAllDClosure`: exhaustion of the exact `k = 1, 2, 3`
-  split, the final critical contradiction, and
-  `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`.
-- `TotalColoring.BalancedFixedWitnessExchange`: exact preservation criterion
-  for color-blind ordered witnesses under a simultaneous union of physical
-  two-color components.
-- `TotalColoring.FixedDListThreshold`: kernel-checked arithmetic for the BKW
-  local list-demand interface through `D = 6` and its exact `D = 7` residues;
-  it does not formalize the external BKW theorem.
-- `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
-  `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
-  `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
-  multiplicity two retained as an explicit hypothesis.
-- `TotalColoring.Examples` and `TotalColoring.Wave4Examples`: tiny acceptance,
-  rejection, unsupported-root, endpoint-swap, endpoint-capacity, and
-  singleton-prefix checks.
-
-## Relation to the paper proof program
-
-The modules now kernel-check the paper proof program through the critical
-degree-sum checkpoint, legal fan shifts, center--reachable-leaf elementarity,
-both directions of prefix-repaired component closure, global reachable-leaf
-multiplicity at most three, and the local three-leaf matching-carrier theorem.
-They also check global endpoint capacity, retain the stronger multiplicity-one
-result for colors unused on `J`, prove the stronger center-spare consequence
-that every color then has reachable multiplicity at most one. On the canonical
-full dependency-reachable set `W`, they prove `I(W) >= 2|W| + 1` and
-`r(W) <= |W|`, obtain a color missing at exactly three reachable leaves, and
-therefore exclude every color unused on `J` from the fan center in every
-supplied minimal critical valid `J`-rainbow one-hole state whose root edge lies
-outside `J`. This closes the within-state spare-center step without a new
-`MaximalFan` structure. They also extract a minimum from any assumed fixed-`V`,
-fixed-`J` counterexample. For a designated `LinearFanPath`, they further prove
-literal preservation of its full root and tail under a safe genuine two-color
-component swap meeting the center (with the left color missing there), closing
-the fixed selected-sequence survival obligation without terminal-hole,
-carrier, unused-color, maximality, or fan-capacity assumptions. Above these
-results, they prove the centered carrier-label rotation wrapper: the genuine
-center-meeting component crosses the unique distinguished center-hole carrier,
-turns it into the unique distinguished spare carrier, makes the old label
-unused on `J`, and retains the exact fan sequence. Independently of that
-rotation, the state-local physical-universe argument proves
-`|W| + a <= D + z`; an explicitly mobile triple also forces `4 <= |W|`.
-For every supplied triply missing color, a state-local dichotomy supplies its
-center-incident carrier.  The recentered layer places every reachable hole on
-a matching carrier and proves literal `z = 0`.  The global-maximality and
-two-exchange layers then contradict the frozen alternative, so every triple
-at a global maximum is mobile.  Literal root pivots preserve the same physical
-`W` and have an exact checked dependency-column update. The subsequent
-direct-entry, dominator, robust-column, crossing, and detachment modules close
-the three external-source cases and assemble the critical contradiction.
-Consequently the library now proves, for arbitrary finite `V` and arbitrary
-`D`, the exact implication
-`InAuxiliaryClass D H J → HasValidRainbowColoring D H J`.
-
-This is the all-orders formal auxiliary `D + 2` result only. The used-color
-multiplicity-two statement remains unproved but is bypassed by the checked
-route. The split-star transfer, concrete pair/singleton construction,
-Hajnal–Szemerédi input, and any end-to-end total-coloring corollary remain on a
-separate reduction track. The manuscript theorem, stronger palette, author
-approval, and novelty are outside the checked conclusion.
-
-## Trust boundary
-
-Solver output is treated as an untrusted witness. A Boolean result becomes a
-Lean theorem only through a proved soundness statement. The initial API checks
-already well-typed Lean values; it does not yet parse the JSON certificate
-format used by the companion Python toolkit. A future interoperability layer
-must separately validate serialization, palette bounds, graph identity, and
-the correspondence between numbered edges and Lean edge subtypes.
-
-## Build
-
-The repository pins Lean and mathlib `v4.32.0` and commits the complete Lake
-manifest.
-
-```bash
-elan show
-lake exe cache get
-lake build
-lake env leanchecker
+```text
+InAuxiliaryClass D H J
+  →
+HasValidRainbowColoring D H J.
 ```
 
-CI also rejects proof placeholders and unreviewed native-evaluation axioms,
-verifies that every module is imported, and rebuilds the library with the
-pinned Lean kernel and mathlib manifest. Lean's bundled declaration replayer
-then checks the compiled project environment; it is a defense against build-
-environment tampering, not an independent implementation of Lean.
+The terminal declaration is
+[`TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass`](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/CriticalAllDClosure.lean).
+It produces a propositional existence result: a proper auxiliary edge
+assignment with palette `Fin (D + 2)` whose colors are pairwise distinct on
+the distinguished set `J`.
 
-## Related repositories
+```lean
+import TotalColoring
 
-- [`total-coloring-toolkit`](https://github.com/chenle02/total-coloring-toolkit):
-  search algorithms, schemas, and independent Python verifiers.
-- [`total-coloring-data`](https://github.com/chenle02/total-coloring-data):
-  reviewed, hash-pinned finite artifacts and release reports.
+#check TotalColoring.MinimalExtraction
+  .hasValidRainbowColoring_of_inAuxiliaryClass
+```
 
-Raw runs, checkpoints, and private manuscript material belong in neither this
-repository nor the public data repository.
+The theorem was introduced at commit
+[`310b82c`](https://github.com/chenle02/total-coloring-lean/commit/310b82c174ab2281581900897d4646875575e89b)
+and passed [public Lean CI at that exact
+commit](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760).
+Release `v0.1.0` predates this terminal theorem; cite the exact commit or a
+later release that contains it.
 
-## License and citation
+### Exact boundary
 
-The code and formalization are available under the MIT License. Citation
-metadata is provided in `CITATION.cff`.
+The library does **not** currently formalize:
+
+- the Total Coloring Conjecture;
+- either proposed high-degree total-coloring conclusion;
+- the equitable-partition input;
+- the concrete pair/singleton auxiliary construction;
+- the split-star transfer or final total-coloring reduction;
+- the stronger auxiliary `D + 1` palette; or
+- a novelty claim.
+
+In particular, `Fin (D + 2)` is the auxiliary **edge-coloring** palette. It is
+not a `Delta + 2` total-coloring conclusion. See the
+[human-readable boundary](docs/proof-status.md) or its
+[machine-readable mirror](docs/claim-boundary.json).
+
+## Build in three commands
+
+The repository pins Lean and mathlib to `v4.32.0`.
+
+```sh
+lake exe cache get
+lake build
+lake env lean docs/examples/Quickstart.lean
+```
+
+For a fresh machine, first install
+[`elan`](https://lean-lang.org/lean4/doc/setup.html). The
+[getting-started guide](docs/getting-started.md) covers downstream imports,
+documentation builds, and the complete contribution gate.
+
+## Proof route
+
+```text
+auxiliary member
+  → finite minimal counterexample
+  → maximal valid rainbow one-hole state
+  → fans, pivots, dominators, and robust columns
+  → k = 1 / 2 / 3 external-source exhaustion
+  → crossing and detachment contradiction
+  → rainbow auxiliary coloring
+```
+
+The [proof architecture](docs/architecture.md) maps these stages to Lean
+modules. The [curated theorem index](docs/theorem-index.md) lists the public
+definitions, terminal theorems, decoder, and checker soundness entrypoints.
+
+## Trust and reproducibility
+
+- Production Lean modules contain no `sorry`, `admit`, custom `axiom`, or
+  `native_decide`.
+- Executable certificate checkers are connected to semantic predicates by
+  soundness theorems.
+- External solver output is untrusted until a checker accepts a well-typed
+  assignment.
+- A verified positive assignment does not establish completeness of an
+  external graph enumeration.
+- The umbrella `TotalColoring.lean` directly imports every production module.
+
+Read [Trust and reproduction](docs/trust.md) for the full gate and parser
+boundary.
+
+## Find your way
+
+| If you want to… | Start here |
+| --- | --- |
+| understand exactly what is proved | [Exact proof status](docs/proof-status.md) |
+| use a declaration in Lean | [Theorem index](docs/theorem-index.md) |
+| audit the module-level proof | [Proof architecture](docs/architecture.md) |
+| contribute a proof or checker | [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) |
+| use a coding agent safely | [Agent guide](docs/for-agents.md) and [`llms.txt`](llms.txt) |
+| cite the software precisely | [Citation guide](docs/citation.md) and [CITATION.cff](CITATION.cff) |
+
+## Companion repositories
+
+- [`total-coloring-toolkit`](https://github.com/chenle02/total-coloring-toolkit)
+  owns search algorithms, external schemas, and certificate generation.
+- [`total-coloring-data`](https://github.com/chenle02/total-coloring-data)
+  owns reviewed finite artifacts and release manifests.
+
+Raw runs, private drafts, manuscript source, and generated census output do
+not belong in this repository.
+
+## Contribute, cite, and support
+
+Small, reviewable contributions are welcome. Open an issue before changing a
+mathematical interface or theorem claim, preserve the trust boundary, and run
+the complete gate in `AGENTS.md`.
+
+If you use the project, cite the exact release or commit you used. GitHub reads
+the included `CITATION.cff` and exposes a **Cite this repository** menu.
+
+[GitHub Sponsors](https://github.com/sponsors/chenle02) supports formalization
+maintenance, documentation, CI and cluster verification, and reproducible
+releases. Sponsorship does not affect theorem claims or proof-review standards.
+
+## License
+
+Copyright © 2026 Le Chen and contributors. Distributed under the [MIT
+License](LICENSE).
