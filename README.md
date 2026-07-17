@@ -16,8 +16,9 @@ all-leaf fan-prefix repair, global two-endpoint capacity for valid finite
 partial assignments, both critical component-closure directions, spare-color
 multiplicity one, general reachable-leaf multiplicity at most three, the local
 saturated matching-carrier theorem, exact missing-color counting on the full
-dependency-reachable set, and global spare-center exclusion inside every
-supplied critical state.
+dependency-reachable set, global spare-center exclusion inside every supplied
+critical state, and literal survival of a designated full linear fan path
+through a safe component swap meeting the center.
 
 ## Current proof boundary
 
@@ -71,6 +72,12 @@ The library currently proves:
 - in a supplied minimal critical state, the conditional all-leaf dichotomy
   that a genuine two-color component meeting the selected terminal leaf
   either meets the center or fails the exact `SwapCompatibleOn` condition;
+- in a supplied minimal critical valid `J`-rainbow one-hole state, every safe
+  genuine two-color component swap meeting the center, with its left color
+  missing there, preserves a designated `LinearFanPath` literally: a
+  post-swap path exists with the identical root and tail. This strengthens
+  existential surviving-prefix repair and uses no terminal-hole, carrier,
+  unused-color, maximality, or fan-capacity hypothesis;
 - global at-most-two endpoint capacity for every genuine physical two-color
   component of a valid finite partial assignment, obtained from connectedness
   and degree at most two without selecting a path/cycle classification;
@@ -106,9 +113,9 @@ The library does **not** currently prove:
 - the split-star transfer or the actual pair/singleton construction;
 - global path/cycle classification, the used-color multiplicity-two
   strengthening, cross-state or global maximality of the canonical reachable
-  set, full through-center survival of a fixed selected sequence, fan capacity
-  and uniform/recentered endpoint-location lemmas, recentering, root pivots, or
-  the direct-entry crossing argument;
+  set, the centered carrier-label rotation wrapper, fan capacity and
+  uniform/recentered endpoint-location lemmas, recentering, root pivots, or the
+  direct-entry crossing argument;
   or
 - completeness of any external graph census.
 
@@ -164,6 +171,11 @@ in scope.
   dichotomies.
 - `TotalColoring.CriticalComponentClosure`: genuine component construction and
   endpoint closure at arbitrary dependency-reachable leaves.
+- `TotalColoring.CriticalFixedSequence`: literal preservation of a designated
+  `LinearFanPath` under a safe genuine two-color component swap through the
+  center, with exactly the same root and tail; this closes fixed selected-
+  sequence survival without terminal-hole, carrier, unused-color, maximality,
+  or fan-capacity assumptions.
 - `TotalColoring.CriticalSpareMultiplicity`: conditional multiplicity one for
   colors unused on `J`, first on all dependency-reachable leaves and then on
   finite fan leaf sets.
@@ -205,18 +217,21 @@ therefore exclude every color unused on `J` from the fan center in every
 supplied minimal critical valid `J`-rainbow one-hole state whose root edge lies
 outside `J`. This closes the within-state spare-center step without a new
 `MaximalFan` structure. They also extract a minimum from any assumed fixed-`V`,
-fixed-`J` counterexample. They do not prove cross-state or global maximality
-properties of `W`, the still-open used-color multiplicity-two bound, the later
-uniform/recentered matching-location result, full survival of a preselected fan
-sequence under a through-center swap, fan capacity, recentering, that a
-counterexample exists, or that every `A_D` member is colorable. The auxiliary-
-proof track next requires the later maximality and fan-capacity statements,
-full through-center selected-
-sequence survival, uniform endpoint location and recentering, root pivots, and
-the direct-entry crossing argument. The reduction track still requires the
-split-star and pair/singleton construction. No all-orders extension or
-manuscript theorem is considered Lean-verified until those obligations close
-and the authors lock the theorem statement.
+fixed-`J` counterexample. For a designated `LinearFanPath`, they further prove
+literal preservation of its full root and tail under a safe genuine two-color
+component swap meeting the center (with the left color missing there), closing
+the fixed selected-sequence survival obligation without terminal-hole,
+carrier, unused-color, maximality, or fan-capacity assumptions. They do not
+prove cross-state or global maximality properties of `W`, the still-open used-
+color multiplicity-two bound, the later centered carrier-label rotation
+wrapper or uniform/recentered matching-location result, fan capacity,
+recentering, that a counterexample exists, or that every `A_D` member is
+colorable. The auxiliary-proof track next requires those later maximality,
+rotation-wrapper, and fan-capacity statements, uniform endpoint location and
+recentering, root pivots, and the direct-entry crossing argument. The reduction
+track still requires the split-star and pair/singleton construction. No all-
+orders extension or manuscript theorem is considered Lean-verified until those
+obligations close and the authors lock the theorem statement.
 
 ## Trust boundary
 

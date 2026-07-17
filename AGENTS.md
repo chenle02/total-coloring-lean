@@ -39,17 +39,23 @@ boundaries take priority over breadth or automation.
   introducing a new `MaximalFan` structure. The general multiplicity-two fan
   premise remains explicit only in the earlier conditional incidence-count
   interface, and the local carrier theorem is not the later uniform or
-  recentered matching-location result.
+  recentered matching-location result. Finally, in a supplied minimal critical
+  valid `J`-rainbow one-hole state, a safe genuine two-color component swap
+  meeting the center, with its left color missing there, preserves a designated
+  `LinearFanPath` literally: a post-swap path exists with the identical root
+  and tail. This closes full fixed selected-sequence survival, not merely an
+  existential surviving-prefix statement, and needs no terminal-hole, carrier,
+  unused-color, maximality, or fan-capacity hypothesis.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
   The used-color multiplicity-two strengthening, cross-state or global
-  maximality properties of the canonical reachable set, full through-center
-  survival of a fixed selected sequence, uniform/recentered carrier location,
-  fan capacity, endpoint location, root pivots, and the crossing argument
-  remain separate obligations.
+  maximality properties of the canonical reachable set, the centered carrier-
+  label rotation wrapper, uniform/recentered carrier location, fan capacity,
+  recentering and uniform endpoint location, root pivots, and the crossing
+  argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
 - External solver output is an untrusted witness until a checker accepts it.
