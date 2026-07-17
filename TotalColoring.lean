@@ -16,6 +16,7 @@ import TotalColoring.CriticalSpareCenter
 import TotalColoring.CriticalSpareMultiplicity
 import TotalColoring.CriticalState
 import TotalColoring.CriticalThroughCenter
+import TotalColoring.CriticalTripleDichotomy
 import TotalColoring.CriticalUsedColorMultiplicity
 import TotalColoring.DeletionBridge
 import TotalColoring.Dependency

@@ -21,7 +21,10 @@ critical state, and literal survival of a designated full linear fan path
 through a safe component swap meeting the center, together with the centered
 spare/carrier-label rotation wrapper above those results. The state-local fan
 capacity layer also proves `|W| + a <= D + z`, and proves `4 <= |W|` when a
-triply missing color is explicitly supplied with a non-`J` center edge.
+triply missing color is explicitly supplied with a non-`J` center edge. For a
+chosen exact triple, the next state-local layer exposes a center-incident
+carrier and proves the explicit alternative: it is mobile outside `J`, or it
+is the unique distinguished carrier in matching `M`.
 
 ## Current proof boundary
 
@@ -113,6 +116,11 @@ The library currently proves:
   color missing at three reachable leaves and explicitly carried by a non-`J`
   center edge forces `4 <= |W|`. This does not prove that an arbitrary triply
   missing color is mobile;
+- for one exact triply missing color chosen by the reachable-set count, its
+  literal center-incident carrier is either outside `J`, in which case
+  `4 <= |W|`, or is the unique distinguished carrier and belongs to matching
+  `M`. The latter is a live frozen branch: `M` is off the auxiliary star center
+  `x`, not the current fan center, and no contradiction is asserted;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -224,6 +232,11 @@ in scope.
   the state-local additive capacity bound `|W| + a <= D + z`, and the separate lower bound
   `4 <= |W|` under an explicit mobile-triple hypothesis. It does not prove
   that every triple is mobile and does not use centered rotation.
+- `TotalColoring.CriticalTripleDichotomy`: chooses one exact triply missing
+  color and exposes its center carrier as either mobile outside `J`, forcing
+  `4 <= |W|`, or the literal unique distinguished carrier in matching `M`.
+  The matching is off the auxiliary center `x`, not the current fan center;
+  the frozen branch is not contradicted.
 - `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
   `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
   `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
@@ -258,8 +271,11 @@ turns it into the unique distinguished spare carrier, makes the old label
 unused on `J`, and retains the exact fan sequence. Independently of that
 rotation, the state-local physical-universe argument proves
 `|W| + a <= D + z`; an explicitly mobile triple also forces `4 <= |W|`.
-They do not prove that an arbitrary triple is mobile, that its relevant carrier
-has the required matching-`M` or center-incidence location, cross-state or
+For one exact triple chosen by the reachable-set count, a state-local
+dichotomy supplies its center-incident carrier: either it is mobile, or it is
+the unique distinguished carrier in matching `M`. The frozen matching branch
+remains live because `M` is off the auxiliary center `x`, not the current fan
+center. They do not prove that an arbitrary triple is mobile, cross-state or
 global maximality properties of `W`, the still-open used-color multiplicity-two
 bound, the uniform/recentered matching-location result, recentering, that a
 counterexample exists, or that every `A_D` member is colorable. The auxiliary-
