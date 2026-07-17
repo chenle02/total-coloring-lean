@@ -19,7 +19,9 @@ saturated matching-carrier theorem, exact missing-color counting on the full
 dependency-reachable set, global spare-center exclusion inside every supplied
 critical state, and literal survival of a designated full linear fan path
 through a safe component swap meeting the center, together with the centered
-spare/carrier-label rotation wrapper above those results.
+spare/carrier-label rotation wrapper above those results. The state-local fan
+capacity layer also proves `|W| + a <= D + z`, and proves `4 <= |W|` when a
+triply missing color is explicitly supplied with a non-`J` center edge.
 
 ## Current proof boundary
 
@@ -104,6 +106,13 @@ The library currently proves:
   leaves; hence every color unused on `J` is not missing at the fan center in
   every supplied minimal critical valid `J`-rainbow one-hole state whose root
   edge lies outside `J`;
+- in the same state, if `a` is the number of center-missing colors and `z`
+  counts colors unused on `J` which are missing at some vertex of the canonical
+  reachable set `W`, the state-local fan-capacity bound
+  `|W| + a <= D + z`; separately, a
+  color missing at three reachable leaves and explicitly carried by a non-`J`
+  center edge forces `4 <= |W|`. This does not prove that an arbitrary triply
+  missing color is mobile;
 - arbitrary-vertex missing-color lower bounds and the conditional fan count
   giving `|W| + 1` distinct leaf-missing colors when the still-unproved
   multiplicity-two premise is supplied; and
@@ -121,9 +130,10 @@ The library does **not** currently prove:
 - the split-star transfer or the actual pair/singleton construction;
 - global path/cycle classification, the used-color multiplicity-two
   strengthening, cross-state or global maximality of the canonical reachable
-  set, uniform centered-carrier location in matching `M`, fan capacity and
-  uniform/recentered endpoint-location lemmas, recentering, root pivots, or the
-  direct-entry crossing argument;
+  set, mobility of an arbitrary triply missing color, uniform matching-`M`
+  location or center-incidence control for its carrier, uniform/recentered
+  endpoint-location lemmas, recentering, root pivots, or the direct-entry
+  crossing argument;
   or
 - completeness of any external graph census.
 
@@ -208,6 +218,12 @@ in scope.
   minimal critical valid `J`-rainbow one-hole state whose root edge lies
   outside `J`; this is a within-state theorem, not a cross-state or global
   maximality result for `W`.
+- `TotalColoring.CriticalFanCapacity`: the two colors unused on `J`, the
+  exact bijection between the physical center-leaf universe and colors present
+  at the center, the head injection for unused colors missing nowhere on `W`,
+  the state-local additive capacity bound `|W| + a <= D + z`, and the separate lower bound
+  `4 <= |W|` under an explicit mobile-triple hypothesis. It does not prove
+  that every triple is mobile and does not use centered rotation.
 - `TotalColoring.FanCount`, `TotalColoring.FanMissingCount`,
   `TotalColoring.MissingGeneralCount`, `TotalColoring.FanLeaves`, and
   `TotalColoring.CriticalFanCount`: the finite missing-incidence layer with
@@ -239,14 +255,17 @@ carrier, unused-color, maximality, or fan-capacity assumptions. Above these
 results, they prove the centered carrier-label rotation wrapper: the genuine
 center-meeting component crosses the unique distinguished center-hole carrier,
 turns it into the unique distinguished spare carrier, makes the old label
-unused on `J`, and retains the exact fan sequence. They do not prove that this
-carrier lies in matching `M`,
-cross-state or global maximality properties of `W`, the still-open used-color
-multiplicity-two bound, the uniform/recentered matching-location result, fan
-capacity, recentering, that a counterexample exists, or that every `A_D` member
-is colorable. The auxiliary-proof track next requires those later maximality,
-matching-location, and fan-capacity statements, uniform endpoint location and
-recentering, root pivots, and the direct-entry crossing argument. The reduction
+unused on `J`, and retains the exact fan sequence. Independently of that
+rotation, the state-local physical-universe argument proves
+`|W| + a <= D + z`; an explicitly mobile triple also forces `4 <= |W|`.
+They do not prove that an arbitrary triple is mobile, that its relevant carrier
+has the required matching-`M` or center-incidence location, cross-state or
+global maximality properties of `W`, the still-open used-color multiplicity-two
+bound, the uniform/recentered matching-location result, recentering, that a
+counterexample exists, or that every `A_D` member is colorable. The auxiliary-
+proof track next requires those later mobility, maximality, matching-location,
+uniform endpoint-location and recentering statements, root pivots, and the
+direct-entry crossing argument. The reduction
 track still requires the split-star and pair/singleton construction. No all-
 orders extension or manuscript theorem is considered Lean-verified until those
 obligations close and the authors lock the theorem statement.

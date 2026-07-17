@@ -7,6 +7,7 @@ import TotalColoring.CriticalAllLeaf
 import TotalColoring.CriticalCenteredRotation
 import TotalColoring.CriticalComponentClosure
 import TotalColoring.CriticalFan
+import TotalColoring.CriticalFanCapacity
 import TotalColoring.CriticalFanCount
 import TotalColoring.CriticalFixedSequence
 import TotalColoring.CriticalMatchingCarriers

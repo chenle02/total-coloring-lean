@@ -50,15 +50,20 @@ boundaries take priority over breadth or automation.
   wrapper: a genuine center-meeting swap between a center-missing color and a
   color unused on `J` crosses the unique distinguished carrier of the former,
   makes that edge the unique distinguished carrier of the latter, makes the
-  former unused on `J`, and preserves the designated fan path exactly.
+  former unused on `J`, and preserves the designated fan path exactly. A
+  separate state-local layer counts the physical universe exactly, proves the
+  fan-capacity bound `|W| + a <= D + z`, and proves `4 <= |W|` when a triply
+  missing color is explicitly supplied with a non-`J` center edge; it does not
+  use the centered rotation theorem.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   all-orders `A_D` rainbow-extension theorem, the proposed high-degree
   manuscript theorem, or all finite orders.
 - Do not promote conditional extraction from an assumed counterexample into
   existence of a counterexample or into the all-orders extension theorem.
   The used-color multiplicity-two strengthening, cross-state or global
-  maximality properties of the canonical reachable set, uniform/recentered
-  matching-`M` carrier location, fan capacity, recentering and uniform endpoint
+  maximality properties of the canonical reachable set, mobility of an
+  arbitrary triply missing color, uniform/recentered matching-`M` carrier
+  location and center-incidence control, recentering and uniform endpoint
   location, root pivots, and the crossing argument remain separate obligations.
 - A checked positive assignment proves that assignment is valid. It does not
   prove that an external graph enumeration was complete.
