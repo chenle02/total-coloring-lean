@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "project": "Total Coloring Lean",
+  "authority": {
+    "kind": "Lean declarations at a pinned git commit",
+    "commit": "310b82c174ab2281581900897d4646875575e89b",
+    "repository": "https://github.com/chenle02/total-coloring-lean"
+  },
+  "verified_results": [
+    {
+      "id": "all-orders-auxiliary-rainbow-extension",
+      "declaration": "TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass",
+      "supporting_declaration": "TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD",
+      "module": "TotalColoring.CriticalAllDClosure",
+      "source_path": "TotalColoring/CriticalAllDClosure.lean",
+      "introduced_in_commit": "310b82c174ab2281581900897d4646875575e89b",
+      "signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (D : Nat) -> (H : SimpleGraph V) -> [DecidableRel H.Adj] -> (J : Finset (Sym2 V)) -> InAuxiliaryClass D H J -> HasValidRainbowColoring D H J",
+      "scope": "arbitrary finite vertex type and every formal member of InAuxiliaryClass",
+      "palette": "Fin (D + 2)",
+      "output_kind": "propositional existence",
+      "conclusion_expansion": "There exists a proper edge assignment on H with colors Fin (D + 2) whose colors are pairwise distinct on distinguishedEdgeSet H J."
+    }
+  ],
+  "not_proved": [
+    "the Total Coloring Conjecture",
+    "an unrestricted total-coloring theorem for all finite graph orders",
+    "the proposed high-degree total-coloring theorem with Delta + 2 colors",
+    "the proposed high-degree total-coloring theorem with Delta + 3 colors",
+    "the equitable-partition input",
+    "the concrete pair/singleton auxiliary construction",
+    "the split-star transfer",
+    "an end-to-end decoding corollary from an arbitrary input graph",
+    "the stronger D + 1 auxiliary palette",
+    "novelty of the formal auxiliary theorem"
+  ],
+  "trust_boundary": [
+    "Lean 4.32.0 kernel checking is authoritative for the formal declarations.",
+    "Production Lean modules prohibit sorry, admit, custom axiom declarations, and native_decide.",
+    "Executable certificate checkers have semantic soundness theorems.",
+    "External JSON parsing and claims of census completeness remain outside the trusted Lean interface.",
+    "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
+  ],
+  "verification": {
+    "public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760",
+    "public_ci_conclusion": "success",
+    "latest_release": "v0.1.0",
+    "latest_release_contains_this_result": false,
+    "default_branch_contains_this_result": true
+  }
+}

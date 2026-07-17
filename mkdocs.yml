@@ -1,0 +1,96 @@
+site_name: Total Coloring Lean
+site_description: >-
+  Kernel-checked Lean 4 foundations for total coloring and auxiliary rainbow
+  edge coloring
+site_url: https://chenle02.github.io/total-coloring-lean/
+repo_url: https://github.com/chenle02/total-coloring-lean
+repo_name: chenle02/total-coloring-lean
+edit_uri: edit/main/docs/
+copyright: Copyright © 2026 Le Chen and contributors · MIT License
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  font: false
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Learn:
+      - Get started: getting-started.md
+      - Exact proof status: proof-status.md
+      - Proof architecture: architecture.md
+  - Reference:
+      - Theorem index: theorem-index.md
+      - Trust & reproduction: trust.md
+      - For coding agents: for-agents.md
+  - Project:
+      - Support: support.md
+      - Citation: citation.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - .
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/chenle02/total-coloring-lean
+      name: Total Coloring Lean on GitHub
+    - icon: fontawesome/solid/heart
+      link: https://github.com/sponsors/chenle02
+      name: Sponsor the project on GitHub
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn

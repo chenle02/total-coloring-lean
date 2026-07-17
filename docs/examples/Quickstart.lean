@@ -1,0 +1,8 @@
+import TotalColoring
+
+#check TotalColoring.InAuxiliaryClass
+#check TotalColoring.ExtensionPalette
+#check TotalColoring.HasValidRainbowColoring
+#check TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.Extension.decode_valid
+#check TotalColoring.Certificate.checkExtension_sound

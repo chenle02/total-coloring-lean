@@ -1,8 +1,9 @@
 cff-version: 1.2.0
-message: "If you use this formalization, please cite the software release and associated research."
+message: "Please cite the exact software release or commit you use; release v0.1.0 predates the all-orders auxiliary theorem."
 title: "Total Coloring Lean"
 type: software
 version: 0.1.0
+date-released: 2026-07-14
 authors:
   - family-names: Chen
     given-names: Le

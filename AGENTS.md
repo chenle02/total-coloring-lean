@@ -119,6 +119,19 @@ boundaries take priority over breadth or automation.
 - Reviewed finite artifacts belong in `total-coloring-data`.
 - Raw runs, private drafts, and generated census output do not belong here.
 
+## Documentation consistency
+
+- Lean declarations at a pinned commit are authoritative for proved claims.
+  `docs/claim-boundary.json`, `llms.txt`, the Pages proof-status page, and the
+  README are public mirrors and must not broaden the source statement.
+- A change to the public theorem boundary must update those mirrors in the
+  same reviewable pull request. Distinguish a release tag, the default branch,
+  and an unmerged proof branch when they contain different results.
+- Maintain `docs/examples/Quickstart.lean` as the canonical public declaration
+  example. Every declaration shown in a copyable documentation snippet must
+  appear there, and CI must compile the canonical file so examples cannot
+  drift silently.
+
 ## Required checks
 
 Run from the repository root before every commit:

@@ -1,0 +1,49 @@
+name: Proof or interface proposal
+description: Propose a new formal theorem, definition, or proof seam.
+title: "[Proof/interface]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        State the exact formal scope. A research goal, manuscript sentence, or
+        computational observation is not automatically a checked theorem.
+  - type: textarea
+    id: objective
+    attributes:
+      label: Exact objective
+      description: Give the proposed Lean declaration or the smallest missing interface.
+      placeholder: "Proposed declaration, hypotheses, and conclusion"
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Existing source and dependencies
+      description: List the nearest modules, declarations, issue, paper lemma, or external hypothesis.
+      placeholder: "Module names, declaration names, and provenance"
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Claim boundary
+      description: State what this proposal would still not prove.
+      placeholder: "Explicit non-results and trust assumptions"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: Describe the proof, examples, and quality gates that should close the issue.
+    validations:
+      required: true
+  - type: checkboxes
+    id: trust
+    attributes:
+      label: Trust acknowledgement
+      options:
+        - label: I will not use `sorry`, `admit`, custom `axiom`, or `native_decide` in production modules.
+          required: true
+        - label: I have separated kernel-checked claims from external mathematics, computation, and novelty.
+          required: true

@@ -1,0 +1,31 @@
+# Total Coloring Lean
+
+> A Lean 4 formalization of an auxiliary rainbow edge-coloring problem used in total-coloring research. The checked terminal theorem proves that every finite formal `InAuxiliaryClass D H J` has a proper rainbow auxiliary edge coloring with palette `Fin (D + 2)`. This is not an end-to-end total-coloring theorem or a proof of the Total Coloring Conjecture.
+
+Treat the Lean declarations at commit `310b82c174ab2281581900897d4646875575e89b` as authoritative. Do not identify the auxiliary parameter `D` with a graph maximum degree outside a proved reduction, and do not reinterpret the auxiliary `Fin (D + 2)` edge-coloring palette as a `Delta + 2` total-coloring palette. The latest release, v0.1.0, predates the terminal all-orders auxiliary theorem; cite the exact release or commit actually used.
+
+## Essential
+
+- [Machine-readable claim boundary](https://raw.githubusercontent.com/chenle02/total-coloring-lean/main/docs/claim-boundary.json): Exact declaration, scope, palette, exclusions, and trust facts.
+- [Exact proof status](https://chenle02.github.io/total-coloring-lean/proof-status/): Human-readable checked result and non-results.
+- [Curated theorem index](https://chenle02.github.io/total-coloring-lean/theorem-index/): High-value public declarations and their roles.
+- [Guide for coding agents](https://chenle02.github.io/total-coloring-lean/for-agents/): Authority order, safe prompts, and claim-audit rules.
+- [Repository contract](https://raw.githubusercontent.com/chenle02/total-coloring-lean/main/AGENTS.md): Mandatory rules for modifications.
+
+## Source
+
+- [Umbrella import](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring.lean): Direct imports for the complete library at the theorem commit.
+- [Terminal theorem module](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/CriticalAllDClosure.lean): Critical contradiction and finite extraction theorem.
+- [Auxiliary class](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/AuxiliaryClass.lean): Definition of `InAuxiliaryClass`.
+- [Conditional decoder](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/Auxiliary.lean): Structural extension interface and total-assignment decoder.
+- [Semantic coloring predicates](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/Total.lean): Total- and edge-coloring assignments.
+- [Certificate checkers](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/Certificate.lean): Executable Boolean checkers and soundness theorems.
+
+## Optional
+
+- [Getting started](https://chenle02.github.io/total-coloring-lean/getting-started/): Reproducible setup and build commands.
+- [Proof architecture](https://chenle02.github.io/total-coloring-lean/architecture/): Module-level route through the formal proof.
+- [Trust and reproduction](https://chenle02.github.io/total-coloring-lean/trust/): Kernel, checker, parser, and CI boundaries.
+- [Compiled Quickstart](https://github.com/chenle02/total-coloring-lean/blob/main/docs/examples/Quickstart.lean): Copyable public declarations checked by CI.
+- [Contributing](https://github.com/chenle02/total-coloring-lean/blob/main/CONTRIBUTING.md): Contribution workflow.
+- [Citation metadata](https://github.com/chenle02/total-coloring-lean/blob/main/CITATION.cff): Software citation record.

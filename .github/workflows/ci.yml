@@ -38,3 +38,6 @@ jobs:
           mk_all-check: true
           use-mathlib-cache: true
           leanchecker: true
+
+      - name: Check public documentation snippet
+        run: lake env lean docs/examples/Quickstart.lean
