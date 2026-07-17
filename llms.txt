@@ -1,8 +1,10 @@
 # Total Coloring Lean
 
-> A Lean 4 formalization of an auxiliary rainbow edge-coloring problem used in total-coloring research. The checked terminal theorem proves that every finite formal `InAuxiliaryClass D H J` has a proper rainbow auxiliary edge coloring with palette `Fin (D + 2)`. This is not an end-to-end total-coloring theorem or a proof of the Total Coloring Conjecture.
+> A Lean 4 formalization of an auxiliary rainbow edge-coloring problem used in total-coloring research. The library proves that every finite formal `InAuxiliaryClass D H J` has a proper rainbow auxiliary edge coloring with palette `Fin (D + 2)`. Given that same `InAuxiliaryClass D H J` hypothesis, a supplied compatible `Auxiliary.Extension G H`, and selector membership in `distinguishedEdgeSet H J`, it also obtains a valid total assignment on `G`. This is not an end-to-end high-degree theorem or a proof of the Total Coloring Conjecture.
 
-Treat the Lean declarations at commit `310b82c174ab2281581900897d4646875575e89b` as authoritative. Do not identify the auxiliary parameter `D` with a graph maximum degree outside a proved reduction, and do not reinterpret the auxiliary `Fin (D + 2)` edge-coloring palette as a `Delta + 2` total-coloring palette. The latest release, v0.1.0, predates the terminal all-orders auxiliary theorem; cite the exact release or commit actually used.
+Treat the Lean declarations at commit `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb` as authoritative for the conditional transfer, and commit `310b82c174ab2281581900897d4646875575e89b` as its all-orders auxiliary source. Do not identify `D` with a graph maximum degree outside a proved construction. The transfer theorem proves a total coloring only for a supplied extension and does not imply a `Delta + 3` or `Delta + 2` bound. The latest release, v0.1.0, predates both results; cite the exact release or commit actually used.
+
+Distribution state at this revision: `main` is at `0d3fb4bcc9bb77e7dcd2da4fc3e37f4d7dbf647a` and does not contain the conditional transfer. Commit `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb` belongs to the unmerged branch `agent/auxiliary-transfer`; public CI for that branch is pending.
 
 ## Essential
 
@@ -14,8 +16,9 @@ Treat the Lean declarations at commit `310b82c174ab2281581900897d4646875575e89b`
 
 ## Source
 
-- [Umbrella import](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring.lean): Direct imports for the complete library at the theorem commit.
+- [Umbrella import](https://github.com/chenle02/total-coloring-lean/blob/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb/TotalColoring.lean): Direct imports for the complete library at the transfer commit.
 - [Terminal theorem module](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/CriticalAllDClosure.lean): Critical contradiction and finite extraction theorem.
+- [Conditional transfer](https://github.com/chenle02/total-coloring-lean/blob/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb/TotalColoring/AuxiliaryTransfer.lean): Composition with a supplied extension and explicit selector membership.
 - [Auxiliary class](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/AuxiliaryClass.lean): Definition of `InAuxiliaryClass`.
 - [Conditional decoder](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/Auxiliary.lean): Structural extension interface and total-assignment decoder.
 - [Semantic coloring predicates](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/Total.lean): Total- and edge-coloring assignments.

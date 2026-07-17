@@ -5,4 +5,5 @@ import TotalColoring
 #check TotalColoring.HasValidRainbowColoring
 #check TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.Extension.decode_valid
+#check TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass
 #check TotalColoring.Certificate.checkExtension_sound

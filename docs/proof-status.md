@@ -1,6 +1,6 @@
 # Exact proof status
 
-## Terminal checked theorem
+## All-orders auxiliary theorem
 
 At commit `310b82c174ab2281581900897d4646875575e89b`, the library proves:
 
@@ -27,6 +27,38 @@ distinct on the distinguished edge set represented by `J`.
     predicate `InAuxiliaryClass D H J` has the required rainbow auxiliary edge
     coloring from the `D + 2` palette.
 
+## Conditional auxiliary-to-total transfer
+
+At commit `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb`, the library also proves:
+
+```lean
+TotalColoring.Auxiliary.Extension
+  .exists_valid_decode_of_inAuxiliaryClass
+```
+
+Its explicit inputs are:
+
+- a supplied conflict-preserving `Auxiliary.Extension G H`;
+- a proof that every `X.classEdge vertex` belongs to
+  `distinguishedEdgeSet H J`; and
+- `InAuxiliaryClass D H J` on the finite auxiliary graph.
+
+Its conclusion is:
+
+```text
+exists assignment : Assignment G (Fin (D + 2)), assignment.Valid.
+```
+
+!!! success "Plain-language reading"
+
+    Once a compatible auxiliary extension has been supplied, the all-orders
+    rainbow edge-coloring theorem and the semantic decoder compose to give a
+    valid total coloring of the supplied original graph.
+
+This is a conditional transfer theorem. It neither constructs the extension
+from an arbitrary graph nor proves a relation between `D` and the original
+graph's maximum degree.
+
 ## Structural hypothesis
 
 `InAuxiliaryClass D H J` existentially supplies a center `x` and an off-center
@@ -41,24 +73,28 @@ matching `M`. Its checked fields require, among other things:
 The source of truth is
 [`TotalColoring/AuxiliaryClass.lean`](https://github.com/chenle02/total-coloring-lean/blob/310b82c174ab2281581900897d4646875575e89b/TotalColoring/AuxiliaryClass.lean).
 
-## What the theorem does not establish
+## What the checked results do not establish
 
-The checked result does **not** prove:
+The checked results do **not** prove:
 
 - the Total Coloring Conjecture;
 - an unrestricted total-coloring theorem for all finite graph orders;
 - either proposed high-degree total-coloring conclusion;
 - the equitable-partition input;
-- the concrete pair/singleton auxiliary construction;
-- the split-star transfer;
-- an end-to-end total-coloring corollary from an input graph;
+- the concrete pair/singleton split-star instantiation of
+  `Auxiliary.Extension`;
+- an end-to-end total-coloring corollary from an arbitrary input graph without
+  supplied extension, selector-membership, and auxiliary-class proofs;
+- any identification of `D` with the maximum degree of `G`;
 - the stronger auxiliary `D + 1` palette; or
-- novelty of the auxiliary theorem.
+- novelty of either checked result.
 
 !!! warning "Palette warning"
 
-    `Fin (D + 2)` is the palette of the auxiliary **edge coloring**. It must not
-    be reported as a `Delta + 2` total-coloring conclusion.
+    `Fin (D + 2)` is the auxiliary palette parameter. The transfer theorem
+    reuses it for a total coloring of the supplied `G`, but no checked theorem
+    identifies `D` with `Delta(G) + 1`. It must not be reported as a
+    `Delta + 3` or `Delta + 2` conclusion.
 
 ## Provenance and distribution status
 
@@ -66,9 +102,14 @@ The checked result does **not** prove:
 - Public Lean CI run
   [`29588129760`](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760)
   passed at that exact commit.
-- The default branch contains the theorem through merge commit `eddf811…`.
-- Release `v0.1.0` predates the theorem. Cite an exact commit when using the
-  all-orders auxiliary result until a later release includes it.
+- The conditional transfer theorem was introduced at `9bdcdec…` and its exact
+  staged tree passed the full Easley build and leanchecker gate in Slurm job
+  `5387732` (`COMPLETED`, exit `0:0`).
+- At this documentation revision, `main` is still at `0d3fb4b…` and does not
+  contain the conditional transfer. The proof commit is on the unmerged branch
+  `agent/auxiliary-transfer`; its public CI receipt is pending.
+- Release `v0.1.0` predates both declarations. Cite an exact commit until a
+  later release includes the result used.
 
 For tools, the same boundary is mirrored in
 [`claim-boundary.json`](claim-boundary.json). The Lean declarations at the

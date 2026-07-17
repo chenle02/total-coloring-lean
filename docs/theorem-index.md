@@ -19,10 +19,13 @@ internal lemma.
 | `TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD` | `CriticalAllDClosure` | A finite outside-edge-minimal noncolorable auxiliary member is impossible |
 | `TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass` | `CriticalAllDClosure` | Every finite `InAuxiliaryClass D H J` has `HasValidRainbowColoring D H J` |
 | `TotalColoring.Auxiliary.Extension.decode_valid` | `Auxiliary` | A proper selector-rainbow auxiliary assignment decodes to a valid total assignment |
+| `TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` | `AuxiliaryTransfer` | A supplied compatible extension into a finite auxiliary-class member yields a valid total assignment with palette `Fin (D + 2)` |
 
-`decode_valid` is conditional. The current library does not yet construct the
-pair/singleton auxiliary extension needed to combine it with the terminal
-all-orders theorem for an arbitrary input graph.
+The composed transfer theorem remains conditional on a supplied
+`Auxiliary.Extension G H`, membership of every selector edge in the
+distinguished set, and `InAuxiliaryClass D H J`. The library does not yet
+construct the concrete pair/singleton extension from an arbitrary input graph
+or relate `D` to that graph's maximum degree.
 
 ## Executable checker soundness
 
@@ -45,6 +48,8 @@ import TotalColoring
 #check TotalColoring.HasValidRainbowColoring
 #check TotalColoring.MinimalExtraction
   .hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.Extension
+  .exists_valid_decode_of_inAuxiliaryClass
 #check TotalColoring.Certificate.checkExtension_sound
 ```
 

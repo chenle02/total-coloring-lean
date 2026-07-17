@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the exact software release or commit you use; release v0.1.0 predates the all-orders auxiliary theorem."
+message: "Please cite the exact software release or commit you use; release v0.1.0 predates the all-orders auxiliary theorem and conditional transfer."
 title: "Total Coloring Lean"
 type: software
 version: 0.1.0
