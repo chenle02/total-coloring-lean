@@ -55,9 +55,30 @@ exists assignment : Assignment G (Fin (D + 2)), assignment.Valid.
     rainbow edge-coloring theorem and the semantic decoder compose to give a
     valid total coloring of the supplied original graph.
 
-This is a conditional transfer theorem. It neither constructs the extension
-from an arbitrary graph nor proves a relation between `D` and the original
-graph's maximum degree.
+This is a conditional transfer theorem. It does not itself construct the
+extension from an arbitrary graph or prove a relation between `D` and the
+original graph's maximum degree.
+
+## Supplied pair/singleton extension seam
+
+At commit `dc2a318be1dd1475b90c492ad460c4180a3fbdec`, on a finite vertex type
+with decidable equality, a supplied
+`P : TotalColoring.Auxiliary.PairSingletonWitness G` determines:
+
+- the ordinary graph `P.auxiliaryGraph` on `Option V`;
+- a conflict-preserving
+  `P.extension : Auxiliary.Extension G P.auxiliaryGraph`; and
+- `P.classEdge_mem_distinguishedEdgeSet`, proving every selector lies in the
+  corresponding distinguished edge set.
+
+!!! success "Plain-language reading"
+
+    Once the singleton/pair relation itself is supplied, Lean has checked the
+    graph construction and all three conflict maps needed by the decoder.
+
+This result does not construct `P` from an equitable partition. It also does
+not yet prove the matching-plus-full-star structure, degree/cardinality
+identities, `InAuxiliaryClass`, or a relation between `D` and `G.maxDegree`.
 
 ## Structural hypothesis
 
@@ -80,14 +101,17 @@ The checked results do **not** prove:
 - the Total Coloring Conjecture;
 - an unrestricted total-coloring theorem for all finite graph orders;
 - either proposed high-degree total-coloring conclusion;
-- the equitable-partition input;
-- the concrete pair/singleton split-star instantiation of
-  `Auxiliary.Extension`;
-- an end-to-end total-coloring corollary from an arbitrary input graph without
-  supplied extension, selector-membership, and auxiliary-class proofs;
+- the equitable-partition input and construction of a
+  `PairSingletonWitness` from it;
+- proof that `P.distinguished` has the required matching-plus-full-star
+  structure;
+- the degree, exact-cardinality, center-range, and remaining hypotheses needed
+  for `InAuxiliaryClass D P.auxiliaryGraph P.distinguished`;
+- the resulting end-to-end total-coloring corollary from an arbitrary input
+  graph;
 - any identification of `D` with the maximum degree of `G`;
 - the stronger auxiliary `D + 1` palette; or
-- novelty of either checked result.
+- novelty of any checked result.
 
 !!! warning "Palette warning"
 
@@ -111,8 +135,13 @@ The checked results do **not** prove:
   [`29597109189`](https://github.com/chenle02/total-coloring-lean/actions/runs/29597109189)
   passed at PR head `16fca45…`, whose Git tree is identical to the merge
   commit's tree.
-- Release `v0.1.0` predates both declarations. Cite an exact commit until a
-  later release includes the result used.
+- The supplied pair/singleton seam was introduced at `dc2a318…` on draft PR
+  [#8](https://github.com/chenle02/total-coloring-lean/pull/8). Its exact Git
+  tree `883b6895…` passed cache refresh, leaf, umbrella, full package,
+  Quickstart, forbidden-token, and leanchecker gates in Easley job `5387831`
+  (`COMPLETED`, exit `0:0`). It is not on `main` unless PR #8 has since merged.
+- Release `v0.1.0` predates all three declarations. Cite an exact commit until
+  a later release includes the result used.
 
 For tools, the same boundary is mirrored in
 [`claim-boundary.json`](claim-boundary.json). The Lean declarations at the

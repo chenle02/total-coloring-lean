@@ -3,22 +3,24 @@
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at a pinned git commit",
-    "commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
+    "commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
     "default_branch": {
       "name": "main",
-      "commit": "8ec71e7064c0f2683af26f0cd8a0341639116ddb",
+      "commit": "76cd929d13168485ef4b9b43b5e684ab9687d87d",
       "contains_all_orders_auxiliary_result": true,
-      "contains_conditional_transfer": true
+      "contains_conditional_transfer": true,
+      "contains_supplied_pair_singleton_extension": false
     },
     "proof_branch": {
-      "name": "agent/auxiliary-transfer",
-      "proof_commit": "9bdcdec1a872ccef42cfd79e791fe39c22a1beeb",
-      "merge_status": "merged",
-      "pull_request": 6,
-      "merge_commit": "8ec71e7064c0f2683af26f0cd8a0341639116ddb"
+      "name": "agent/pair-singleton-extension",
+      "proof_commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
+      "merge_status": "unmerged",
+      "pull_request_state": "draft",
+      "pull_request": 8,
+      "base_branch": "main"
     }
   },
   "verified_results": [
@@ -48,6 +50,19 @@
       "palette": "ExtensionPalette D = Fin (D + 2)",
       "output_kind": "propositional existence of a semantically valid total-coloring assignment",
       "conclusion_expansion": "There exists assignment : Assignment G (Fin (D + 2)) with assignment.Valid; the theorem does not construct the extension or identify D with the maximum degree of G."
+    },
+    {
+      "id": "supplied-pair-singleton-extension-seam",
+      "declaration": "TotalColoring.Auxiliary.PairSingletonWitness.classEdge_mem_distinguishedEdgeSet",
+      "supporting_declaration": "TotalColoring.Auxiliary.PairSingletonWitness.extension",
+      "module": "TotalColoring.PairSingletonExtension",
+      "source_path": "TotalColoring/PairSingletonExtension.lean",
+      "introduced_in_commit": "dc2a318be1dd1475b90c492ad460c4180a3fbdec",
+      "signature_summary": "{V : Type u} -> {G : SimpleGraph V} -> [Fintype V] -> [DecidableEq V] -> (P : Auxiliary.PairSingletonWitness G) -> (v : V) -> P.extension.classEdge v in distinguishedEdgeSet P.auxiliaryGraph P.distinguished",
+      "scope": "a supplied PairSingletonWitness on a finite original vertex type",
+      "palette": "not applicable",
+      "output_kind": "concrete auxiliary graph and conflict-preserving Extension data, plus proved selector membership",
+      "conclusion_expansion": "P.auxiliaryGraph is defined on Option V; P.extension is an Auxiliary.Extension G P.auxiliaryGraph; every selector lies in the corresponding distinguishedEdgeSet. This does not prove InAuxiliaryClass or a relation between D and the maximum degree of G."
     }
   ],
   "not_proved": [
@@ -55,12 +70,13 @@
     "an unrestricted total-coloring theorem for all finite graph orders",
     "the proposed high-degree total-coloring theorem with Delta + 2 colors",
     "the proposed high-degree total-coloring theorem with Delta + 3 colors",
-    "the equitable-partition input",
-    "the concrete pair/singleton split-star instantiation of Auxiliary.Extension",
-    "an end-to-end corollary from an arbitrary input graph without supplied extension, selector-membership, and auxiliary-class proofs",
+    "the equitable-partition input and construction of a PairSingletonWitness from it",
+    "the matching-plus-full-star structure of the supplied witness's distinguished edge set",
+    "the degree, exact-cardinality, center-range, and remaining hypotheses needed for InAuxiliaryClass D P.auxiliaryGraph P.distinguished",
+    "an end-to-end corollary from an arbitrary input graph",
     "any identification of D with the maximum degree of G",
     "the stronger D + 1 auxiliary palette",
-    "novelty of either formal result"
+    "novelty of any formal result"
   ],
   "trust_boundary": [
     "Lean 4.32.0 kernel checking is authoritative for the formal declarations.",
@@ -79,6 +95,12 @@
     "conditional_transfer_exact_tree_easley_job": "5387751",
     "conditional_transfer_public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29597109189",
     "conditional_transfer_public_ci_conclusion": "success",
+    "pair_singleton_extension_pull_request": 8,
+    "pair_singleton_extension_pull_request_state": "draft",
+    "pair_singleton_extension_easley_job": "5387831",
+    "pair_singleton_extension_easley_state": "COMPLETED",
+    "pair_singleton_extension_easley_exit_code": "0:0",
+    "pair_singleton_extension_exact_tree": "883b6895fe322624b3f2b8f4fa2684ff2ac81424",
     "latest_release": "v0.1.0",
     "latest_release_contains_all_verified_results": false
   }

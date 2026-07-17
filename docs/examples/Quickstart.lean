@@ -6,4 +6,8 @@ import TotalColoring
 #check TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.Extension.decode_valid
 #check TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.PairSingletonWitness
+#check TotalColoring.Auxiliary.PairSingletonWitness.auxiliaryGraph
+#check TotalColoring.Auxiliary.PairSingletonWitness.extension
+#check TotalColoring.Auxiliary.PairSingletonWitness.classEdge_mem_distinguishedEdgeSet
 #check TotalColoring.Certificate.checkExtension_sound

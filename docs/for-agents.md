@@ -6,7 +6,8 @@ This page gives coding assistants a small, safe context window for the project.
 
 1. Read [`claim-boundary.json`](claim-boundary.json).
 2. Inspect the exact declarations in `TotalColoring/CriticalAllDClosure.lean`
-   and `TotalColoring/AuxiliaryTransfer.lean`.
+   and `TotalColoring/AuxiliaryTransfer.lean`. For the current concrete seam,
+   also inspect `TotalColoring/PairSingletonExtension.lean`.
 3. Use the [curated theorem index](theorem-index.md) to find public entrypoints.
 4. Read `AGENTS.md` before proposing or making repository changes.
 5. Read only the source modules needed for the current theorem or definition.
@@ -26,16 +27,19 @@ This page gives coding assistants a small, safe context window for the project.
 - In the conditional transfer theorem, `Fin (D + 2)` becomes a total-coloring
   palette only for the supplied `G`; no relation between `D` and `Delta(G)` is
   proved.
-- Both results are propositional existence theorems, not executable
-  extractors.
+- The two terminal coloring results are propositional existence theorems, not
+  executable extractors.
 - Keep all transfer hypotheses explicit: the supplied `Auxiliary.Extension`,
-  selector membership in `J`, and auxiliary-class membership. The concrete
-  equitable partition and pair/singleton split-star constructor remain open.
+  selector membership in `J`, and auxiliary-class membership. On a finite
+  vertex type with decidable equality, a supplied `PairSingletonWitness` now
+  gives the extension and selector-membership seam, but construction of that
+  witness and the `InAuxiliaryClass` proof remain open.
 - Never claim the Total Coloring Conjecture, a high-degree total-coloring
   theorem, the stronger `D + 1` auxiliary palette, or novelty.
-- Do not say release `v0.1.0` contains either result; use commit `310b82c…`
+- Do not say release `v0.1.0` contains these results; use commit `310b82c…`
   for the all-orders auxiliary theorem, `9bdcdec…` for the conditional
-  transfer, or a later release that actually includes the declaration.
+  transfer, `dc2a318…` for the supplied-witness seam, or a later release that
+  actually includes the declaration.
 
 ## Repository map
 
@@ -43,6 +47,7 @@ This page gives coding assistants a small, safe context window for the project.
 | --- | --- |
 | Exact terminal theorem | `TotalColoring/CriticalAllDClosure.lean` |
 | Conditional auxiliary-to-total transfer | `TotalColoring/AuxiliaryTransfer.lean` |
+| Supplied pair/singleton extension seam | `TotalColoring/PairSingletonExtension.lean` |
 | Auxiliary predicate | `TotalColoring/AuxiliaryClass.lean` |
 | Semantic coloring definitions | `TotalColoring/Total.lean` |
 | Conditional decoding | `TotalColoring/Auxiliary.lean` |

@@ -54,8 +54,16 @@ exists assignment : Assignment G (Fin (D + 2)), assignment.Valid.
 ```
 
 This closes the abstract auxiliary-existence-theorem-to-decoder composition.
-It does not construct the extension from an arbitrary graph or relate `D` to
-that graph's maximum degree.
+The transfer theorem itself does not construct the extension from an arbitrary
+graph or relate `D` to that graph's maximum degree.
+
+The supplied-witness seam is now also checked. On a finite vertex type with
+decidable equality, given
+`P : TotalColoring.Auxiliary.PairSingletonWitness G`, Lean defines the ordinary
+graph `P.auxiliaryGraph` on `Option V`, packages
+`P.extension : Auxiliary.Extension G P.auxiliaryGraph`, and proves
+`P.classEdge_mem_distinguishedEdgeSet`. This does not construct `P` from an
+equitable partition or prove `InAuxiliaryClass` for the resulting graph.
 
 ```lean
 import TotalColoring
@@ -64,6 +72,9 @@ import TotalColoring
   .hasValidRainbowColoring_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.Extension
   .exists_valid_decode_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.PairSingletonWitness.extension
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .classEdge_mem_distinguishedEdgeSet
 ```
 
 The all-orders theorem was introduced at commit
@@ -72,8 +83,12 @@ and passed [public Lean CI at that exact
 commit](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760).
 The conditional transfer was introduced at
 [`9bdcdec`](https://github.com/chenle02/total-coloring-lean/commit/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb).
-Release `v0.1.0` predates both results; cite the exact commit or a later release
-that contains the declaration used.
+The supplied-witness extension seam was introduced at
+[`dc2a318`](https://github.com/chenle02/total-coloring-lean/commit/dc2a318be1dd1475b90c492ad460c4180a3fbdec)
+on draft PR [#8](https://github.com/chenle02/total-coloring-lean/pull/8); it is
+not on `main` unless that PR has since been merged. Release `v0.1.0` predates
+all three results; cite the exact commit or a later release that contains the
+declaration used.
 
 ### Exact boundary
 
@@ -81,12 +96,14 @@ The library does **not** currently formalize:
 
 - the Total Coloring Conjecture;
 - either proposed high-degree total-coloring conclusion;
-- the equitable-partition input;
-- the concrete pair/singleton split-star instantiation of
-  `Auxiliary.Extension`;
+- the equitable-partition input and construction of a
+  `PairSingletonWitness` from it;
+- proof that the supplied witness's distinguished edges have the required
+  matching-plus-full-star structure;
+- the degree, exact-cardinality, center-range, and remaining hypotheses needed
+  for `InAuxiliaryClass D P.auxiliaryGraph P.distinguished`;
 - any identification of `D` with the maximum degree of the original graph;
-- an end-to-end reduction from an arbitrary input graph without supplied
-  extension, selector-membership, and auxiliary-class proofs;
+- the resulting end-to-end reduction from an arbitrary input graph;
 - the stronger auxiliary `D + 1` palette; or
 - a novelty claim.
 

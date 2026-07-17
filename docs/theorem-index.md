@@ -12,6 +12,15 @@ internal lemma.
 | `TotalColoring.HasValidRainbowColoring` | `CriticalState` | Existence of a proper auxiliary edge coloring rainbow on `J` |
 | `TotalColoring.Auxiliary.Extension` | `Auxiliary` | Conflict-preserving data for decoding auxiliary edge colors to a total assignment |
 
+## Supplied pair/singleton constructor seam
+
+| Declaration | Module | Purpose |
+| --- | --- | --- |
+| `TotalColoring.Auxiliary.PairSingletonWitness` | `PairSingletonExtension` | A supplied fixed partition relation into independent singleton and pair classes; the finite constructor uses a finite vertex type with decidable equality |
+| `TotalColoring.Auxiliary.PairSingletonWitness.auxiliaryGraph` | `PairSingletonExtension` | The ordinary auxiliary graph on `Option V` |
+| `TotalColoring.Auxiliary.PairSingletonWitness.extension` | `PairSingletonExtension` | The conflict-preserving extension from the original graph into that auxiliary graph |
+| `TotalColoring.Auxiliary.PairSingletonWitness.classEdge_mem_distinguishedEdgeSet` | `PairSingletonExtension` | Every decoder selector belongs to the constructed distinguished edge set |
+
 ## Terminal proof entrypoints
 
 | Declaration | Module | Checked conclusion |
@@ -23,9 +32,11 @@ internal lemma.
 
 The composed transfer theorem remains conditional on a supplied
 `Auxiliary.Extension G H`, membership of every selector edge in the
-distinguished set, and `InAuxiliaryClass D H J`. The library does not yet
-construct the concrete pair/singleton extension from an arbitrary input graph
-or relate `D` to that graph's maximum degree.
+distinguished set, and `InAuxiliaryClass D H J`. A supplied
+`PairSingletonWitness` now discharges the first two pieces for its constructed
+graph. The library does not yet construct that witness from an equitable
+partition, prove `InAuxiliaryClass` for the constructed graph, or relate `D`
+to the original graph's maximum degree.
 
 ## Executable checker soundness
 
@@ -50,6 +61,11 @@ import TotalColoring
   .hasValidRainbowColoring_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.Extension
   .exists_valid_decode_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.PairSingletonWitness
+#check TotalColoring.Auxiliary.PairSingletonWitness.auxiliaryGraph
+#check TotalColoring.Auxiliary.PairSingletonWitness.extension
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .classEdge_mem_distinguishedEdgeSet
 #check TotalColoring.Certificate.checkExtension_sound
 ```
 

@@ -85,7 +85,14 @@ boundaries take priority over breadth or automation.
   `Auxiliary.Extension G H`, proof that every selector edge lies in
   `distinguishedEdgeSet H J`, and `InAuxiliaryClass D H J`, it yields
   `∃ assignment : Assignment G (Fin (D + 2)), assignment.Valid`. It does not
-  construct the extension or identify `D` with a parameter of `G`.
+  itself construct the extension or identify `D` with a parameter of `G`.
+- Given a supplied `PairSingletonWitness G` on a finite vertex type with
+  decidable equality, the module `PairSingletonExtension` constructs the
+  ordinary auxiliary graph on `Option V`, packages its conflict maps as an
+  `Auxiliary.Extension`, and proves every selector belongs to the corresponding
+  distinguished edge set.
+  It does not construct the witness from an equitable partition or prove that
+  the resulting graph and distinguished set satisfy `InAuxiliaryClass`.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
   total-coloring conclusion, or an unrestricted total-coloring theorem for
@@ -94,9 +101,11 @@ boundaries take priority over breadth or automation.
   `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
   total-coloring palette only after a supplied extension is provided. No
   theorem here identifies `D` with `Delta(G) + 1`, so this is not a
-  `Delta + 3` conclusion. The equitable-partition and concrete
-  pair/singleton split-star construction needed to instantiate the manuscript
-  reduction remain outside the checked declarations.
+  `Delta + 3` conclusion. The equitable-partition input, construction of a
+  `PairSingletonWitness` from it, matching-plus-full-star structure,
+  degree/cardinality bounds, `InAuxiliaryClass` proof, and parameter relation
+  needed to instantiate the manuscript reduction remain outside the checked
+  declarations.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not

@@ -41,6 +41,7 @@ exists Assignment G (Fin (D + 2)) with Assignment.Valid
 | Layer | Principal modules | Role |
 | --- | --- | --- |
 | Semantics | `Graph`, `Total`, `Auxiliary` | Graph incidence, coloring assignments, and conditional decoding |
+| Supplied-witness constructor | `PairSingletonExtension` | Concrete auxiliary graph, conflict-preserving extension, and selector inclusion from a supplied singleton/pair witness |
 | Abstract transfer | `AuxiliaryTransfer` | Composition of the all-orders auxiliary theorem with a supplied compatible extension |
 | Structural class | `AuxiliaryClass`, `Distinguished` | Definition of `A_D`, deletion closure, and stable distinguished-edge transport |
 | Certificates | `Certificate` | Executable checkers connected to semantic propositions by soundness theorems |
@@ -50,17 +51,20 @@ exists Assignment G (Fin (D + 2)) with Assignment.Valid
 | Global pivots | `CriticalGlobalMaximal`, `CriticalFrozenMobility`, `CriticalRootPivot` | Maximal reachable state and elimination of frozen triples |
 | Terminal closure | `CriticalDirectEntry`, `CriticalDominator*`, `CriticalCrossing*`, `CriticalAllDClosure` | External-source cases and final contradiction |
 
-The umbrella [`TotalColoring.lean`](https://github.com/chenle02/total-coloring-lean/blob/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb/TotalColoring.lean)
+The umbrella [`TotalColoring.lean`](https://github.com/chenle02/total-coloring-lean/blob/dc2a318be1dd1475b90c492ad460c4180a3fbdec/TotalColoring.lean)
 directly imports every production module.
 
-## The constructor seam remains open
+## The remaining constructor seam
 
 The abstract auxiliary theorem and its conditional composition with
-`Auxiliary.Extension.decode_valid` are complete. The next independent formal
-track must construct the concrete pair/singleton auxiliary graph, package its
-conflict maps as an `Auxiliary.Extension`, prove selector membership and
-`InAuxiliaryClass`, and relate `D` to the original graph's maximum degree. An
-equitable-partition theorem is a further external input.
+`Auxiliary.Extension.decode_valid` are complete. From a supplied
+`PairSingletonWitness` on a finite vertex type with decidable equality,
+`PairSingletonExtension` now constructs the concrete auxiliary graph, packages
+its conflict maps as an `Auxiliary.Extension`, and proves selector membership.
 
-That constructor seam is intentionally visible: the conditional transfer
-cannot be silently promoted to the manuscript theorem.
+The remaining track must construct that witness from an equitable partition,
+prove the matching-plus-full-star and degree/cardinality obligations needed
+for `InAuxiliaryClass`, and relate `D` to the original graph's maximum degree.
+
+Those remaining seams are intentionally visible: the checked supplied-witness
+layer cannot be silently promoted to the manuscript theorem.
