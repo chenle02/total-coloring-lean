@@ -51,9 +51,8 @@
       This package theorem is not the Total Coloring Conjecture, does not prove
       the stronger <code>Delta + 2</code> target, and does not establish a paper
       theorem or novelty claim. Those manuscript claims remain under their own
-      author and literature-review gates. The current cluster receipt verifies
-      the exact proof-development tree; the later public integration tree still
-      requires its own publication trust gate.
+      author and literature-review gates. The merged public proof tree received
+      its own Wave 11 exact-tree gate plus PR-head and post-merge public CI.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>

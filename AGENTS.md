@@ -145,9 +145,16 @@ boundaries take priority over breadth or automation.
   `4624044788ab42c0dc116cfbf7f38c696065263c`, source-archive SHA-256
   `302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077`,
   passed five separate full-build, Quickstart, and leanchecker replays
-  (`5388311`--`5388315`) with exit `0:0` and empty stderr. Those receipts do not
-  certify the later publishable tree; run the complete
-  gate and public CI on that exact tree before publishing a trust claim.
+  (`5388311`--`5388315`) with exit `0:0` and empty stderr. The later publishable
+  commit `06d43af7f4ea8fefea9e07e2bc29bdc960548171`, exact tree
+  `89a32c7a78e294a8b1484092ec79afaa3b4ace5a`, and source-archive SHA-256
+  `c9950b9e8af364a0d2ef3c08d80f06786ea36d3e6a5bf728054f7824612b4331`
+  received its own complete Wave 11 gate. Leaf `5388961`, all 64 distinct
+  matrix roles after narrow repairs, container `mk_all --check` job `5389029`,
+  and independent host trust jobs `5389030`--`5389032` passed. PR-head and
+  post-merge main Lean/docs CI passed; PR #8 merged as `0e938606`, whose tree
+  is exactly the verified tree. The PR body is the external receipt so adding
+  job IDs did not change the tree it certifies.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not
