@@ -27,6 +27,7 @@ import TotalColoring.CriticalFixedSequence
 import TotalColoring.CriticalFrozenMobility
 import TotalColoring.CriticalGlobalMaximal
 import TotalColoring.CriticalMatchingCarriers
+import TotalColoring.CriticalReachAnchors
 import TotalColoring.CriticalReachableCount
 import TotalColoring.CriticalRecenteredCapacity
 import TotalColoring.CriticalRecenteredLocation
