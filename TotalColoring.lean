@@ -4,6 +4,7 @@ import TotalColoring.AuxiliaryTransfer
 import TotalColoring.BalancedFixedWitnessExchange
 import TotalColoring.CenterSpoke
 import TotalColoring.Certificate
+import TotalColoring.ComplementMatchingWitness
 import TotalColoring.Critical
 import TotalColoring.CriticalAllDClosure
 import TotalColoring.CriticalAllLeaf
@@ -46,6 +47,8 @@ import TotalColoring.DependencyMobileSwap
 import TotalColoring.DependencySwap
 import TotalColoring.Distinguished
 import TotalColoring.Dominator
+import TotalColoring.EmptyAssignment
+import TotalColoring.EquitablePairSingleton
 import TotalColoring.Examples
 import TotalColoring.Fan
 import TotalColoring.FanCount
@@ -59,12 +62,17 @@ import TotalColoring.FanSaturatedProfile
 import TotalColoring.FanShift
 import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
+import TotalColoring.HighDegreeComplementMatching
+import TotalColoring.HighDegreeTotalColoring
 import TotalColoring.Kempe
+import TotalColoring.MatchingExact
+import TotalColoring.MatchingLowerBound
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount
 import TotalColoring.MissingGeneralCount
 import TotalColoring.OrderedFan
+import TotalColoring.PairSingletonExtension
 import TotalColoring.Partial
 import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap

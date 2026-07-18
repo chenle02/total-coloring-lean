@@ -85,18 +85,69 @@ boundaries take priority over breadth or automation.
   `Auxiliary.Extension G H`, proof that every selector edge lies in
   `distinguishedEdgeSet H J`, and `InAuxiliaryClass D H J`, it yields
   `∃ assignment : Assignment G (Fin (D + 2)), assignment.Valid`. It does not
-  construct the extension or identify `D` with a parameter of `G`.
+  itself construct the extension or identify `D` with a parameter of `G`.
+- Given a supplied `PairSingletonWitness G` on a finite vertex type with
+  decidable equality, the module `PairSingletonExtension` constructs the
+  ordinary auxiliary graph on `Option V`, packages its conflict maps as an
+  `Auxiliary.Extension`, and proves every selector belongs to the corresponding
+  distinguished edge set. It also proves exact selector coverage, that the
+  off-center `matchingPart` is a matching avoiding the center and its
+  neighbors, and that the distinguished family is the matching part together
+  with the full center incidence star. It also proves the exact copied-vertex
+  degree formula and center/class-count identity. The theorem
+  `isAuxiliaryClassMember_of_class_count_and_bounds` derives the former
+  maximum-degree and center-degree obligations from exact distinguished
+  cardinality, an original-graph degree bound, and an order bound. Its
+  specialization `isAuxiliaryClassMember_of_highDegree` uses
+  `P.distinguished.card = G.maxDegree + 1` and
+  `Fintype.card V <= 2 * G.maxDegree` to obtain structural membership with
+  parameter `G.maxDegree + 1`.
+- Given a supplied `EquitableIndependentPartition G D`, the module
+  `EquitablePairSingleton` now kernel-checks the adapter under
+  `D <= Fintype.card V` and `Fintype.card V < 2 * D`. It proves every class has
+  size one or two, constructs `Q.toPairSingletonWitness`, and proves
+  `(Q.toPairSingletonWitness ...).distinguished.card = D`. For a nonempty
+  finite graph, a supplied partition with `D = G.maxDegree + 1` and
+  `Fintype.card V <= 2 * G.maxDegree` produces `InAuxiliaryClass` and the
+  conditional terminal result
+  `Q.exists_valid_assignment_of_highDegreePartition`: a valid assignment with
+  palette `ExtensionPalette (G.maxDegree + 1) = Fin (G.maxDegree + 3)`.
+  This supplied-partition route remains available, but it is no longer the
+  terminal boundary of the library.
+- The modules `HighDegreeComplementMatching` and `MatchingExact` check the
+  missing existence route: under
+  `Fintype.card V <= 2 * G.maxDegree`, a nonempty finite graph has a complement
+  matching of at least the target size, and that matching can be trimmed to
+  exactly `Fintype.card V - (G.maxDegree + 1)` edges. The resulting matching
+  supplies a `PairSingletonWitness G` with exactly `G.maxDegree + 1`
+  distinguished edges. The module `EmptyAssignment` separately proves the
+  vacuous valid assignment for an empty vertex type.
+- The checked terminal declaration is
+  `TotalColoring.exists_valid_assignment_of_highDegree`. For every
+  `G : SimpleGraph V` with `[Fintype V]`, `[DecidableEq V]`, and
+  `[DecidableRel G.Adj]`, its sole proposition-valued input is
+  `Fintype.card V <= 2 * G.maxDegree`; it concludes
+  `∃ assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)),
+  assignment.Valid`. Thus its palette has `G.maxDegree + 3` colors. It includes
+  the empty vertex type and uses no even-order or other parity hypothesis.
 - Do not state that this repository proves the Total Coloring Conjecture, the
-  proposed high-degree manuscript theorem, a `Delta + 2` or `Delta + 3`
-  total-coloring conclusion, or an unrestricted total-coloring theorem for
-  all finite graph orders.
+  manuscript's still-unlocked main theorem, a `Delta + 2` conclusion, or an
+  unrestricted total-coloring theorem outside the explicit high-degree
+  hypothesis. Do not attach a novelty claim to the checked terminal theorem.
 - The checked all-orders theorem is confined to the exact formal predicate
   `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
-  total-coloring palette only after a supplied extension is provided. No
-  theorem here identifies `D` with `Delta(G) + 1`, so this is not a
-  `Delta + 3` conclusion. The equitable-partition and concrete
-  pair/singleton split-star construction needed to instantiate the manuscript
-  reduction remain outside the checked declarations.
+  total-coloring palette only after a supplied extension is provided. The
+  generic transfer does not identify `D`. The separate terminal theorem sets
+  `D = Delta(G) + 1` and discharges the witness construction from the exact
+  density hypothesis. Keep the abstract transfer, supplied-partition theorem,
+  and terminal graph theorem distinct when documenting or reusing them.
+- Verification provenance is tree-specific. Exact proof tree
+  `4624044788ab42c0dc116cfbf7f38c696065263c`, source-archive SHA-256
+  `302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077`,
+  passed five separate full-build, Quickstart, and leanchecker replays
+  (`5388311`--`5388315`) with exit `0:0` and empty stderr. Those receipts do not
+  certify the later publishable tree; run the complete
+  gate and public CI on that exact tree before publishing a trust claim.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not

@@ -5,11 +5,15 @@ repository** interface.
 
 !!! warning "Release boundary"
 
-    Release `v0.1.0` predates both the all-orders auxiliary theorem and the
-    conditional auxiliary-to-total transfer. For the former, cite exact commit
+    Release `v0.1.0` predates the all-orders auxiliary theorem, the conditional
+    auxiliary-to-total transfer, and the terminal high-degree theorem. For the
+    auxiliary theorem, cite exact commit
     `310b82c174ab2281581900897d4646875575e89b`; for the composed transfer, cite
-    `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb`, or use a later release that
-    actually contains the declaration you need.
+    `9bdcdec1a872ccef42cfd79e791fe39c22a1beeb`; for
+    `TotalColoring.exists_valid_assignment_of_highDegree`, cite integration
+    commit `43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45`, or use a later release that
+    actually contains the declaration you need. The earlier proof-tree trust
+    receipt does not certify later documentation or distribution trees.
 
 ## Suggested commit-level citation
 
@@ -19,7 +23,7 @@ repository** interface.
   title   = {Total Coloring Lean},
   year    = {2026},
   url     = {https://github.com/chenle02/total-coloring-lean},
-  note    = {Lean 4 source, commit 9bdcdec1a872ccef42cfd79e791fe39c22a1beeb}
+  note    = {Lean 4 source, commit 43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45}
 }
 ```
 

@@ -18,30 +18,42 @@
   <section class="tc-card tc-card--proved">
     <h2>What is proved</h2>
     <p>
-      For every finite formal <code>InAuxiliaryClass D H J</code>, there exists
-      a proper auxiliary edge coloring with palette <code>Fin (D + 2)</code>
-      that is rainbow on <code>J</code>.
+      For every finite graph <code>G</code> satisfying
+      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, Lean proves the existence
+      of a valid total assignment with palette
+      <code>ExtensionPalette (G.maxDegree + 1)</code>.
     </p>
     <p>
       The terminal declaration is
-      <code>MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass</code>.
+      <code>TotalColoring.exists_valid_assignment_of_highDegree</code>. It
+      includes the empty vertex type and uses no parity hypothesis.
     </p>
     <p>
-      With a supplied compatible <code>Auxiliary.Extension</code> whose
-      selector edges lie in <code>distinguishedEdgeSet H J</code>, Lean
-      composes this result into a valid total assignment with the same
-      <code>Fin (D + 2)</code> palette.
+      For a nonempty graph, the checked proof obtains a sufficiently large
+      matching in the complement, trims it to the exact required size,
+      converts it to a <code>PairSingletonWitness</code>, proves membership in
+      the auxiliary class, applies the all-orders rainbow theorem, and decodes
+      the result. The empty graph is discharged separately by a vacuous valid
+      assignment.
+    </p>
+    <p>
+      The lower-level supplied-input interfaces remain public: users may start
+      from an <code>Auxiliary.Extension</code>, a
+      <code>PairSingletonWitness</code>, or an
+      <code>EquitableIndependentPartition</code>. The abstract theorem for
+      every finite <code>InAuxiliaryClass D H J</code> also remains available.
     </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
     <h2>What is not proved</h2>
     <p>
-      This is not the Total Coloring Conjecture, not the proposed high-degree
-      total-coloring theorem, and not an end-to-end reduction from an arbitrary
-      graph. The equitable partition, concrete pair/singleton split-star
-      constructor, relation between <code>D</code> and the original maximum
-      degree, stronger palette, and novelty remain separate.
+      This package theorem is not the Total Coloring Conjecture, does not prove
+      the stronger <code>Delta + 2</code> target, and does not establish a paper
+      theorem or novelty claim. Those manuscript claims remain under their own
+      author and literature-review gates. The current cluster receipt verifies
+      the exact proof-development tree; the later public integration tree still
+      requires its own publication trust gate.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -54,13 +66,25 @@ import TotalColoring
 
 #check TotalColoring.MinimalExtraction
   .hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.exists_valid_assignment_of_highDegree
+#check TotalColoring.Auxiliary
+  .exists_valid_assignment_of_highDegree_nonempty
+#check TotalColoring.MatchingLowerBound
+  .exists_complement_matchingGraph_edgeFinset_card_eq
 #check TotalColoring.Auxiliary.Extension
   .exists_valid_decode_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.PairSingletonWitness.extension
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .classEdge_mem_distinguishedEdgeSet
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .isAuxiliaryClassMember_of_highDegree
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .exists_valid_assignment_of_highDegreePartition
 ```
 
-Both declarations are propositional existence theorems. They do not compute a
-coloring from external data. For executable finite certificates, begin with
-`TotalColoring.Certificate` and its soundness theorems.
+These coloring declarations are propositional existence theorems. They do not
+compute a coloring from external data. For executable finite certificates,
+begin with `TotalColoring.Certificate` and its soundness theorems.
 
 ## Choose your route
 
@@ -76,9 +100,9 @@ coloring from external data. For executable finite certificates, begin with
   <section class="tc-card">
     <h3>Audit the proof</h3>
     <p>
-      Follow the formal route from the auxiliary class through minimal
-      extraction, maximal one-hole states, dominators, crossing, and the final
-      contradiction.
+      Follow the formal route from complement matching and exact extraction to
+      the auxiliary class, then through minimal extraction, maximal one-hole
+      states, crossing, the final contradiction, and semantic decoding.
     </p>
     <p><a href="architecture/">Proof architecture</a></p>
   </section>

@@ -22,9 +22,15 @@
 </div>
 
 > [!IMPORTANT]
-> This repository proves an all-orders **auxiliary edge-coloring theorem** and
-> a **conditional auxiliary-to-total transfer**. It does not prove the Total
-> Coloring Conjecture or an end-to-end high-degree total-coloring theorem.
+> This repository proves an all-orders **auxiliary edge-coloring theorem**, a
+> **conditional auxiliary-to-total transfer**, and the formal high-degree
+> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. For every
+> finite graph satisfying `Fintype.card V ≤ 2 * G.maxDegree`, the latter
+> produces a valid total assignment into a palette of cardinality
+> `G.maxDegree + 3`, hence uses at most that many colors. It includes the empty
+> vertex type and uses no parity hypothesis. It
+> does not prove the Total Coloring Conjecture, a `Delta + 2` result, the
+> manuscript's still-unlocked main theorem, or novelty.
 
 ## The checked results
 
@@ -54,8 +60,107 @@ exists assignment : Assignment G (Fin (D + 2)), assignment.Valid.
 ```
 
 This closes the abstract auxiliary-existence-theorem-to-decoder composition.
-It does not construct the extension from an arbitrary graph or relate `D` to
-that graph's maximum degree.
+The transfer theorem itself does not construct the extension from an arbitrary
+graph or relate `D` to that graph's maximum degree.
+
+The supplied-witness seam is now also checked. On a finite vertex type with
+decidable equality, given
+`P : TotalColoring.Auxiliary.PairSingletonWitness G`, Lean defines the ordinary
+graph `P.auxiliaryGraph` on `Option V`, packages
+`P.extension : Auxiliary.Extension G P.auxiliaryGraph`, and proves
+`P.classEdge_mem_distinguishedEdgeSet`. The structural layer at
+[`7aa102b`](https://github.com/chenle02/total-coloring-lean/commit/7aa102b0211c36c6d69f03bc051a5c2706f62c9d)
+additionally proves exact distinguished-edge coverage of every copied
+original vertex,
+defines the off-center `P.matchingPart`, proves that it is a matching whose
+endpoints avoid the center and all center neighbors, and proves
+
+```text
+P.distinguished =
+  P.matchingPart ∪ P.auxiliaryGraph.incidenceFinset none.
+```
+
+The numerical bridge at public PR integration commit
+[`343b7b8`](https://github.com/chenle02/total-coloring-lean/commit/343b7b87b82532a9d8eade6d4cd43679eae1f7c9)
+additionally proves the exact identities
+
+```text
+P.auxiliaryGraph.degree (some v) = G.degree v + 1
+Fintype.card V + P.auxiliaryGraph.degree none =
+  2 * P.distinguished.card.
+```
+
+Thus `P.isAuxiliaryClassMember_of_class_count_and_bounds D` derives the former
+maximum-degree and center-degree obligations from
+
+```text
+P.distinguished.card = D
+G.maxDegree + 1 ≤ D
+Fintype.card V + 2 ≤ 2 * D.
+```
+
+Beyond the ambient `[Fintype V]`, `[DecidableEq V]`,
+`[DecidableRel G.Adj]`, and
+`[DecidableRel P.auxiliaryGraph.Adj]` typeclass requirements, the specialization
+`P.isAuxiliaryClassMember_of_highDegree` has only these additional
+proposition-valued hypotheses:
+
+```text
+P.distinguished.card = G.maxDegree + 1
+Fintype.card V ≤ 2 * G.maxDegree
+```
+
+It concludes `IsAuxiliaryClassMember (G.maxDegree + 1)` for the constructed
+auxiliary graph and distinguished family.
+
+The supplied-partition adapter is also checked. An
+`EquitableIndependentPartition G D` packages exactly `D` nonempty independent
+classes whose sizes differ by at most one. Given
+
+```text
+D ≤ Fintype.card V
+Fintype.card V < 2 * D,
+```
+
+`Q.toPairSingletonWitness` constructs the witness and `Q.distinguished_card`
+proves its concrete `J.card = D` identity. For a nonempty finite graph with
+decidable vertex equality and adjacency, the terminal theorem
+`Q.exists_valid_assignment_of_highDegreePartition` has the explicit inputs
+
+```text
+Q : EquitableIndependentPartition G (G.maxDegree + 1)
+Fintype.card V ≤ 2 * G.maxDegree
+```
+
+and produces a valid total assignment with palette
+`ExtensionPalette (G.maxDegree + 1)`, hence `G.maxDegree + 3` colors.
+
+The complement-matching route and empty-vertex case are now checked as well.
+The terminal declaration
+
+```text
+TotalColoring.exists_valid_assignment_of_highDegree
+```
+
+has only the finite/decidable graph structure and the explicit density
+hypothesis
+
+```text
+Fintype.card V ≤ 2 * G.maxDegree.
+```
+
+It constructs the required complement matching, trims it to the exact size,
+builds the pair/singleton witness, invokes the auxiliary theorem and decoder,
+and produces
+
+```text
+∃ assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)),
+  assignment.Valid.
+```
+
+Here `ExtensionPalette (G.maxDegree + 1)` has cardinality
+`G.maxDegree + 3`. The theorem covers both empty and nonempty finite vertex
+types and assumes neither even order nor any other parity condition.
 
 ```lean
 import TotalColoring
@@ -64,6 +169,16 @@ import TotalColoring
   .hasValidRainbowColoring_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.Extension
   .exists_valid_decode_of_inAuxiliaryClass
+#check TotalColoring.Auxiliary.PairSingletonWitness.extension
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .classEdge_mem_distinguishedEdgeSet
+#check TotalColoring.Auxiliary.PairSingletonWitness
+  .isAuxiliaryClassMember_of_highDegree
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .distinguished_card
+#check TotalColoring.Auxiliary.EquitableIndependentPartition
+  .exists_valid_assignment_of_highDegreePartition
+#check TotalColoring.exists_valid_assignment_of_highDegree
 ```
 
 The all-orders theorem was introduced at commit
@@ -72,28 +187,66 @@ and passed [public Lean CI at that exact
 commit](https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760).
 The conditional transfer was introduced at
 [`9bdcdec`](https://github.com/chenle02/total-coloring-lean/commit/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb).
-Release `v0.1.0` predates both results; cite the exact commit or a later release
-that contains the declaration used.
+The supplied-witness extension seam was introduced at
+[`dc2a318`](https://github.com/chenle02/total-coloring-lean/commit/dc2a318be1dd1475b90c492ad460c4180a3fbdec)
+on draft PR [#8](https://github.com/chenle02/total-coloring-lean/pull/8); it is
+not on `main` unless that PR has since been merged. The qualitative structural
+layer is commit `7aa102b…`, exact Git tree
+`4b6440a0df108f47f5c120e7e0187c058a462138`. Its full cache-refresh, build,
+Quickstart, forbidden-token, and leanchecker gate passed on Easley in job
+`5387870` (`COMPLETED`, exit `0:0`); independent trust job `5387882` also
+passed. The numerical layer was gated from private source commit
+`acb08de85f99c7db578e042e67d3f172c5599fcd`, exact tree
+`7207e2a282ff829fba9737e93154f46f385ef879`, then integrated with identical
+numerical Lean content at public PR commit `343b7b8…`, tree
+`9863f500b2671048f4dc386f497eb6523b065099`. Exact leaf job `5387926`, full
+build/checker job `5387929`, and independent trust-v3 job `5387978` all
+completed with exit `0:0`; Nova build-only job `5387933` also completed with
+exit `0:0`. Public [Lean CI](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994477)
+and [docs](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994502)
+passed at `343b7b8…`. Jobs `5387930` and `5387932` were diagnostic
+infrastructure failures, not verification receipts or proof failures. PR #8
+remains draft. The supplied-partition adapter is commit `a441fbf…`, exact code
+tree `0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7`; its source-archive SHA-256 is
+`736db25ca7d25fb0eed8431e435e80bc94287e1ae88f9dea806ddba2c1b544f4`.
+Leaf job `5387980`, Nova full build job `5387981`, and high-memory
+full/Quickstart/leanchecker trust job `5387982` all completed with exit `0:0`.
+The outgoing-cache SHA-256 is
+`94456901604a3b6ecde49368a4ba285fda03ecdca856b0c37f207624527e037a`.
+The completed terminal proof tree is
+`4624044788ab42c0dc116cfbf7f38c696065263c`; its source archive has SHA-256
+`302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077`.
+Five separate terminal full-build, Quickstart, and leanchecker replays
+(`5388311`--`5388315`) completed with exit `0:0` and empty stderr. These jobs
+certify that exact proof tree only. Because the later public-claim integration
+produces a new Git tree, they are not a trust receipt for the eventual
+publishable tree; certification of that tree requires its own final gate and
+public CI, recorded externally against the exact tree.
+Release `v0.1.0` predates these result layers; cite the exact commit or a later
+release that actually contains them.
 
 ### Exact boundary
 
 The library does **not** currently formalize:
 
 - the Total Coloring Conjecture;
-- either proposed high-degree total-coloring conclusion;
-- the equitable-partition input;
-- the concrete pair/singleton split-star instantiation of
-  `Auxiliary.Extension`;
-- any identification of `D` with the maximum degree of the original graph;
-- an end-to-end reduction from an arbitrary input graph without supplied
-  extension, selector-membership, and auxiliary-class proofs;
-- the stronger auxiliary `D + 1` palette; or
+- the stronger proposed high-degree `Delta + 2` total-coloring conclusion;
+- a total-coloring conclusion for graphs outside the explicit high-degree
+  regime `Fintype.card V ≤ 2 * G.maxDegree`;
+- the stronger auxiliary `D + 1` palette;
+- an identification of the checked declaration with a final, author-approved
+  manuscript theorem; or
 - a novelty claim.
 
 In the all-orders theorem, `Fin (D + 2)` is the auxiliary edge-coloring
-palette; in the conditional transfer, the same type colors the supplied
-original graph. Because no theorem identifies `D` with `Delta(G) + 1`, this is
-not yet a `Delta + 3` total-coloring conclusion. See the
+palette; in the generic conditional transfer, the same type colors the
+supplied original graph while `D` remains abstract. The terminal high-degree
+theorem sets `D = Delta(G) + 1`, constructs the required witness from a
+complement matching, and checks a `Delta + 3` conclusion directly from
+`|V(G)| ≤ 2 Delta(G)`. It also handles the empty vertex type and has no parity
+hypothesis. This formal statement must not be broadened into `Delta + 2`, the
+Total Coloring Conjecture, or an author-approved manuscript or novelty claim.
+See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).
 
@@ -124,6 +277,13 @@ auxiliary member
   → rainbow auxiliary coloring
   → conditional decode through a supplied compatible extension
   → valid total assignment
+
+high-degree finite graph
+  → large complement matching
+  → exact-size complement matching
+  → pair/singleton witness in the auxiliary class
+  → auxiliary coloring and conditional decode
+  → valid total assignment with Delta(G) + 3 colors
 ```
 
 The [proof architecture](docs/architecture.md) maps these stages to Lean
