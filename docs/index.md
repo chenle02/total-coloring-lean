@@ -18,51 +18,42 @@
   <section class="tc-card tc-card--proved">
     <h2>What is proved</h2>
     <p>
-      For every finite formal <code>InAuxiliaryClass D H J</code>, there exists
-      a proper auxiliary edge coloring with palette <code>Fin (D + 2)</code>
-      that is rainbow on <code>J</code>.
+      For every finite graph <code>G</code> satisfying
+      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, Lean proves the existence
+      of a valid total assignment with palette
+      <code>ExtensionPalette (G.maxDegree + 1)</code>.
     </p>
     <p>
       The terminal declaration is
-      <code>MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass</code>.
+      <code>TotalColoring.exists_valid_assignment_of_highDegree</code>. It
+      includes the empty vertex type and uses no parity hypothesis.
     </p>
     <p>
-      With a supplied compatible <code>Auxiliary.Extension</code> whose
-      selector edges lie in <code>distinguishedEdgeSet H J</code>, Lean
-      composes this result into a valid total assignment with the same
-      <code>Fin (D + 2)</code> palette.
+      For a nonempty graph, the checked proof obtains a sufficiently large
+      matching in the complement, trims it to the exact required size,
+      converts it to a <code>PairSingletonWitness</code>, proves membership in
+      the auxiliary class, applies the all-orders rainbow theorem, and decodes
+      the result. The empty graph is discharged separately by a vacuous valid
+      assignment.
     </p>
     <p>
-      On a finite vertex type with decidable equality, given a supplied
-      <code>PairSingletonWitness</code>, Lean also constructs the ordinary
-      auxiliary graph, packages its conflict-preserving <code>Extension</code>,
-      proves selector membership and exact coverage, and proves the qualitative
-      matching-plus-full-star structure. Lean also proves exact degree/count
-      identities. Given the class count
-      <code>P.distinguished.card = G.maxDegree + 1</code> and density
-      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, the high-degree wrapper
-      packages the complete structural class witness with parameter
-      <code>G.maxDegree + 1</code>.
-    </p>
-    <p>
-      Given an explicit
-      <code>EquitableIndependentPartition G (G.maxDegree + 1)</code> on a
-      nonempty graph together with
-      <code>Fintype.card V &lt;= 2 * G.maxDegree</code>, Lean now constructs that
-      witness, proves the exact distinguished count, and returns a valid total
-      assignment with <code>G.maxDegree + 3</code> colors.
+      The lower-level supplied-input interfaces remain public: users may start
+      from an <code>Auxiliary.Extension</code>, a
+      <code>PairSingletonWitness</code>, or an
+      <code>EquitableIndependentPartition</code>. The abstract theorem for
+      every finite <code>InAuxiliaryClass D H J</code> also remains available.
     </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
     <h2>What is not proved</h2>
     <p>
-      This is not the Total Coloring Conjecture and not an end-to-end theorem
-      from arbitrary graph input. The partition-to-witness adapter is checked,
-      but Lean does not yet produce the required equitable independent
-      <code>G.maxDegree + 1</code> partition for every nonempty target graph.
-      Complement matching is only a future existence route, and the empty graph
-      is separate. The stronger palette and novelty also remain separate.
+      This package theorem is not the Total Coloring Conjecture, does not prove
+      the stronger <code>Delta + 2</code> target, and does not establish a paper
+      theorem or novelty claim. Those manuscript claims remain under their own
+      author and literature-review gates. The current cluster receipt verifies
+      the exact proof-development tree; the later public integration tree still
+      requires its own publication trust gate.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -75,6 +66,11 @@ import TotalColoring
 
 #check TotalColoring.MinimalExtraction
   .hasValidRainbowColoring_of_inAuxiliaryClass
+#check TotalColoring.exists_valid_assignment_of_highDegree
+#check TotalColoring.Auxiliary
+  .exists_valid_assignment_of_highDegree_nonempty
+#check TotalColoring.MatchingLowerBound
+  .exists_complement_matchingGraph_edgeFinset_card_eq
 #check TotalColoring.Auxiliary.Extension
   .exists_valid_decode_of_inAuxiliaryClass
 #check TotalColoring.Auxiliary.PairSingletonWitness.extension
@@ -86,8 +82,8 @@ import TotalColoring
   .exists_valid_assignment_of_highDegreePartition
 ```
 
-The three coloring declarations are propositional existence theorems. They do
-not compute a coloring from external data. For executable finite certificates,
+These coloring declarations are propositional existence theorems. They do not
+compute a coloring from external data. For executable finite certificates,
 begin with `TotalColoring.Certificate` and its soundness theorems.
 
 ## Choose your route
@@ -104,9 +100,9 @@ begin with `TotalColoring.Certificate` and its soundness theorems.
   <section class="tc-card">
     <h3>Audit the proof</h3>
     <p>
-      Follow the formal route from the auxiliary class through minimal
-      extraction, maximal one-hole states, dominators, crossing, and the final
-      contradiction.
+      Follow the formal route from complement matching and exact extraction to
+      the auxiliary class, then through minimal extraction, maximal one-hole
+      states, crossing, the final contradiction, and semantic decoding.
     </p>
     <p><a href="architecture/">Proof architecture</a></p>
   </section>

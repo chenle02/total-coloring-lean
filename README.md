@@ -22,11 +22,15 @@
 </div>
 
 > [!IMPORTANT]
-> This repository proves an all-orders **auxiliary edge-coloring theorem** and
-> a **conditional auxiliary-to-total transfer**. From an explicitly supplied
-> equitable independent partition it also proves a conditional
-> `Delta + 3` total-coloring result. It does not prove the Total Coloring
-> Conjecture or an end-to-end high-degree theorem from graph hypotheses alone.
+> This repository proves an all-orders **auxiliary edge-coloring theorem**, a
+> **conditional auxiliary-to-total transfer**, and the formal high-degree
+> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. For every
+> finite graph satisfying `Fintype.card V ≤ 2 * G.maxDegree`, the latter
+> produces a valid total assignment into a palette of cardinality
+> `G.maxDegree + 3`, hence uses at most that many colors. It includes the empty
+> vertex type and uses no parity hypothesis. It
+> does not prove the Total Coloring Conjecture, a `Delta + 2` result, the
+> manuscript's still-unlocked main theorem, or novelty.
 
 ## The checked results
 
@@ -131,10 +135,32 @@ Fintype.card V ≤ 2 * G.maxDegree
 and produces a valid total assignment with palette
 `ExtensionPalette (G.maxDegree + 1)`, hence `G.maxDegree + 3` colors.
 
-What remains is existence of the supplied partition for every target graph,
-for example through the prospective complement-matching route, plus a separate
-empty-graph base case. The pinned Mathlib has no ready theorem for that
-existence step.
+The complement-matching route and empty-vertex case are now checked as well.
+The terminal declaration
+
+```text
+TotalColoring.exists_valid_assignment_of_highDegree
+```
+
+has only the finite/decidable graph structure and the explicit density
+hypothesis
+
+```text
+Fintype.card V ≤ 2 * G.maxDegree.
+```
+
+It constructs the required complement matching, trims it to the exact size,
+builds the pair/singleton witness, invokes the auxiliary theorem and decoder,
+and produces
+
+```text
+∃ assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)),
+  assignment.Valid.
+```
+
+Here `ExtensionPalette (G.maxDegree + 1)` has cardinality
+`G.maxDegree + 3`. The theorem covers both empty and nonempty finite vertex
+types and assumes neither even order nor any other parity condition.
 
 ```lean
 import TotalColoring
@@ -152,6 +178,7 @@ import TotalColoring
   .distinguished_card
 #check TotalColoring.Auxiliary.EquitableIndependentPartition
   .exists_valid_assignment_of_highDegreePartition
+#check TotalColoring.exists_valid_assignment_of_highDegree
 ```
 
 The all-orders theorem was introduced at commit
@@ -186,6 +213,15 @@ Leaf job `5387980`, Nova full build job `5387981`, and high-memory
 full/Quickstart/leanchecker trust job `5387982` all completed with exit `0:0`.
 The outgoing-cache SHA-256 is
 `94456901604a3b6ecde49368a4ba285fda03ecdca856b0c37f207624527e037a`.
+The completed terminal proof tree is
+`4624044788ab42c0dc116cfbf7f38c696065263c`; its source archive has SHA-256
+`302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077`.
+Five separate terminal full-build, Quickstart, and leanchecker replays
+(`5388311`--`5388315`) completed with exit `0:0` and empty stderr. These jobs
+certify that exact proof tree only. Because the later public-claim integration
+produces a new Git tree, they are not a trust receipt for the eventual
+publishable tree; certification of that tree requires its own final gate and
+public CI, recorded externally against the exact tree.
 Release `v0.1.0` predates these result layers; cite the exact commit or a later
 release that actually contains them.
 
@@ -195,25 +231,22 @@ The library does **not** currently formalize:
 
 - the Total Coloring Conjecture;
 - the stronger proposed high-degree `Delta + 2` total-coloring conclusion;
-- an end-to-end high-degree `Delta + 3` conclusion from graph hypotheses alone;
-- existence, for every nonempty graph in the intended high-degree regime, of
-  the required equitable independent partition with
-  `D = G.maxDegree + 1`;
-- the prospective complement-matching construction that would supply that
-  partition;
-- the separate empty-graph base case;
-- the resulting end-to-end reduction from an arbitrary input graph;
-- the stronger auxiliary `D + 1` palette; or
+- a total-coloring conclusion for graphs outside the explicit high-degree
+  regime `Fintype.card V ≤ 2 * G.maxDegree`;
+- the stronger auxiliary `D + 1` palette;
+- an identification of the checked declaration with a final, author-approved
+  manuscript theorem; or
 - a novelty claim.
 
 In the all-orders theorem, `Fin (D + 2)` is the auxiliary edge-coloring
 palette; in the generic conditional transfer, the same type colors the
-supplied original graph while `D` remains abstract. The separate high-degree
-partition theorem does use `D = Delta(G) + 1` and checks a conditional
-`Delta + 3` total-coloring conclusion from an explicitly supplied equitable
-independent partition. Lean does not yet prove that this partition exists for
-every nonempty target graph, and the empty graph remains separate. This is
-therefore not yet an end-to-end `Delta + 3` theorem. See the
+supplied original graph while `D` remains abstract. The terminal high-degree
+theorem sets `D = Delta(G) + 1`, constructs the required witness from a
+complement matching, and checks a `Delta + 3` conclusion directly from
+`|V(G)| ≤ 2 Delta(G)`. It also handles the empty vertex type and has no parity
+hypothesis. This formal statement must not be broadened into `Delta + 2`, the
+Total Coloring Conjecture, or an author-approved manuscript or novelty claim.
+See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).
 
@@ -244,6 +277,13 @@ auxiliary member
   → rainbow auxiliary coloring
   → conditional decode through a supplied compatible extension
   → valid total assignment
+
+high-degree finite graph
+  → large complement matching
+  → exact-size complement matching
+  → pair/singleton witness in the auxiliary class
+  → auxiliary coloring and conditional decode
+  → valid total assignment with Delta(G) + 3 colors
 ```
 
 The [proof architecture](docs/architecture.md) maps these stages to Lean

@@ -4,73 +4,95 @@ This page gives coding assistants a small, safe context window for the project.
 
 ## Read order
 
-1. Read [`claim-boundary.json`](claim-boundary.json).
-2. Inspect the exact declarations in `TotalColoring/CriticalAllDClosure.lean`
-   and `TotalColoring/AuxiliaryTransfer.lean`. For the current concrete seam,
-   also inspect `TotalColoring/PairSingletonExtension.lean` and
-   `TotalColoring/EquitablePairSingleton.lean`.
-3. Use the [curated theorem index](theorem-index.md) to find public entrypoints.
-4. Read `AGENTS.md` before proposing or making repository changes.
-5. Read only the source modules needed for the current theorem or definition.
+1. Inspect the exact terminal declaration in
+   `TotalColoring/HighDegreeTotalColoring.lean`.
+2. Read [`claim-boundary.json`](claim-boundary.json) and check that its pinned
+   tree matches the code tree you are discussing.
+3. For the terminal route, inspect `MatchingLowerBound.lean`,
+   `HighDegreeComplementMatching.lean`, `MatchingExact.lean`,
+   `ComplementMatchingWitness.lean`, `PairSingletonExtension.lean`,
+   `AuxiliaryTransfer.lean`, and `EmptyAssignment.lean` as needed.
+4. Use the [curated theorem index](theorem-index.md) to find public entrypoints.
+5. Read `AGENTS.md` before proposing or making repository changes.
+6. Read only the additional source modules needed for the current theorem or
+   definition.
 
 ## Authority order
 
-1. Lean declarations at the pinned commit determine what is proved.
+1. Lean declarations at the exact pinned tree determine what is proved.
 2. `AGENTS.md` determines repository and trust policy.
 3. `docs/claim-boundary.json` is the machine-readable public mirror.
 4. The README and Pages explain the result but cannot broaden it.
 
+If code and prose disagree, narrow the prose. If two trees differ, a receipt
+for one does not automatically verify the other.
+
 ## Mandatory claim guardrails
 
-- “All orders” means every finite formal `InAuxiliaryClass D H J`.
-- In the all-orders auxiliary theorem, `Fin (D + 2)` is an edge-coloring
-  palette.
-- In the conditional transfer theorem, `Fin (D + 2)` becomes a total-coloring
-  palette only for the supplied `G`; that generic theorem leaves `D` abstract.
-  The separate supplied-witness high-degree wrapper conditionally uses
-  `D = Delta(G) + 1`.
-- The three terminal coloring results are propositional existence theorems, not
-  executable extractors.
-- Keep all transfer hypotheses explicit: the supplied `Auxiliary.Extension`,
-  selector membership in `J`, and auxiliary-class membership. On a finite
-  vertex type with decidable equality, a supplied `PairSingletonWitness` now
-  gives the extension and selector-membership seam, exact selector coverage,
-  the qualitative matching-plus-full-star structure, and exact degree/count
-  identities. A supplied witness satisfying
-  `P.distinguished.card = G.maxDegree + 1` together with
-  `Fintype.card V <= 2 * G.maxDegree` now discharges every
-  `IsAuxiliaryClassMember` field at parameter `G.maxDegree + 1`.
-  `EquitablePairSingleton` now checks the next adapter: from
-  `Q : EquitableIndependentPartition G D` and `D <= |V| < 2D`, it constructs
-  the witness and proves `J.card = D`. On a nonempty graph, the supplied
-  `G.maxDegree + 1` partition and density hypothesis yield the conditional
-  terminal theorem `Q.exists_valid_assignment_of_highDegreePartition`, with
-  `G.maxDegree + 3` colors. Keep the remaining inputs explicit: existence of
-  `Q` for each target graph and the separate empty-graph base case. The pinned
-  Mathlib has no ready existence theorem; complement matching remains an
-  unformalized route.
-- Never claim the Total Coloring Conjecture, an end-to-end high-degree theorem
-  from graph hypotheses alone, the stronger `D + 1` auxiliary palette, or
-  novelty. It is correct to state the checked conditional `Delta + 3` theorem
-  only with its supplied-partition and nonempty hypotheses.
-- Do not say release `v0.1.0` contains these results; use commit `310b82c…`
-  for the all-orders auxiliary theorem, `9bdcdec…` for the conditional
-  transfer, `dc2a318…` for the original supplied-witness seam, `7aa102b…` for
-  the qualitative structural layer, public PR commit `343b7b8…` for the
-  numerical layer, and commit `a441fbf…` for the equitable-partition adapter,
-  or a later release that actually includes the declaration.
-  The private numerical verification source was commit `acb08de…`, exact tree
-  `7207e2a…`; its numerical Lean content is identical to the public integration,
-  but the repository tree is not.
+- The package terminal declaration is
+  `TotalColoring.exists_valid_assignment_of_highDegree`.
+- Its graph-theoretic hypothesis is exactly
+  `Fintype.card V <= 2 * G.maxDegree`, in addition to the displayed finite and
+  decidability instances in its type.
+- Its conclusion is a valid assignment in
+  `ExtensionPalette (G.maxDegree + 1)`, definitionally
+  `Fin (G.maxDegree + 3)`.
+- The theorem covers both empty and nonempty finite vertex types. It has no
+  parity hypothesis.
+- The result is a propositional existence theorem, not an executable coloring
+  extractor for external graph data.
+- For the nonempty branch, keep the actual route straight: complement-degree
+  bound, general matching lower bound, exact-size trimming,
+  `PairSingletonWitness`, auxiliary-class membership, rainbow auxiliary
+  coloring, and semantic decoding.
+- The empty branch uses `exists_valid_assignment_of_isEmpty`; it is not an
+  unproved side condition.
+- Never call this the Total Coloring Conjecture, a `G.maxDegree + 2` result, a
+  locked or fully proved manuscript theorem, or a novelty result.
+- Do not extend the theorem to graphs outside its density hypothesis.
+- Keep package proof status and publication trust separate. The exact
+  proof-development tree `4624044788ab42c0dc116cfbf7f38c696065263c`
+  passed five separate high-memory full/Quickstart/`leanchecker` jobs
+  (`5388311` through `5388315`). A later integrated Git tree needs its own
+  exact-tree gate and public CI before receiving the same trust statement.
+- Do not say release `v0.1.0` contains the terminal theorem; cite a later exact
+  commit or release that actually contains it.
+
+## Retained conditional interfaces
+
+Do not erase or misdescribe the more general supplied-input theorems:
+
+- `MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass` applies to
+  every finite formal `InAuxiliaryClass D H J` and uses an auxiliary edge
+  palette `Fin (D + 2)`.
+- `Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` keeps its
+  supplied extension, selector-membership proof, and auxiliary-class
+  membership explicit.
+- A supplied `PairSingletonWitness` exposes its concrete graph, extension,
+  selector coverage, structural class, and numerical lemmas.
+- `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`
+  remains a valid route from an explicit supplied partition on a nonempty
+  graph together with `Fintype.card V <= 2 * G.maxDegree`.
+
+The supplied equitable partition is no longer a premise of the package
+terminal theorem. `HighDegreeTotalColoring` constructs the needed witness from
+an exact complement matching. Say which API you are using instead of carrying
+limitations from one interface over to another.
 
 ## Repository map
 
 | Need | Start here |
 | --- | --- |
-| Exact terminal theorem | `TotalColoring/CriticalAllDClosure.lean` |
+| Package terminal theorem | `TotalColoring/HighDegreeTotalColoring.lean` |
+| Empty-vertex base case | `TotalColoring/EmptyAssignment.lean` |
+| General matching lower bound | `TotalColoring/MatchingLowerBound.lean` |
+| High-degree complement specialization | `TotalColoring/HighDegreeComplementMatching.lean` |
+| Exact matching extraction | `TotalColoring/MatchingExact.lean` |
+| Complement matching to witness | `TotalColoring/ComplementMatchingWitness.lean` |
+| Supplied pair/singleton interface | `TotalColoring/PairSingletonExtension.lean` |
+| Supplied equitable-partition interface | `TotalColoring/EquitablePairSingleton.lean` |
+| All-orders auxiliary theorem | `TotalColoring/CriticalAllDClosure.lean` |
 | Conditional auxiliary-to-total transfer | `TotalColoring/AuxiliaryTransfer.lean` |
-| Supplied pair/singleton extension seam | `TotalColoring/PairSingletonExtension.lean` |
-| Supplied equitable-partition adapter | `TotalColoring/EquitablePairSingleton.lean` |
 | Auxiliary predicate | `TotalColoring/AuxiliaryClass.lean` |
 | Semantic coloring definitions | `TotalColoring/Total.lean` |
 | Conditional decoding | `TotalColoring/Auxiliary.lean` |
@@ -80,28 +102,35 @@ This page gives coding assistants a small, safe context window for the project.
 
 ## Useful prompts
 
-### Explain the theorem safely
+### Explain the package theorem safely
 
 > Explain the exact hypotheses and conclusion of
-> `hasValidRainbowColoring_of_inAuxiliaryClass`. Separate the kernel-checked
-> auxiliary result from reductions that are not formalized.
+> `TotalColoring.exists_valid_assignment_of_highDegree`. Trace the nonempty
+> complement-matching route and the empty base case. State the exact palette,
+> and separate the Lean package theorem from manuscript and novelty claims.
 
-### Write downstream Lean
+### Write downstream Lean from graph hypotheses
 
-> Write Lean code that applies
-> `Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` while keeping
-> the supplied extension, selector-membership proof, and
-> `InAuxiliaryClass D H J` explicit. For the concrete partition route, apply
+> Write Lean code applying
+> `TotalColoring.exists_valid_assignment_of_highDegree` to a finite graph.
+> Keep the density hypothesis explicit and do not add parity, nonempty, or
+> supplied-partition assumptions that are absent from the theorem's type.
+
+### Write downstream Lean from supplied structure
+
+> Apply `Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass` while
+> keeping the supplied extension, selector-membership proof, and
+> `InAuxiliaryClass D H J` explicit. Alternatively, use
 > `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`
-> only with an explicit supplied `G.maxDegree + 1` partition, nonempty vertex
-> type, and density hypothesis. Do not synthesize existence of that partition
-> for an arbitrary graph, and keep the empty graph separate.
+> only when an explicit partition and the required high-degree density
+> inequality have already been supplied.
 
 ### Audit prose
 
-> Classify every mathematical sentence as kernel-checked here, conditional on
-> an explicit hypothesis, external mathematics, bounded computation, or
-> unsupported. Cite the exact Lean declaration where one exists.
+> Classify every mathematical sentence as kernel-checked at the exact tree,
+> conditional on an explicit hypothesis, external mathematics, bounded
+> computation, manuscript-only, or unsupported. Cite the exact Lean
+> declaration where one exists.
 
 ### Find a checker
 
@@ -113,6 +142,6 @@ This page gives coding assistants a small, safe context window for the project.
 
 Before editing, inspect the branch and dirty tree. Keep changes small, use no
 proof placeholders, update documentation mirrors when the public theorem
-boundary changes, and run the complete gate from `AGENTS.md`. Heavy full-library
-verification may be delegated to CI or an appropriate build node, but it may
-not be skipped before publication.
+boundary changes, and run the complete gate from `AGENTS.md`. Heavy
+full-library verification may be delegated to CI or an appropriate build node,
+but it may not be skipped before publication.

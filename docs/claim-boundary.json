@@ -1,10 +1,10 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
-    "commit": "a441fbfa1e404dc7610e0c32c80dd692cd938c20",
-    "tree": "0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7",
+    "commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
+    "tree": "705a98148126042fb03debfc0d1aab4bb8108467",
     "adapter_layer_commit": "a441fbfa1e404dc7610e0c32c80dd692cd938c20",
     "adapter_layer_tree": "0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7",
     "adapter_source_archive_sha256": "736db25ca7d25fb0eed8431e435e80bc94287e1ae88f9dea806ddba2c1b544f4",
@@ -16,6 +16,11 @@
     "numeric_source_tree": "7207e2a282ff829fba9737e93154f46f385ef879",
     "numeric_source_archive_sha256": "5c3bef3720abeb62d0c437fbc638fe1848059892fbe09fe0c437c942c16baf5c",
     "numeric_content_relation": "the numerical Lean file content is identical in the private verification source and public PR integration commits; their repository trees differ because the public commit integrates that content onto the PR branch",
+    "terminal_proof_tree": "4624044788ab42c0dc116cfbf7f38c696065263c",
+    "terminal_source_archive_sha256": "302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077",
+    "terminal_integration_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
+    "terminal_integration_tree_before_public_claim_updates": "705a98148126042fb03debfc0d1aab4bb8108467",
+    "terminal_content_relation": "the four terminal Lean module blobs in the integration commit are byte-identical to their independently verified component sources; the terminal proof tree has five full trust passes, while the later public-claim integration tree requires its own final gate",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -25,21 +30,25 @@
       "contains_all_orders_auxiliary_result": true,
       "contains_conditional_transfer": true,
       "contains_supplied_pair_singleton_extension": false,
-      "contains_equitable_partition_adapter": false
+      "contains_equitable_partition_adapter": false,
+      "contains_end_to_end_high_degree_result": false
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
-      "proof_commit": "a441fbfa1e404dc7610e0c32c80dd692cd938c20",
-      "proof_tree": "0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7",
+      "proof_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
+      "proof_tree": "705a98148126042fb03debfc0d1aab4bb8108467",
       "adapter_layer_commit": "a441fbfa1e404dc7610e0c32c80dd692cd938c20",
       "adapter_layer_tree": "0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7",
       "contains_equitable_partition_adapter": true,
+      "contains_end_to_end_high_degree_result": true,
       "qualitative_layer_commit": "7aa102b0211c36c6d69f03bc051a5c2706f62c9d",
       "qualitative_layer_tree": "4b6440a0df108f47f5c120e7e0187c058a462138",
       "numeric_layer_commit": "343b7b87b82532a9d8eade6d4cd43679eae1f7c9",
       "numeric_layer_tree": "9863f500b2671048f4dc386f497eb6523b065099",
       "numeric_source_commit": "acb08de85f99c7db578e042e67d3f172c5599fcd",
       "numeric_source_tree": "7207e2a282ff829fba9737e93154f46f385ef879",
+      "terminal_integration_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
+      "terminal_integration_tree_before_public_claim_updates": "705a98148126042fb03debfc0d1aab4bb8108467",
       "merge_status": "unmerged",
       "pull_request_state": "draft",
       "pull_request": 8,
@@ -126,11 +135,11 @@
         "Fintype.card V <= 2 * G.maxDegree"
       ],
       "high_degree_conclusion": "IsAuxiliaryClassMember (G.maxDegree + 1) P.auxiliaryGraph none P.distinguished P.matchingPart",
-      "remaining_reduction_seams": [
-        "for each nonempty graph in the intended high-degree regime, prove existence of the equitable independent partition specifically with D = G.maxDegree + 1; the checked EquitablePairSingleton adapter handles every supplied partition",
-        "handle the empty graph separately; no ready theorem in the pinned Mathlib supplies the partition-existence step, and complement matching is only a prospective route"
+      "declaration_local_reduction_seams": [
+        "this supplied-witness theorem does not construct its PairSingletonWitness input",
+        "this supplied-witness theorem does not itself select the empty-vertex branch"
       ],
-      "conclusion_expansion": "P.auxiliaryGraph is defined on Option V; P.extension is an Auxiliary.Extension G P.auxiliaryGraph; every selector lies in the corresponding distinguishedEdgeSet; each copied original vertex has exact distinguished-edge coverage; matchingPart is an off-center matching whose endpoints avoid center neighbors; and distinguished is matchingPart union the full center incidence star. Exact degree and center/class-count identities derive the former maximum-degree and center-degree obligations. The high-degree wrapper supplies IsAuxiliaryClassMember with parameter G.maxDegree + 1 from the listed class-count and density hypotheses. The separate checked EquitablePairSingleton adapter now constructs P and proves J.card = D from a supplied equitable independent partition in the range D <= Fintype.card V < 2 * D. Partition existence and the empty graph remain outside this result."
+      "conclusion_expansion": "P.auxiliaryGraph is defined on Option V; P.extension is an Auxiliary.Extension G P.auxiliaryGraph; every selector lies in the corresponding distinguishedEdgeSet; each copied original vertex has exact distinguished-edge coverage; matchingPart is an off-center matching whose endpoints avoid center neighbors; and distinguished is matchingPart union the full center incidence star. Exact degree and center/class-count identities derive the former maximum-degree and center-degree obligations. The high-degree wrapper supplies IsAuxiliaryClassMember with parameter G.maxDegree + 1 from the listed class-count and density hypotheses. The separate checked EquitablePairSingleton adapter constructs P and proves J.card = D from a supplied equitable independent partition in the range D <= Fintype.card V < 2 * D. The project-level terminal theorem discharges witness construction and the empty branch by a different route."
     },
     {
       "id": "supplied-equitable-partition-high-degree-transfer",
@@ -159,22 +168,56 @@
       ],
       "palette": "ExtensionPalette (G.maxDegree + 1) = Fin ((G.maxDegree + 1) + 2), hence G.maxDegree + 3 colors",
       "output_kind": "conditional propositional existence of a semantically valid total-coloring assignment",
-      "conclusion_expansion": "There exists assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)) with assignment.Valid. The theorem constructs the pair/singleton witness, proves the exact distinguished count, establishes InAuxiliaryClass, and invokes the checked auxiliary-to-total transfer. It does not prove that Q exists for an arbitrary target graph and does not handle the empty graph.",
-      "remaining_unproved_inputs": [
+      "conclusion_expansion": "There exists assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)) with assignment.Valid. This reusable conditional theorem constructs the pair/singleton witness, proves the exact distinguished count, establishes InAuxiliaryClass, and invokes the checked auxiliary-to-total transfer. By itself it does not construct Q or handle the empty graph; those project-level seams are discharged by TotalColoring.exists_valid_assignment_of_highDegree.",
+      "declaration_local_missing_inputs": [
         "existence of Q for every nonempty graph satisfying the intended high-degree hypotheses, potentially via a complement-matching construction",
         "the separate empty-graph base case"
-      ]
+      ],
+      "project_level_status": "discharged by the terminal high-degree theorem"
+    },
+    {
+      "id": "end-to-end-high-degree-total-coloring",
+      "declaration": "TotalColoring.exists_valid_assignment_of_highDegree",
+      "supporting_declarations": [
+        "TotalColoring.MatchingLowerBound.exists_complement_matchingGraph_edgeFinset_card_eq",
+        "TotalColoring.Auxiliary.exists_pairSingletonWitness_of_highDegree",
+        "TotalColoring.Auxiliary.exists_valid_assignment_of_highDegree_nonempty",
+        "TotalColoring.exists_valid_assignment_of_isEmpty"
+      ],
+      "module": "TotalColoring.HighDegreeTotalColoring",
+      "source_path": "TotalColoring/HighDegreeTotalColoring.lean",
+      "introduced_in_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
+      "verified_proof_tree": "4624044788ab42c0dc116cfbf7f38c696065263c",
+      "verified_source_archive_sha256": "302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077",
+      "signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (G : SimpleGraph V) -> [DecidableRel G.Adj] -> Fintype.card V <= 2 * G.maxDegree -> exists assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)), assignment.Valid",
+      "scope": "every finite simple graph with decidable vertex equality and adjacency satisfying the half-order density inequality, including the empty vertex type and with no parity hypothesis",
+      "hypotheses": [
+        "Fintype V",
+        "DecidableEq V",
+        "DecidableRel G.Adj",
+        "Fintype.card V <= 2 * G.maxDegree"
+      ],
+      "palette": "ExtensionPalette (G.maxDegree + 1) = Fin (G.maxDegree + 3)",
+      "output_kind": "propositional existence of a semantically valid total-coloring assignment",
+      "conclusion_expansion": "The nonempty branch obtains an exact complement matching, builds the pair/singleton witness, enters the checked auxiliary class, and decodes a valid assignment. The empty branch uses a separate vacuous assignment theorem. This is a Lean-package theorem; it is not the author-locked paper theorem, a Delta + 2 theorem, the unrestricted Total Coloring Conjecture, or a novelty claim.",
+      "proof_tree_trust_jobs": [
+        "5388311",
+        "5388312",
+        "5388313",
+        "5388314",
+        "5388315"
+      ],
+      "publishable_tree_verification_status": "not inherited from the proof-tree receipts; require an external exact-tree gate and public CI receipt naming the later tree"
     }
   ],
   "not_proved": [
     "the Total Coloring Conjecture",
     "an unrestricted total-coloring theorem for all finite graph orders",
     "the proposed high-degree total-coloring theorem with Delta + 2 colors",
-    "an end-to-end high-degree total-coloring theorem with Delta + 3 colors from graph hypotheses alone; the supplied-partition conditional theorem is proved",
-    "existence, for every nonempty graph in the intended high-degree regime, of the equitable independent partition with D = G.maxDegree + 1",
-    "the prospective complement-matching construction that would supply the required partition",
-    "the separate empty-graph base case",
-    "an end-to-end corollary from an arbitrary input graph",
+    "an end-to-end Delta + 3 theorem without the half-order density hypothesis",
+    "an author-approved or manuscript-integrated paper theorem; the checked package declaration is not identified with the manuscript theorem",
+    "an executable total-coloring construction or a complexity bound",
+    "the equality chi''(G) = Delta(G) + 3 or use of every palette color; the theorem gives existence into a palette of that cardinality",
     "the stronger D + 1 auxiliary palette",
     "novelty of any formal result"
   ],
@@ -299,6 +342,52 @@
     "equitable_partition_adapter_trust_elapsed": "00:14:09",
     "equitable_partition_adapter_trust_max_rss_kb": 144777340,
     "equitable_partition_adapter_trust_requested_memory": "330G",
+    "terminal_proof_tree": "4624044788ab42c0dc116cfbf7f38c696065263c",
+    "terminal_source_archive_sha256": "302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077",
+    "terminal_trust_scope": "cache refresh, HighDegreeTotalColoring target, umbrella, full build, Quickstart, and leanchecker",
+    "terminal_trust_jobs": [
+      {
+        "job": "5388311",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node417",
+        "elapsed": "00:14:21",
+        "max_rss_kb": 140371724
+      },
+      {
+        "job": "5388312",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node506",
+        "elapsed": "00:14:01",
+        "max_rss_kb": 140162776
+      },
+      {
+        "job": "5388313",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node922",
+        "elapsed": "00:07:14",
+        "max_rss_kb": 86165748
+      },
+      {
+        "job": "5388314",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node924",
+        "elapsed": "00:04:47",
+        "max_rss_kb": 65441888
+      },
+      {
+        "job": "5388315",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node510",
+        "elapsed": "00:14:47",
+        "max_rss_kb": 89498688
+      }
+    ],
+    "terminal_publishable_tree_gate": "proof-tree receipts are non-transferable; consult the external exact-tree gate and public CI receipt for the publishable commit",
     "pair_singleton_structural_superseded_job": "5387869",
     "pair_singleton_structural_superseded_job_state": "CANCELED_BEFORE_RUN",
     "latest_release": "v0.1.0",
