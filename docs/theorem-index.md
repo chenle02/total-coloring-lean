@@ -16,8 +16,13 @@ internal lemmas.
 
 The exact proof-development tree
 `4624044788ab42c0dc116cfbf7f38c696065263c` passed five separate high-memory
-full/Quickstart/`leanchecker` jobs, `5388311` through `5388315`. That is a
-receipt for the named proof tree, not yet for a later publication tree.
+full/Quickstart/`leanchecker` jobs, `5388311` through `5388315`. The later
+publishable commit `06d43af7`, exact tree
+`89a32c7a78e294a8b1484092ec79afaa3b4ace5a`, received its own Wave 11 gate:
+leaf `5388961`, all 64 distinct matrix roles after narrow repairs, container
+`mk_all --check` job `5389029`, and independent host trust jobs
+`5389030`--`5389032`. PR #8 merged that exact tree into `main` as `0e938606`;
+PR-head and post-merge Lean/docs CI passed.
 
 ## Matching construction
 

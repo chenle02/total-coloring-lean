@@ -219,12 +219,29 @@ full package build, Quickstart checks, and `leanchecker`:
 Each job ended with its terminal trust success marker naming tree
 `4624044788ab42c0dc116cfbf7f38c696065263c`.
 
-This proof-tree receipt is not a publication receipt for any later integrated
-Git tree. A final publication gate must also run the repository's canonical
-raw-text proof-escape scan. Documentation edits, integration commits, public
-CI, and any resulting tree hash must receive their own exact-tree gate before
-the public branch is described as verified at that later tree; the receipt is
-recorded externally so it does not alter the tree it certifies.
+Those proof-tree receipts are not transferred to a later integrated Git tree.
+The publishable proof commit therefore received a separate gate. Commit
+`06d43af7f4ea8fefea9e07e2bc29bdc960548171` has exact tree
+`89a32c7a78e294a8b1484092ec79afaa3b4ace5a`; its source archive SHA-256 is
+`c9950b9e8af364a0d2ef3c08d80f06786ea36d3e6a5bf728054f7824612b4331`.
+Wave 11 leaf job `5388961` passed the terminal target and proof-escape scan.
+The original matrix plus narrow harness/runtime repairs covered all 64
+distinct roles; container job `5389029` passed `mk_all --check`. Three
+independent host trust jobs passed cache refresh, the terminal target,
+umbrella/full builds, Quickstart/API checks, the proof-escape scan, and
+`leanchecker`:
+
+| Job | Node | Partition | Elapsed | MaxRSS |
+| --- | --- | --- | ---: | ---: |
+| `5389030` | `node507` | `bigmem4` | `00:16:08` | `133010668K` |
+| `5389031` | `node922` | `nova_super` | `00:07:40` | `91584968K` |
+| `5389032` | `node924` | `nova_bg` | `00:04:44` | `58874M` |
+
+PR-head Lean/docs runs `29622668742`/`29622668714` passed. PR #8 merged as
+`0e938606f81e7a27a5925987824e7152f7dbb4c6`, whose tree is exactly the
+verified tree. Post-merge main Lean/docs runs
+`29622728654`/`29622728662` also passed. The receipt is external to the tree it
+certifies, so recording these job IDs does not invalidate that exact-tree gate.
 
 ## Earlier public layers
 
@@ -237,8 +254,8 @@ recorded externally so it does not alter the tree it certifies.
   [#6](https://github.com/chenle02/total-coloring-lean/pull/6).
 - The pair/singleton structural and numerical layers, complement-witness
   adapter, matching lemmas, empty base case, and terminal high-degree wrapper
-  were developed subsequently on PR #8's branch. Exact publication status is
-  determined by the public branch and CI, not by this prose.
+  were developed subsequently on PR #8's branch and merged into `main` as
+  `0e938606f81e7a27a5925987824e7152f7dbb4c6` after the exact-tree gate above.
 - Release `v0.1.0` predates these result layers. Cite an exact commit or exact
   verified tree until a later release includes the declaration used.
 

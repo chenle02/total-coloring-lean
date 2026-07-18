@@ -1,10 +1,12 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
-    "commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
-    "tree": "705a98148126042fb03debfc0d1aab4bb8108467",
+    "commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
+    "tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+    "default_branch_merge_commit": "0e938606f81e7a27a5925987824e7152f7dbb4c6",
+    "default_branch_merge_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
     "adapter_layer_commit": "a441fbfa1e404dc7610e0c32c80dd692cd938c20",
     "adapter_layer_tree": "0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7",
     "adapter_source_archive_sha256": "736db25ca7d25fb0eed8431e435e80bc94287e1ae88f9dea806ddba2c1b544f4",
@@ -20,18 +22,19 @@
     "terminal_source_archive_sha256": "302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077",
     "terminal_integration_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
     "terminal_integration_tree_before_public_claim_updates": "705a98148126042fb03debfc0d1aab4bb8108467",
-    "terminal_content_relation": "the four terminal Lean module blobs in the integration commit are byte-identical to their independently verified component sources; the terminal proof tree has five full trust passes, while the later public-claim integration tree requires its own final gate",
+    "terminal_content_relation": "the four terminal Lean module blobs in the integration commit are byte-identical to their independently verified component sources; the terminal proof tree has five full trust passes, and the later publishable tree received its own Wave 11 exact-tree gate plus PR-head and post-merge public CI",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
     "default_branch": {
       "name": "main",
-      "commit": "76cd929d13168485ef4b9b43b5e684ab9687d87d",
+      "contains_result_from_merge_commit": "0e938606f81e7a27a5925987824e7152f7dbb4c6",
+      "result_merge_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
       "contains_all_orders_auxiliary_result": true,
       "contains_conditional_transfer": true,
-      "contains_supplied_pair_singleton_extension": false,
-      "contains_equitable_partition_adapter": false,
-      "contains_end_to_end_high_degree_result": false
+      "contains_supplied_pair_singleton_extension": true,
+      "contains_equitable_partition_adapter": true,
+      "contains_end_to_end_high_degree_result": true
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
@@ -49,9 +52,14 @@
       "numeric_source_tree": "7207e2a282ff829fba9737e93154f46f385ef879",
       "terminal_integration_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
       "terminal_integration_tree_before_public_claim_updates": "705a98148126042fb03debfc0d1aab4bb8108467",
-      "merge_status": "unmerged",
-      "pull_request_state": "draft",
+      "publishable_commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
+      "publishable_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+      "branch_status": "deleted-after-merge",
+      "merge_status": "merged",
+      "pull_request_state": "merged",
       "pull_request": 8,
+      "merge_commit": "0e938606f81e7a27a5925987824e7152f7dbb4c6",
+      "merge_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
       "base_branch": "main"
     }
   },
@@ -189,6 +197,9 @@
       "introduced_in_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
       "verified_proof_tree": "4624044788ab42c0dc116cfbf7f38c696065263c",
       "verified_source_archive_sha256": "302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077",
+      "verified_publishable_commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
+      "verified_publishable_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+      "verified_publishable_source_archive_sha256": "c9950b9e8af364a0d2ef3c08d80f06786ea36d3e6a5bf728054f7824612b4331",
       "signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (G : SimpleGraph V) -> [DecidableRel G.Adj] -> Fintype.card V <= 2 * G.maxDegree -> exists assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)), assignment.Valid",
       "scope": "every finite simple graph with decidable vertex equality and adjacency satisfying the half-order density inequality, including the empty vertex type and with no parity hypothesis",
       "hypotheses": [
@@ -207,7 +218,7 @@
         "5388314",
         "5388315"
       ],
-      "publishable_tree_verification_status": "not inherited from the proof-tree receipts; require an external exact-tree gate and public CI receipt naming the later tree"
+      "publishable_tree_verification_status": "passed a separate Wave 11 exact-tree gate, PR-head CI, and post-merge main CI; the external PR receipt names the certified tree without changing it"
     }
   ],
   "not_proved": [
@@ -239,7 +250,11 @@
     "conditional_transfer_public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29597109189",
     "conditional_transfer_public_ci_conclusion": "success",
     "pair_singleton_extension_pull_request": 8,
-    "pair_singleton_extension_pull_request_state": "draft",
+    "pair_singleton_extension_pull_request_state": "merged",
+    "pair_singleton_extension_publishable_commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
+    "pair_singleton_extension_publishable_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+    "pair_singleton_extension_merge_commit": "0e938606f81e7a27a5925987824e7152f7dbb4c6",
+    "pair_singleton_extension_merge_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
     "pair_singleton_extension_easley_job": "5387831",
     "pair_singleton_extension_easley_state": "COMPLETED",
     "pair_singleton_extension_easley_exit_code": "0:0",
@@ -387,7 +402,69 @@
         "max_rss_kb": 89498688
       }
     ],
-    "terminal_publishable_tree_gate": "proof-tree receipts are non-transferable; consult the external exact-tree gate and public CI receipt for the publishable commit",
+    "terminal_publishable_commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
+    "terminal_publishable_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+    "terminal_publishable_source_archive_sha256": "c9950b9e8af364a0d2ef3c08d80f06786ea36d3e6a5bf728054f7824612b4331",
+    "terminal_publishable_leaf_job": "5388961",
+    "terminal_publishable_leaf_state": "COMPLETED",
+    "terminal_publishable_leaf_exit_code": "0:0",
+    "terminal_publishable_matrix_original_job": "5388962",
+    "terminal_publishable_matrix_original_green_roles": 54,
+    "terminal_publishable_matrix_repair_jobs": [
+      {
+        "job": "5389033",
+        "successful_role_indices": [39, 40, 42, 43, 44, 45, 47, 48],
+        "redundant_success_role_indices": [46],
+        "failed_role_indices": [41],
+        "failed_role_repaired_by": "5389046_41"
+      },
+      {
+        "job": "5389046_41",
+        "successful_role_indices": [41]
+      },
+      {
+        "job": "5389029",
+        "successful_role_indices": [57],
+        "purpose": "compatible-container mk_all role"
+      }
+    ],
+    "terminal_publishable_matrix_distinct_roles_green": 64,
+    "terminal_publishable_mk_all_job": "5389029",
+    "terminal_publishable_mk_all_state": "COMPLETED",
+    "terminal_publishable_host_trust_jobs": [
+      {
+        "job": "5389030",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node507",
+        "partition": "bigmem4",
+        "elapsed": "00:16:08",
+        "max_rss_kb": 133010668
+      },
+      {
+        "job": "5389031",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node922",
+        "partition": "nova_super",
+        "elapsed": "00:07:40",
+        "max_rss_kb": 91584968
+      },
+      {
+        "job": "5389032",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node": "node924",
+        "partition": "nova_bg",
+        "elapsed": "00:04:44",
+        "max_rss_kb": 60286976
+      }
+    ],
+    "terminal_publishable_pr_head_lean_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29622668742",
+    "terminal_publishable_pr_head_docs_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29622668714",
+    "terminal_publishable_main_lean_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29622728654",
+    "terminal_publishable_main_docs_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29622728662",
+    "terminal_publishable_tree_gate": "passed on the exact named tree; the external PR body records the terminal receipt so adding job IDs does not change the certified tree",
     "pair_singleton_structural_superseded_job": "5387869",
     "pair_singleton_structural_superseded_job_state": "CANCELED_BEFORE_RUN",
     "latest_release": "v0.1.0",

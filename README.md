@@ -189,9 +189,8 @@ The conditional transfer was introduced at
 [`9bdcdec`](https://github.com/chenle02/total-coloring-lean/commit/9bdcdec1a872ccef42cfd79e791fe39c22a1beeb).
 The supplied-witness extension seam was introduced at
 [`dc2a318`](https://github.com/chenle02/total-coloring-lean/commit/dc2a318be1dd1475b90c492ad460c4180a3fbdec)
-on draft PR [#8](https://github.com/chenle02/total-coloring-lean/pull/8); it is
-not on `main` unless that PR has since been merged. The qualitative structural
-layer is commit `7aa102b…`, exact Git tree
+on PR [#8](https://github.com/chenle02/total-coloring-lean/pull/8). The
+qualitative structural layer is commit `7aa102b…`, exact Git tree
 `4b6440a0df108f47f5c120e7e0187c058a462138`. Its full cache-refresh, build,
 Quickstart, forbidden-token, and leanchecker gate passed on Easley in job
 `5387870` (`COMPLETED`, exit `0:0`); independent trust job `5387882` also
@@ -205,9 +204,9 @@ completed with exit `0:0`; Nova build-only job `5387933` also completed with
 exit `0:0`. Public [Lean CI](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994477)
 and [docs](https://github.com/chenle02/total-coloring-lean/actions/runs/29612994502)
 passed at `343b7b8…`. Jobs `5387930` and `5387932` were diagnostic
-infrastructure failures, not verification receipts or proof failures. PR #8
-remains draft. The supplied-partition adapter is commit `a441fbf…`, exact code
-tree `0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7`; its source-archive SHA-256 is
+infrastructure failures, not verification receipts or proof failures. The
+supplied-partition adapter is commit `a441fbf…`, exact code tree
+`0e9b04a2acabae0cb0612e5e3cbf0344cc2f94f7`; its source-archive SHA-256 is
 `736db25ca7d25fb0eed8431e435e80bc94287e1ae88f9dea806ddba2c1b544f4`.
 Leaf job `5387980`, Nova full build job `5387981`, and high-memory
 full/Quickstart/leanchecker trust job `5387982` all completed with exit `0:0`.
@@ -218,10 +217,29 @@ The completed terminal proof tree is
 `302bc3f00bf5d8c1ce563d2bc84d1370e627c81d219e8d8085b286a21d530077`.
 Five separate terminal full-build, Quickstart, and leanchecker replays
 (`5388311`--`5388315`) completed with exit `0:0` and empty stderr. These jobs
-certify that exact proof tree only. Because the later public-claim integration
-produces a new Git tree, they are not a trust receipt for the eventual
-publishable tree; certification of that tree requires its own final gate and
-public CI, recorded externally against the exact tree.
+certify that exact proof tree only.
+
+The publishable proof commit is
+[`06d43af`](https://github.com/chenle02/total-coloring-lean/commit/06d43af7f4ea8fefea9e07e2bc29bdc960548171),
+with exact Git tree `89a32c7a78e294a8b1484092ec79afaa3b4ace5a` and
+source-archive SHA-256
+`c9950b9e8af364a0d2ef3c08d80f06786ea36d3e6a5bf728054f7824612b4331`.
+Wave 11 leaf job `5388961` passed, and the union of the original matrix plus
+narrow harness/runtime repairs covered all 64 distinct verification roles.
+Container job `5389029` passed `mk_all --check`; independent host trust jobs
+`5389030`, `5389031`, and `5389032` passed cache refresh, the terminal target,
+umbrella and full builds, Quickstart/API checks, the proof-escape scan, and
+`leanchecker` on that exact tree. PR-head Lean/docs runs
+[`29622668742`](https://github.com/chenle02/total-coloring-lean/actions/runs/29622668742)
+and
+[`29622668714`](https://github.com/chenle02/total-coloring-lean/actions/runs/29622668714)
+passed. PR #8 merged as
+[`0e93860`](https://github.com/chenle02/total-coloring-lean/commit/0e938606f81e7a27a5925987824e7152f7dbb4c6),
+whose tree is exactly the verified tree; post-merge main Lean/docs runs
+[`29622728654`](https://github.com/chenle02/total-coloring-lean/actions/runs/29622728654)
+and
+[`29622728662`](https://github.com/chenle02/total-coloring-lean/actions/runs/29622728662)
+also passed.
 Release `v0.1.0` predates these result layers; cite the exact commit or a later
 release that actually contains them.
 

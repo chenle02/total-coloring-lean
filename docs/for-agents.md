@@ -53,8 +53,10 @@ for one does not automatically verify the other.
 - Keep package proof status and publication trust separate. The exact
   proof-development tree `4624044788ab42c0dc116cfbf7f38c696065263c`
   passed five separate high-memory full/Quickstart/`leanchecker` jobs
-  (`5388311` through `5388315`). A later integrated Git tree needs its own
-  exact-tree gate and public CI before receiving the same trust statement.
+  (`5388311` through `5388315`). The later publishable tree
+  `89a32c7a78e294a8b1484092ec79afaa3b4ace5a` received its own Wave 11
+  exact-tree gate and PR-head plus post-merge public CI before PR #8 merged it
+  into `main`.
 - Do not say release `v0.1.0` contains the terminal theorem; cite a later exact
   commit or release that actually contains it.
 

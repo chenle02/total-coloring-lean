@@ -129,6 +129,9 @@ and empty-graph seams inside the Lean package. The exact proof-development tree
 full/Quickstart/`leanchecker` replays (jobs `5388311` through `5388315`).
 
 That receipt applies to the named proof tree. It must not be silently promoted
-to a later integration or publication tree. The package theorem also does not
-lock a manuscript theorem, establish novelty, prove the stronger palette, or
-settle the Total Coloring Conjecture.
+to a later integration or publication tree. Accordingly, the later publishable
+tree `89a32c7a78e294a8b1484092ec79afaa3b4ace5a` received a separate Wave 11
+exact-tree gate and public CI before PR #8 merged it into `main` as
+`0e938606`. The package theorem still does not lock a manuscript theorem,
+establish novelty, prove the stronger palette, or settle the Total Coloring
+Conjecture.
