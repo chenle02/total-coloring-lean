@@ -64,6 +64,7 @@ import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
 import TotalColoring.HighDegreeComplementMatching
 import TotalColoring.HighDegreeTotalColoring
+import TotalColoring.IndependentSeed
 import TotalColoring.Kempe
 import TotalColoring.MatchingExact
 import TotalColoring.MatchingLowerBound
