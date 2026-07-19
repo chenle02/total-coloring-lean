@@ -75,6 +75,7 @@ import TotalColoring.MissingGeneralCount
 import TotalColoring.OrderedFan
 import TotalColoring.PairSingletonExtension
 import TotalColoring.Partial
+import TotalColoring.PartialEdgeSelector
 import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap
 import TotalColoring.RainbowSwap
