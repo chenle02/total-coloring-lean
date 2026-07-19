@@ -53,6 +53,19 @@
       as explicit hypotheses. Two sealed Easley trust replays passed at exact
       source tree <code>9af6a84e...</code>.
     </p>
+    <p>
+      The later proof branch
+      <code>agent/total-independent-selector-decoder</code> checks a broader
+      supplied-witness decoder: an independent fresh-color vertex set may be
+      combined with a matching of fresh-color edges avoiding it, an
+      actual-list-colored core, and a core-relative peel certificate. An
+      explicit alternating rainbow-path certificate wrapper checks the donor
+      exchange. The maximum-degree wrappers have palette
+      <code>Fin (G.maxDegree + 2)</code>, but all edge-coloring,
+      selector/core, path, and peel witnesses remain hypotheses. Exact source
+      tree <code>1847934c...</code> passed sealed Easley job
+      <code>5391803</code>.
+    </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
@@ -61,10 +74,11 @@
       This package does not prove the Total Coloring Conjecture or an
       unconditional <code>Delta + 2</code> theorem, and it does not establish a
       paper theorem or novelty claim. The proof-branch endpoint does not prove
-      Vizing's theorem or existence of its seed/certificate inputs. Those
+      Vizing's theorem or existence of its seed/certificate inputs. The newer
+      selector branch likewise does not prove existence of its selector,
+      canonical core, peel order, or alternating rainbow path. Those
       manuscript claims remain under their own author and literature-review
-      gates. The merged public proof tree and the separate endpoint source tree
-      each received tree-specific verification.
+      gates. Each cited source tree received tree-specific verification.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -93,13 +107,21 @@ import TotalColoring
   .exists_valid_assignment_of_highDegreePartition
 #check TotalColoring.exists_valid_assignment_of_independentSeedPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
+#check TotalColoring.SelectorCorePeelCertificate
+#check TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
+#check TotalColoring.AlternatingRainbowPathSelectorCertificate
+#check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+#check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
 ```
 
-The last two declarations currently require proof branch
-`agent/independent-seed-endpoint`; they are not yet on `main`. These coloring
-declarations are propositional existence theorems. They do not compute a
-coloring from external data. For executable finite certificates, begin with
-`TotalColoring.Certificate` and its soundness theorems.
+The independent-seed declarations require proof branch
+`agent/independent-seed-endpoint`; the six selector/path declarations after
+them require `agent/total-independent-selector-decoder`. None is yet on
+`main`. These coloring declarations are propositional existence theorems.
+They do not compute a coloring from external data. For executable finite
+certificates, begin with `TotalColoring.Certificate` and its soundness
+theorems.
 
 ## Choose your route
 

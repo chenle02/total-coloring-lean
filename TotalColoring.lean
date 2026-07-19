@@ -81,6 +81,7 @@ import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.SimpleReachability
 import TotalColoring.Total
+import TotalColoring.TotalIndependentSelector
 import TotalColoring.TwoColorEndpointCapacity
 import TotalColoring.TwoColorGeometry
 import TotalColoring.TwoColorPath

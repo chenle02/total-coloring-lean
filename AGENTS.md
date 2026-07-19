@@ -142,11 +142,26 @@ boundaries take priority over breadth or automation.
   every witness as an explicit input. Neither declaration proves Vizing's
   theorem or seed/certificate existence, and neither is on `main` before
   merge.
+- Proof branch `agent/total-independent-selector-decoder` adds the checked
+  `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel` and
+  maximum-degree wrapper, plus an explicit alternating rainbow-path
+  certificate and its two wrappers, at source commit
+  `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
+  `1847934c78da03fe80bb67236868700c79016129`. The general decoder requires a
+  supplied proper `Fin q` edge coloring, an independent fresh-color vertex
+  set, a matching fresh-color edge set avoiding those vertices, an
+  actual-list-colored core, and a core-relative peel certificate; it concludes
+  a valid assignment in `Fin (q + 1)`. The path wrapper checks the donor
+  exchange from an explicit indexed rainbow-path/spare/matching/core/peel
+  certificate. No declaration constructs Vizing's edge coloring, a canonical
+  selector or core, the peel certificate, or the path. The maximum-degree
+  wrappers are conditional `Fin (G.maxDegree + 2)` implications only, and the
+  declarations are not on `main` before merge.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   manuscript's still-unlocked main theorem, an unconditional `Delta + 2`
   conclusion, or an unrestricted total-coloring theorem outside the explicit
   hypotheses of a checked declaration. Do not attach a novelty claim to the
-  checked terminal or independent-seed theorem.
+  checked terminal, independent-seed, or selector theorem.
 - The checked all-orders theorem is confined to the exact formal predicate
   `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
   total-coloring palette only after a supplied extension is provided. The
@@ -173,6 +188,12 @@ boundaries take priority over breadth or automation.
   umbrella/full, Quickstart, declaration/axiom, `leanchecker`, JSON/diff, and
   exact-tree gates. These receipts verify the conditional declarations only;
   they do not discharge their supplied mathematical hypotheses.
+- The total-independent selector exact source tree `1847934c…` separately
+  passed sealed Easley job `5391803`, exit `0:0`, through exact-tree
+  reconstruction, strict leaf, target/umbrella/full, Quickstart,
+  declaration/axiom, `leanchecker`, JSON/diff, and cache-archive gates. Its
+  source commit is `d008514…`. This verifies the conditional declarations,
+  not existence of their selector/core/peel/path inputs.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not

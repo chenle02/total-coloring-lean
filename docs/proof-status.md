@@ -127,6 +127,115 @@ These are trust receipts for the conditional declarations at source commit
 `cc4dd7ae…`; they do not construct or verify the endpoint's supplied
 mathematical witnesses for an arbitrary graph.
 
+## Proof-branch total-independent selector decoder
+
+Proof branch `agent/total-independent-selector-decoder` extends the preceding
+endpoint at source commit `d008514c7a1cf834007bf0bd8de0d10a93926711`,
+exact tree `1847934c78da03fe80bb67236868700c79016129`. Its general public
+declaration is:
+
+```lean
+TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+```
+
+Beyond finite/decidable graph structure, its complete supplied-input boundary
+is:
+
+```text
+phi : EdgeAssignment G (Fin q)
+phi.Valid
+S : Finset V
+G.IsIndepSet (S : Set V)
+F : Finset G.edgeSet
+EdgeFinsetIsMatching F
+EdgeFinsetAvoids F S
+K : Finset V
+g0 : V -> Fin q
+SelectorOldColoringGoodOn G phi S F K g0
+cert : SelectorCorePeelCertificate G S K q
+------------------------------------------------------------
+exists assignment : Assignment G (Fin (q + 1)), assignment.Valid
+```
+
+The decoder assigns the fresh color to every vertex in `S` and every edge in
+`F`. Independence, matching, and avoidance handle conflicts among those
+fresh-color objects. On `K \ S`, `g0` is an actual-list coloring: each vertex
+color avoids incident edges not moved to the fresh color, and adjacent
+old-colored vertices have different colors. The peel certificate records
+`S ⊆ K`, a duplicate-free order covering exactly the complement of `K`, and
+the core-relative inequality
+
+```text
+(G.neighborFinset v ∩ ((K \ S) ∪ tail.toFinset)).card
+  < q - G.degree v
+```
+
+at each step. Lean checks the reverse greedy extension and the final total
+assignment.
+
+The direct specialization
+
+```lean
+TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
+```
+
+sets `q = G.maxDegree + 1` and concludes a valid assignment in
+`Fin (G.maxDegree + 2)`. It does not construct the proper edge coloring,
+`S`, `F`, the core coloring, or the peel certificate.
+
+### Explicit alternating rainbow-path wrapper
+
+The same module defines
+`TotalColoring.AlternatingRainbowPathSelectorCertificate`. It stores indexed
+path vertices and edges, injective vertices, exact consecutive endpoints,
+core spanning, pairwise-distinct path-edge colors, a globally unused old
+spare color, alternating old-lift and fresh-edge families, both matching
+proofs, avoidance of the start vertex by fresh edges, the successor core
+colors, and the core-relative peel certificate.
+
+From that explicit certificate,
+
+```lean
+TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+```
+
+checks the donor exchange: alternating edges moved to the unused old spare or
+to the fresh total color free their original colors for successor vertices.
+Rainbow distinctness makes those supplied core colors proper. The theorem then
+invokes the general selector decoder. Its maximum-degree wrapper concludes
+`Fin (G.maxDegree + 2)`.
+
+!!! warning "Remaining existence seams"
+
+    Neither path wrapper proves Vizing's theorem, constructs a proper
+    `(Delta + 1)` edge coloring, selects a suitable total-independent set or
+    canonical core, proves the core coloring and peel inequalities, or proves
+    existence of the alternating rainbow path. All of those facts remain
+    fields or arguments of the checked declarations. These are conditional
+    decoder theorems, not the unrestricted Total Coloring Conjecture.
+
+### Exact selector proof-source trust receipt
+
+Sealed Easley job `5391803` rebuilt and audited the exact source tree on
+node411. It completed `0:0` in 16m09s with peak RSS `125399676K`. The source
+archive SHA-256 was
+`9ba0103e358cd761c6e591cfa00b13352236ff2b1774df1fd2f75cba8215561c`;
+the module SHA-256 was
+`21c0c665d1a29369295c38db8af99f4fe54b24478e9cc079e6fe8fdc26eed4d7`;
+and the outgoing cache SHA-256 was
+`1b398677c310ff2db0c9a1afa9a3e65f77691bd92123914dfa17a2387635e4bc`.
+The gate covered exact-tree reconstruction, strict leaf compilation,
+target/umbrella/full builds, Quickstart, axiom inspection, `leanchecker`,
+JSON/diff checks, and cache archiving. This receipt establishes correctness of
+the formal implications at the named tree, not existence of their inputs.
+
+!!! warning "Distribution boundary"
+
+    The selector declarations are on
+    `agent/total-independent-selector-decoder`, not on `main`. The branch is
+    based on `agent/independent-seed-endpoint` and therefore contains those
+    earlier declarations as well.
+
 ## Checked end-to-end route
 
 ### 1. A matching lower bound
@@ -284,6 +393,9 @@ The checked declarations do **not** establish:
   required by the independent-seed endpoint;
 - universal existence of an independent seed and peel certificate satisfying
   that endpoint;
+- universal existence of the selector matching, actual-list core coloring,
+  core-relative peel certificate, or alternating rainbow-path certificate
+  required by the total-independent selector wrappers;
 - a locked or fully proved theorem in the separate research manuscript;
 - novelty of the package theorem or of any proposed manuscript result;
 - an executable coloring extractor for arbitrary external graph data; or
@@ -295,11 +407,11 @@ The checked declarations do **not** establish:
     The checked terminal palette is
     `ExtensionPalette (G.maxDegree + 1)`, definitionally
     `Fin (G.maxDegree + 3)`. Do not shorten this terminal theorem to a stronger
-    palette. The separate `Fin (q + 1)` independent-seed theorem is conditional
-    on its proper edge coloring, independent seed, and peel certificate; it
-    does not alter this terminal palette. Do not identify either package result
-    with a manuscript claim without the manuscript's independent theorem and
-    novelty gates.
+    palette. The separate `Fin (q + 1)` independent-seed and
+    total-independent selector theorems are conditional on their displayed
+    proper edge coloring and certificate inputs; they do not alter this
+    terminal palette. Do not identify any package result with a manuscript
+    claim without the manuscript's independent theorem and novelty gates.
 
 ## Exact proof-tree verification receipt
 
@@ -368,4 +480,7 @@ default-branch commit remain authoritative for `main` if prose and code
 disagree. The independent-seed declarations are separately authoritative only
 at proof-branch source commit
 `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
-`9af6a84e1305aed9a0156dcd59c279de792dea4a`, until merged.
+`9af6a84e1305aed9a0156dcd59c279de792dea4a`, until merged. The selector/path
+declarations are separately authoritative at source commit
+`d008514c7a1cf834007bf0bd8de0d10a93926711`, tree
+`1847934c78da03fe80bb67236868700c79016129`, until merged.
