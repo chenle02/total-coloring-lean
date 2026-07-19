@@ -157,6 +157,20 @@ boundaries take priority over breadth or automation.
   selector or core, the peel certificate, or the path. The maximum-degree
   wrappers are conditional `Fin (G.maxDegree + 2)` implications only, and the
   declarations are not on `main` before merge.
+- Stacked proof branch `agent/partial-edge-selector-normalization` adds the
+  checked partial-edge decoder and exact reverse normalization at source commit
+  `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
+  `11007a4aa381984a8d66aa1db297312cebe8d8b5`. The forward theorem requires
+  old edge properness only outside the selected matching; values on selected
+  edges are overwritten and unconstrained. The selected vertices must still
+  be independent, the selected edges must still be a matching avoiding those
+  vertices, and the old vertex colors retain their allowed/proper conditions.
+  The reverse constructor begins with a supplied valid total assignment and a
+  chosen fresh color, extracts the two fresh color classes and old colors, and
+  records literal equality after decoding. Its maximum-degree notation begins
+  with a supplied `Fin (G.maxDegree + 2)` assignment. It does not construct
+  such a coloring, prove selector existence, or prove the Total Coloring
+  Conjecture, and it is not on `main` before merge.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   manuscript's still-unlocked main theorem, an unconditional `Delta + 2`
   conclusion, or an unrestricted total-coloring theorem outside the explicit

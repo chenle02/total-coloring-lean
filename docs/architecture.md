@@ -107,6 +107,15 @@ indexed path certificate is supplied. These modules do not feed the terminal
 high-degree theorem and do not discharge Vizing, selector/core, peel, or path
 existence.
 
+The stacked `PartialEdgeSelector` module isolates the exact data actually read
+by the semantic decoder. The old edge assignment is proper only outside the
+selected matching; its values on that matching are overwritten. The module
+also gives a reverse normalization for a supplied valid total coloring: choose
+one palette color, take its vertex and edge color classes, and pull the
+remaining colors back through `Fin.succAbove`. This reverse path ends in
+literal equality with the supplied assignment and introduces no coloring
+existence theorem.
+
 ## The matching route in detail
 
 For a nonempty finite graph, put

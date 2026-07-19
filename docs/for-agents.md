@@ -215,6 +215,17 @@ limitations from one interface over to another.
 > does not prove path/certificate existence. Cite proof branch
 > `agent/total-independent-selector-decoder`, not `main`.
 
+### Use the partial-edge normalization safely
+
+> On `agent/partial-edge-selector-normalization`, the forward decoder requires
+> old edge properness only on `E(G) \ F`; values on the matching `F` are
+> ignored. Keep independence of `S`, matching and avoidance for `F`, and the
+> old vertex allowed/proper conditions explicit. The reverse constructor
+> `partialEdgeSelectorNormalization_of_valid` begins with a supplied valid
+> total assignment and proves an exact decomposition of that assignment. Do
+> not turn this converse into an existence claim, an unconditional
+> `Delta + 2` theorem, or a proof of the Total Coloring Conjecture.
+
 ### Audit prose
 
 > Classify every mathematical sentence as kernel-checked at the exact tree,

@@ -66,6 +66,16 @@
       tree <code>1847934c...</code> passed sealed Easley job
       <code>5391803</code>.
     </p>
+    <p>
+      The stacked branch
+      <code>agent/partial-edge-selector-normalization</code> weakens the old
+      edge premise further: colors stored on the selected matching are
+      ignored, and properness is required only outside it. It also gives an
+      exact reverse decomposition of any supplied valid total coloring after
+      choosing one fresh color class. The decoded assignment is literally the
+      supplied assignment. This converse starts from the coloring and does
+      not establish its existence.
+    </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
@@ -77,6 +87,8 @@
       Vizing's theorem or existence of its seed/certificate inputs. The newer
       selector branch likewise does not prove existence of its selector,
       canonical core, peel order, or alternating rainbow path. Those
+      statements are not supplied by the later normalization either, because
+      that construction assumes a valid total coloring as input. Those
       manuscript claims remain under their own author and literature-review
       gates. Each cited source tree received tree-specific verification.
     </p>
@@ -113,12 +125,20 @@ import TotalColoring
 #check TotalColoring.AlternatingRainbowPathSelectorCertificate
 #check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
 #check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
+#check TotalColoring.EdgeAssignment.ValidOutside
+#check TotalColoring.partialEdgeSelectorAssignment_valid
+#check TotalColoring.PartialEdgeSelectorNormalization
+#check TotalColoring.partialEdgeSelectorNormalization_of_valid
+#check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
 ```
 
 The independent-seed declarations require proof branch
 `agent/independent-seed-endpoint`; the six selector/path declarations after
-them require `agent/total-independent-selector-decoder`. None is yet on
-`main`. These coloring declarations are propositional existence theorems.
+them require `agent/total-independent-selector-decoder`. The final five
+partial-edge/normalization declarations require the stacked branch
+`agent/partial-edge-selector-normalization`. None is yet on `main`. The
+forward coloring declarations are propositional existence theorems, while the
+normalization declarations start from a supplied valid assignment.
 They do not compute a coloring from external data. For executable finite
 certificates, begin with `TotalColoring.Certificate` and its soundness
 theorems.
