@@ -22,15 +22,26 @@
 </div>
 
 > [!IMPORTANT]
-> This repository proves an all-orders **auxiliary edge-coloring theorem**, a
-> **conditional auxiliary-to-total transfer**, and the formal high-degree
-> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. For every
-> finite graph satisfying `Fintype.card V ≤ 2 * G.maxDegree`, the latter
-> produces a valid total assignment into a palette of cardinality
-> `G.maxDegree + 3`, hence uses at most that many colors. It includes the empty
-> vertex type and uses no parity hypothesis. It
-> does not prove the Total Coloring Conjecture, a `Delta + 2` result, the
-> manuscript's still-unlocked main theorem, or novelty.
+> The default branch proves an all-orders **auxiliary edge-coloring theorem**,
+> a **conditional auxiliary-to-total transfer**, and the formal high-degree
+> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. The
+> proof branch `agent/independent-seed-endpoint`, at exact source commit
+> `cc4dd7ae1d858ea0583549f88707952e2414bf60` and tree
+> `9af6a84e1305aed9a0156dcd59c279de792dea4a`, additionally contains the
+> conditional endpoint
+> `TotalColoring.exists_valid_assignment_of_independentSeedPeel` and its
+> maximum-degree wrapper
+> `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel`.
+> These two declarations are not yet on the default branch. The high-degree
+> theorem produces a valid total assignment with
+> `G.maxDegree + 3` colors from
+> `Fintype.card V ≤ 2 * G.maxDegree`. The endpoint produces an assignment in
+> `Fin (q + 1)` only from a supplied proper `Fin q` edge coloring, a supplied
+> independent seed, and a supplied peel certificate, with `0 < q`. Setting
+> `q = G.maxDegree + 1` therefore gives a conditional `Delta + 2` palette, but
+> the library does not prove Vizing's theorem or existence of the required
+> seed/certificate. It does not prove the unrestricted Total Coloring
+> Conjecture, the manuscript's still-unlocked main theorem, or novelty.
 
 ## The checked results
 
@@ -162,6 +173,69 @@ Here `ExtensionPalette (G.maxDegree + 1)` has cardinality
 `G.maxDegree + 3`. The theorem covers both empty and nonempty finite vertex
 types and assumes neither even order nor any other parity condition.
 
+### Proof-branch conditional independent-seed endpoint
+
+At proof-branch source commit
+[`cc4dd7ae`](https://github.com/chenle02/total-coloring-lean/commit/cc4dd7ae1d858ea0583549f88707952e2414bf60),
+exact tree `9af6a84e1305aed9a0156dcd59c279de792dea4a`, the separate declaration
+`TotalColoring.exists_valid_assignment_of_independentSeedPeel` has the
+following explicit supplied-input boundary on a finite graph with decidable
+vertex equality and adjacency:
+
+```text
+0 < q
+phi : EdgeAssignment G (Fin q)
+phi.Valid
+A : Finset V
+G.IsIndepSet (A : Set V)
+cert : IndependentSeedPeelCertificate G A q
+------------------------------------------------------------
+exists assignment : Assignment G (Fin (q + 1)), assignment.Valid
+```
+
+The certificate gives a duplicate-free deletion order covering exactly the
+vertices outside `A`; at each step, the number of neighbors later in the order
+is strictly less than `q - G.degree v`. Lean checks the reverse greedy
+construction: vertices in `A` use the one fresh color, while every other
+vertex receives an old-palette color missing from its incident edges and not
+used by its already colored neighbors.
+
+If `q = G.maxDegree + 1`, the conclusion has palette
+`Fin (G.maxDegree + 2)`. This is a conditional `Delta + 2` implication, not an
+unrestricted theorem: the declaration does not construct the proper
+`(Delta + 1)`-edge coloring (the Vizing seam), the independent seed, or its
+peel certificate. It therefore does not prove the Total Coloring Conjecture
+and does not strengthen the unconditional scope of the high-degree
+`Delta + 3` theorem.
+
+For copyable downstream use, the direct wrapper
+`TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel`
+specializes the same implication without a separate `q` argument:
+
+```text
+phi : EdgeAssignment G (Fin (G.maxDegree + 1))
+phi.Valid
+A : Finset V
+G.IsIndepSet (A : Set V)
+cert : IndependentSeedPeelCertificate G A (G.maxDegree + 1)
+------------------------------------------------------------
+exists assignment : Assignment G (Fin (G.maxDegree + 2)), assignment.Valid
+```
+
+This wrapper only performs the maximum-degree substitution. It still does not
+construct `phi`, `A`, or `cert`.
+
+The immutable proof source was independently replayed twice on Easley using a
+sealed offline cache. Jobs `5389587` (node408, 11m40s, peak RSS `121378968K`)
+and `5389588` (node412, 11m39s, peak RSS `122474236K`) both completed `0:0` and
+passed exact-tree reconstruction, strict leaf compilation, umbrella and full
+builds, Quickstart, the declaration/axiom audit, `leanchecker`, and metadata
+gates. These receipts verify the displayed conditional declarations at source
+tree `9af6a84e…`; they do not discharge any mathematical hypothesis.
+
+These declarations and the final two `#check` lines below require the named
+proof branch; `main` does not contain them before merge.
+
 ```lean
 import TotalColoring
 
@@ -179,6 +253,8 @@ import TotalColoring
 #check TotalColoring.Auxiliary.EquitableIndependentPartition
   .exists_valid_assignment_of_highDegreePartition
 #check TotalColoring.exists_valid_assignment_of_highDegree
+#check TotalColoring.exists_valid_assignment_of_independentSeedPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
 ```
 
 The all-orders theorem was introduced at commit
@@ -245,12 +321,18 @@ release that actually contains them.
 
 ### Exact boundary
 
-The library does **not** currently formalize:
+Neither the current default branch nor the independent-seed proof branch
+establishes:
 
 - the Total Coloring Conjecture;
-- the stronger proposed high-degree `Delta + 2` total-coloring conclusion;
-- a total-coloring conclusion for graphs outside the explicit high-degree
-  regime `Fintype.card V ≤ 2 * G.maxDegree`;
+- an unconditional high-degree or all-graphs `Delta + 2` total-coloring
+  conclusion;
+- an unconditional total-coloring conclusion from graph hypotheses alone for
+  graphs outside the explicit high-degree regime
+  `Fintype.card V ≤ 2 * G.maxDegree`;
+- Vizing's theorem or existence of the proper edge-coloring witness required
+  by the conditional independent-seed endpoint;
+- existence of an independent seed and peel certificate for every graph;
 - the stronger auxiliary `D + 1` palette;
 - an identification of the checked declaration with a final, author-approved
   manuscript theorem; or
@@ -262,8 +344,12 @@ supplied original graph while `D` remains abstract. The terminal high-degree
 theorem sets `D = Delta(G) + 1`, constructs the required witness from a
 complement matching, and checks a `Delta + 3` conclusion directly from
 `|V(G)| ≤ 2 Delta(G)`. It also handles the empty vertex type and has no parity
-hypothesis. This formal statement must not be broadened into `Delta + 2`, the
-Total Coloring Conjecture, or an author-approved manuscript or novelty claim.
+hypothesis. This terminal high-degree statement must not be broadened into an
+unconditional `Delta + 2` result, the Total Coloring Conjecture, or an
+author-approved manuscript or novelty claim.
+The separate independent-seed endpoint reaches a `Delta + 2` palette only
+after its proper edge coloring, independent seed, and peel certificate have
+all been supplied; it does not discharge those hypotheses.
 See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).

@@ -26,4 +26,10 @@ import TotalColoring
 #check TotalColoring.Auxiliary.exists_valid_assignment_of_highDegree_nonempty
 #check TotalColoring.exists_valid_assignment_of_isEmpty
 #check TotalColoring.exists_valid_assignment_of_highDegree
+
+-- Proof branch `agent/independent-seed-endpoint`, source commit
+-- `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
+-- `9af6a84e1305aed9a0156dcd59c279de792dea4a`; not yet on `main`.
+#check TotalColoring.exists_valid_assignment_of_independentSeedPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
 #check TotalColoring.Certificate.checkExtension_sound

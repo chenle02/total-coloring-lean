@@ -1,5 +1,5 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
@@ -23,6 +23,10 @@
     "terminal_integration_commit": "43a49aa6f7e7d8cf5c95a22a71a3a92a02db7c45",
     "terminal_integration_tree_before_public_claim_updates": "705a98148126042fb03debfc0d1aab4bb8108467",
     "terminal_content_relation": "the four terminal Lean module blobs in the integration commit are byte-identical to their independently verified component sources; the terminal proof tree has five full trust passes, and the later publishable tree received its own Wave 11 exact-tree gate plus PR-head and post-merge public CI",
+    "independent_seed_proof_branch": "agent/independent-seed-endpoint",
+    "independent_seed_proof_branch_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
+    "independent_seed_proof_branch_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
+    "independent_seed_default_branch_status": "not merged; the default branch does not yet contain the independent-seed declarations",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -34,7 +38,8 @@
       "contains_conditional_transfer": true,
       "contains_supplied_pair_singleton_extension": true,
       "contains_equitable_partition_adapter": true,
-      "contains_end_to_end_high_degree_result": true
+      "contains_end_to_end_high_degree_result": true,
+      "contains_conditional_independent_seed_endpoint": false
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
@@ -60,6 +65,50 @@
       "pull_request": 8,
       "merge_commit": "0e938606f81e7a27a5925987824e7152f7dbb4c6",
       "merge_tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
+      "base_branch": "main"
+    },
+    "independent_seed_proof_branch": {
+      "name": "agent/independent-seed-endpoint",
+      "proof_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
+      "proof_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
+      "contains_conditional_independent_seed_endpoint": true,
+      "contains_maximum_degree_independent_seed_wrapper": true,
+      "merge_status": "not-merged",
+      "default_branch_contains_result": false,
+      "source_archive_sha256": "cdee04ebfed9da64ad6b579f74f18d0ac80fec06047a87668fecf95e9f891db7",
+      "module_sha256": "47d25f6d5ef2766b43b290d1a28502a8469013cd845c84b3b85095e8c610ea12",
+      "sealed_offline_verification": {
+        "cache_sha256": "d0950006c5b6bb292484e60b10b4fad83d9d2ad6ecbc016589a5f26766b042aa",
+        "harness_sha256": "4879a12726b9376b6901ece3cf6ccf03eb0ee5ed1fd6006f6b989ef42db3c273",
+        "axiom_audit_sha256": "7657e84ec1675cef3116a85f7d7f50503673b50b69aae49d2703a691eef3579a",
+        "jobs": [
+          {
+            "job_id": 5389587,
+            "node": "node408",
+            "elapsed": "00:11:40",
+            "peak_rss_kb": 121378968,
+            "exit": "0:0"
+          },
+          {
+            "job_id": 5389588,
+            "node": "node412",
+            "elapsed": "00:11:39",
+            "peak_rss_kb": 122474236,
+            "exit": "0:0"
+          }
+        ],
+        "gates": [
+          "exact source-tree reconstruction",
+          "strict leaf compile",
+          "module build",
+          "umbrella build",
+          "full default build",
+          "Quickstart",
+          "declaration and axiom audit",
+          "leanchecker",
+          "JSON and diff gates"
+        ]
+      },
       "base_branch": "main"
     }
   },
@@ -90,6 +139,42 @@
       "palette": "ExtensionPalette D = Fin (D + 2)",
       "output_kind": "propositional existence of a semantically valid total-coloring assignment",
       "conclusion_expansion": "There exists assignment : Assignment G (Fin (D + 2)) with assignment.Valid; the theorem does not construct the extension or identify D with the maximum degree of G."
+    },
+    {
+      "id": "conditional-independent-seed-endpoint",
+      "declaration": "TotalColoring.exists_valid_assignment_of_independentSeedPeel",
+      "maximum_degree_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel",
+      "module": "TotalColoring.IndependentSeed",
+      "source_path": "TotalColoring/IndependentSeed.lean",
+      "availability": "proof branch only; not yet on the default branch",
+      "proof_branch": "agent/independent-seed-endpoint",
+      "proof_branch_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
+      "proof_branch_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
+      "default_branch_contains_declarations": false,
+      "signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (G : SimpleGraph V) -> [DecidableRel G.Adj] -> {q : Nat} -> 0 < q -> (phi : EdgeAssignment G (Fin q)) -> phi.Valid -> (A : Finset V) -> G.IsIndepSet (A : Set V) -> IndependentSeedPeelCertificate G A q -> exists assignment : Assignment G (Fin (q + 1)), assignment.Valid",
+      "scope": "a finite simple graph with decidable vertex equality and adjacency, a positive old-palette size q, a supplied proper Fin q edge assignment, a supplied independent seed A, and a supplied peel certificate covering exactly the vertices outside A",
+      "hypotheses": [
+        "Fintype V",
+        "DecidableEq V",
+        "DecidableRel G.Adj",
+        "0 < q",
+        "phi : EdgeAssignment G (Fin q)",
+        "phi.Valid",
+        "A : Finset V",
+        "G.IsIndepSet (A : Set V)",
+        "cert : IndependentSeedPeelCertificate G A q"
+      ],
+      "palette": "Fin (q + 1)",
+      "output_kind": "conditional propositional existence of a semantically valid total-coloring assignment",
+      "conclusion_expansion": "There exists assignment : Assignment G (Fin (q + 1)) with assignment.Valid. The peel certificate supplies a duplicate-free order covering exactly V minus A and the strict later-neighbor bound at every step. The proof reverse-colors that order using old-palette colors missing from incident edges, while A receives the one fresh color.",
+      "maximum_degree_specialization": "Setting q = G.maxDegree + 1 gives palette Fin (G.maxDegree + 2), hence a conditional Delta + 2 conclusion.",
+      "maximum_degree_wrapper_signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (G : SimpleGraph V) -> [DecidableRel G.Adj] -> (phi : EdgeAssignment G (Fin (G.maxDegree + 1))) -> phi.Valid -> (A : Finset V) -> G.IsIndepSet (A : Set V) -> IndependentSeedPeelCertificate G A (G.maxDegree + 1) -> exists assignment : Assignment G (Fin (G.maxDegree + 2)), assignment.Valid",
+      "maximum_degree_wrapper_boundary": "The wrapper only specializes q in the generic endpoint. The proper edge assignment, its validity, the independent seed, its independence proof, and the peel certificate remain explicit inputs.",
+      "declaration_local_missing_inputs": [
+        "existence of a proper EdgeAssignment G (Fin (G.maxDegree + 1)); the library does not prove Vizing's theorem",
+        "existence of an independent seed A with an IndependentSeedPeelCertificate G A (G.maxDegree + 1)"
+      ],
+      "claim_boundary": "The declaration is not an unrestricted Total Coloring Conjecture theorem and does not strengthen the unconditional scope of TotalColoring.exists_valid_assignment_of_highDegree."
     },
     {
       "id": "supplied-pair-singleton-extension-seam",
@@ -224,7 +309,9 @@
   "not_proved": [
     "the Total Coloring Conjecture",
     "an unrestricted total-coloring theorem for all finite graph orders",
-    "the proposed high-degree total-coloring theorem with Delta + 2 colors",
+    "an unconditional high-degree or all-graphs total-coloring theorem with Delta + 2 colors",
+    "Vizing's theorem or universal existence of the proper edge-coloring witness required by the conditional independent-seed endpoint",
+    "universal existence of an independent seed and peel certificate satisfying the endpoint hypotheses",
     "an end-to-end Delta + 3 theorem without the half-order density hypothesis",
     "an author-approved or manuscript-integrated paper theorem; the checked package declaration is not identified with the manuscript theorem",
     "an executable total-coloring construction or a complexity bound",
@@ -236,6 +323,7 @@
     "Lean 4.32.0 kernel checking is authoritative for the formal declarations.",
     "Production Lean modules prohibit sorry, admit, custom axiom declarations, and native_decide.",
     "Executable certificate checkers have semantic soundness theorems.",
+    "The independent-seed endpoint is a semantic existence theorem conditional on all of its supplied witnesses; it is not a witness generator for Vizing or the peel certificate.",
     "External JSON parsing and claims of census completeness remain outside the trusted Lean interface.",
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],
