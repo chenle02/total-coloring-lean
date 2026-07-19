@@ -293,10 +293,47 @@ archiving. The source archive SHA-256 is
 This receipt verifies the conditional decoder, not existence of its supplied
 witnesses.
 
+### Stacked partial-edge selector normalization
+
+The stacked proof branch
+[`agent/partial-edge-selector-normalization`](https://github.com/chenle02/total-coloring-lean/tree/agent/partial-edge-selector-normalization)
+adds a strictly weaker old-edge hypothesis at source commit
+`c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
+`11007a4aa381984a8d66aa1db297312cebe8d8b5`. For a selected edge finset `F`,
+`EdgeAssignment.ValidOutside F` requires distinct old colors only for adjacent
+edges in `E(G) \ F`; values stored on `F` are ignored. If `F` is a matching,
+`S` is independent, `F` avoids `S`, and every old vertex color avoids its
+incident edges outside `F`, then
+
+```lean
+TotalColoring.partialEdgeSelectorAssignment_valid
+```
+
+sends both `S` and `F` to any chosen fresh color and returns a valid total
+assignment. The last-color corollary
+`totalIndependentSelectorAssignment_valid_of_validOutside` strengthens the
+earlier decoder without changing its output format.
+
+The same module formalizes the exact reverse bookkeeping. Given a *supplied*
+valid `a : Assignment G (Fin (q + 1))`, a chosen fresh color, and an irrelevant
+fallback in `Fin q`,
+
+```lean
+TotalColoring.partialEdgeSelectorNormalization_of_valid
+```
+
+takes `S` and `F` to be the corresponding vertex and edge color classes,
+pulls every other color back through `fresh.succAbove`, proves all forward
+hypotheses, and records literal equality `decodes = a`. The maximum-degree
+notation wrapper starts from a supplied `Fin (G.maxDegree + 2)` coloring. This
+reverse normalization does not construct such a coloring and is not a proof
+of an unconditional `Delta + 2` result or the Total Coloring Conjecture.
+
 The independent-seed declarations and the next two `#check` lines require
 `agent/independent-seed-endpoint`. The selector declarations after them
-require `agent/total-independent-selector-decoder`. Neither branch is yet on
-`main`.
+require `agent/total-independent-selector-decoder`. The partial-edge and
+normalization declarations require the stacked branch
+`agent/partial-edge-selector-normalization`. None is yet on `main`.
 
 ```lean
 import TotalColoring
@@ -323,6 +360,13 @@ import TotalColoring
 #check TotalColoring.AlternatingRainbowPathSelectorCertificate
 #check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
 #check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
+#check TotalColoring.EdgeAssignment.ValidOutside
+#check TotalColoring.partialEdgeSelectorEdgeAssignment_valid
+#check TotalColoring.partialEdgeSelectorAssignment_valid
+#check TotalColoring.totalIndependentSelectorAssignment_valid_of_validOutside
+#check TotalColoring.PartialEdgeSelectorNormalization
+#check TotalColoring.partialEdgeSelectorNormalization_of_valid
+#check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
 ```
 
 The all-orders theorem was introduced at commit

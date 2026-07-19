@@ -236,6 +236,53 @@ the formal implications at the named tree, not existence of their inputs.
     based on `agent/independent-seed-endpoint` and therefore contains those
     earlier declarations as well.
 
+## Stacked partial-edge selector decoder and exact reverse normalization
+
+Branch `agent/partial-edge-selector-normalization` is stacked on the preceding
+selector branch. Its source commit is
+`c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, with exact source tree
+`11007a4aa381984a8d66aa1db297312cebe8d8b5`. The new forward declaration
+
+```lean
+TotalColoring.partialEdgeSelectorAssignment_valid
+```
+
+uses an arbitrary chosen fresh color. Its old edge assignment need only satisfy
+`phi.ValidOutside F`: adjacent edges outside `F` have distinct colors, while
+the stored values on `F` are unrestricted and discarded. The remaining
+hypotheses are exactly that `S` is independent, `F` is a matching avoiding
+`S`, old vertex colors outside `S` avoid incident edges outside `F`, and those
+old-colored vertices are properly colored. The theorem sends `S` and `F` to
+the fresh color and embeds every retained old color through
+`fresh.succAbove`. The corollary
+`totalIndependentSelectorAssignment_valid_of_validOutside` applies the same
+result to the earlier last-color decoder.
+
+The structure
+`TotalColoring.PartialEdgeSelectorNormalization` records the precise converse
+bookkeeping. For a supplied valid `a : Assignment G (Fin (q + 1))`, a chosen
+fresh palette color, and a fallback old color,
+`partialEdgeSelectorNormalization_of_valid` defines `S` and `F` to be the
+fresh vertex and edge color classes, pulls the other colors back through
+`fresh.succAbove`, proves every forward hypothesis, and stores the literal
+equality
+
+```text
+partialEdgeSelectorAssignment fresh oldEdge S F oldVertex = a.
+```
+
+The maximum-degree notation wrapper starts from a supplied valid assignment in
+`Fin (G.maxDegree + 2)`. It does not produce that assignment. Thus the reverse
+normalization is an exact decomposition of an existing coloring, not an
+existence theorem, a proof of Vizing's theorem, or an unrestricted
+`Delta + 2` result.
+
+!!! warning "Distribution boundary"
+
+    These declarations are on the stacked proof branch, not on `main`. No
+    final Easley receipt is asserted inside this source tree; exact-tree trust
+    receipts are external evidence and must name the tree they certify.
+
 ## Checked end-to-end route
 
 ### 1. A matching lower bound

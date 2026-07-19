@@ -1,5 +1,5 @@
 {
-  "schema_version": 7,
+  "schema_version": 8,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
@@ -31,6 +31,10 @@
     "total_independent_selector_proof_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
     "total_independent_selector_proof_tree": "1847934c78da03fe80bb67236868700c79016129",
     "total_independent_selector_default_branch_status": "not merged; the default branch does not yet contain the selector/path declarations",
+    "partial_edge_selector_proof_branch": "agent/partial-edge-selector-normalization",
+    "partial_edge_selector_proof_commit": "c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2",
+    "partial_edge_selector_proof_tree": "11007a4aa381984a8d66aa1db297312cebe8d8b5",
+    "partial_edge_selector_default_branch_status": "not merged; the default branch does not yet contain the partial-edge or normalization declarations",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -44,7 +48,8 @@
       "contains_equitable_partition_adapter": true,
       "contains_end_to_end_high_degree_result": true,
       "contains_conditional_independent_seed_endpoint": false,
-      "contains_total_independent_selector_decoder": false
+      "contains_total_independent_selector_decoder": false,
+      "contains_partial_edge_selector_normalization": false
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
@@ -153,6 +158,18 @@
         ]
       },
       "base_branch": "agent/independent-seed-endpoint"
+    },
+    "partial_edge_selector_proof_branch": {
+      "name": "agent/partial-edge-selector-normalization",
+      "proof_commit": "c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2",
+      "proof_tree": "11007a4aa381984a8d66aa1db297312cebe8d8b5",
+      "contains_partial_edge_selector_decoder": true,
+      "contains_exact_reverse_normalization": true,
+      "contains_maximum_degree_reverse_notation": true,
+      "merge_status": "not-merged",
+      "default_branch_contains_result": false,
+      "verification_receipt_location": "external to the source tree; no final receipt is asserted by this JSON document",
+      "base_branch": "agent/total-independent-selector-decoder"
     }
   },
   "verified_results": [
@@ -277,6 +294,35 @@
         "existence of the indexed alternating rainbow-path certificate"
       ],
       "claim_boundary": "The declarations are conditional decoders, not an unrestricted Total Coloring Conjecture theorem, and they do not strengthen the unconditional scope of TotalColoring.exists_valid_assignment_of_highDegree."
+    },
+    {
+      "id": "conditional-partial-edge-selector-and-exact-normalization",
+      "forward_declaration": "TotalColoring.partialEdgeSelectorAssignment_valid",
+      "last_color_forward_corollary": "TotalColoring.totalIndependentSelectorAssignment_valid_of_validOutside",
+      "normalization_structure": "TotalColoring.PartialEdgeSelectorNormalization",
+      "reverse_constructor": "TotalColoring.partialEdgeSelectorNormalization_of_valid",
+      "maximum_degree_reverse_declaration": "TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid",
+      "module": "TotalColoring.PartialEdgeSelector",
+      "source_path": "TotalColoring/PartialEdgeSelector.lean",
+      "availability": "stacked proof branch only; not yet on the default branch",
+      "proof_branch": "agent/partial-edge-selector-normalization",
+      "proof_branch_commit": "c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2",
+      "proof_branch_tree": "11007a4aa381984a8d66aa1db297312cebe8d8b5",
+      "default_branch_contains_declarations": false,
+      "forward_signature_summary": "{V : Type u} -> [DecidableEq V] -> {G : SimpleGraph V} -> {q : Nat} -> (fresh : Fin (q + 1)) -> (phi : EdgeAssignment G (Fin q)) -> (S : Finset V) -> (F : Finset G.edgeSet) -> (g : V -> Fin q) -> phi.ValidOutside F -> G.IsIndepSet (S : Set V) -> EdgeFinsetIsMatching F -> EdgeFinsetAvoids F S -> (forall v notin S, SelectorOldColorAllowed phi F v (g v)) -> (forall adjacent v w outside S, g v != g w) -> (partialEdgeSelectorAssignment fresh phi S F g).Valid",
+      "forward_scope": "an arbitrary graph with decidable vertex equality, an arbitrary chosen fresh color, an old edge assignment proper only outside F, an independent vertex selector S, a matching edge selector F avoiding S, and supplied allowed/proper old vertex colors",
+      "ignored_data": "The values phi.color e for e in F are unrestricted and overwritten by the fresh color. Vertex allowedness likewise examines only incident edges outside F.",
+      "palette": "Fin (q + 1)",
+      "forward_output_kind": "conditional semantic validity of an explicitly decoded assignment",
+      "reverse_signature_summary": "For [Fintype V], [DecidableEq V], [Fintype G.edgeSet], a supplied a : Assignment G (Fin (q + 1)) with a.Valid, any fresh : Fin (q + 1), and any fallback : Fin q, construct PartialEdgeSelectorNormalization a fresh.",
+      "reverse_exactness": "The fresh vertex and edge color classes become S and F. Every other color is pulled back through fresh.succAbove; the fallback is used only on overwritten entries. The structure proves every forward premise and stores partialEdgeSelectorAssignment fresh oldEdge S F oldVertex = a literally.",
+      "maximum_degree_reverse_boundary": "The maximum-degree declaration starts from an explicit valid Assignment G (Fin (G.maxDegree + 2)); it is notation for reverse decomposition and does not construct the assignment.",
+      "declaration_local_missing_inputs": [
+        "for the forward theorem, every selector, properness, avoidance, and old vertex-color witness remains explicit",
+        "for the reverse theorem, the valid total assignment being normalized remains an explicit input",
+        "neither direction supplies an arbitrary-graph Delta + 2 coloring"
+      ],
+      "claim_boundary": "The forward declaration is conditional. The reverse declaration is exact but logically starts from the desired coloring. Neither is an unrestricted Total Coloring Conjecture theorem or a new coloring-existence result."
     },
     {
       "id": "supplied-pair-singleton-extension-seam",
@@ -415,6 +461,7 @@
     "Vizing's theorem or universal existence of the proper edge-coloring witness required by the conditional independent-seed endpoint",
     "universal existence of an independent seed and peel certificate satisfying the endpoint hypotheses",
     "universal existence of a compatible total-independent selector, actual-list core coloring, core-relative peel certificate, or alternating rainbow-path certificate for the selector wrappers",
+    "existence of the valid total coloring assumed by the exact partial-edge normalization; a reverse decomposition cannot be cited as a coloring-existence theorem",
     "an end-to-end Delta + 3 theorem without the half-order density hypothesis",
     "an author-approved or manuscript-integrated paper theorem; the checked package declaration is not identified with the manuscript theorem",
     "an executable total-coloring construction or a complexity bound",
@@ -428,6 +475,7 @@
     "Executable certificate checkers have semantic soundness theorems.",
     "The independent-seed endpoint is a semantic existence theorem conditional on all of its supplied witnesses; it is not a witness generator for Vizing or the peel certificate.",
     "The total-independent selector and alternating-path wrappers are semantic existence theorems conditional on every displayed edge-coloring, selector, core, peel, and path witness; they do not generate those witnesses.",
+    "The partial-edge decoder ignores old values on the selected matching but retains every other displayed forward hypothesis. Its exact normalization begins with a supplied valid total assignment and proves no existence statement for that input.",
     "External JSON parsing and claims of census completeness remain outside the trusted Lean interface.",
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],

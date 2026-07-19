@@ -42,4 +42,15 @@ import TotalColoring
 #check TotalColoring.AlternatingRainbowPathSelectorCertificate
 #check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
 #check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
+
+-- Stacked proof branch `agent/partial-edge-selector-normalization`, source
+-- commit `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, tree
+-- `11007a4aa381984a8d66aa1db297312cebe8d8b5`; not yet on `main`.
+#check TotalColoring.EdgeAssignment.ValidOutside
+#check TotalColoring.partialEdgeSelectorEdgeAssignment_valid
+#check TotalColoring.partialEdgeSelectorAssignment_valid
+#check TotalColoring.totalIndependentSelectorAssignment_valid_of_validOutside
+#check TotalColoring.PartialEdgeSelectorNormalization
+#check TotalColoring.partialEdgeSelectorNormalization_of_valid
+#check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
 #check TotalColoring.Certificate.checkExtension_sound

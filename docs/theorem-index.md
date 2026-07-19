@@ -94,6 +94,27 @@ exit `0:0`, elapsed 16m09s, peak RSS `125399676K`, with exact-tree, strict
 leaf, target/umbrella/full, Quickstart, axiom, `leanchecker`, JSON/diff, and
 cache-archive gates.
 
+## Stacked partial-edge selector normalization
+
+The following declarations are present on
+`agent/partial-edge-selector-normalization` at source commit
+`c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
+`11007a4aa381984a8d66aa1db297312cebe8d8b5`. They are not on `main`.
+
+| Declaration | Module | Checked conclusion |
+| --- | --- | --- |
+| `TotalColoring.EdgeAssignment.ValidOutside` | `PartialEdgeSelector` | Properness is required only between adjacent edges outside the selected finset; values on selected edges are unrestricted |
+| `TotalColoring.partialEdgeSelectorEdgeAssignment_valid` | `PartialEdgeSelector` | Sending a matching to an arbitrarily chosen fresh color preserves edge-color validity when the old assignment is proper outside that matching |
+| `TotalColoring.partialEdgeSelectorAssignment_valid` | `PartialEdgeSelector` | Adds an independent fresh vertex class and an avoiding fresh edge matching; old vertex colors only avoid incident edges outside the matching |
+| `TotalColoring.totalIndependentSelectorAssignment_valid_of_validOutside` | `PartialEdgeSelector` | Strengthens the earlier last-color decoder by replacing global old-edge validity with validity outside the selected matching |
+| `TotalColoring.PartialEdgeSelectorNormalization` | `PartialEdgeSelector` | Packages the selector sets, pulled-back old colors, all forward hypotheses, and literal equality of the decoded assignment with a supplied assignment |
+| `TotalColoring.partialEdgeSelectorNormalization_of_valid` | `PartialEdgeSelector` | For a supplied valid `Fin (q + 1)` total assignment, any chosen fresh color and fallback old color produce the exact normalization package |
+| `TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid` | `PartialEdgeSelector` | Rephrases the reverse construction for a supplied `Fin (G.maxDegree + 2)` total coloring; the coloring is still an explicit input |
+
+The forward theorem does not construct any selector or coloring. The reverse
+constructor starts from a supplied valid total coloring, so it cannot be used
+as an existence proof for that coloring or for the Total Coloring Conjecture.
+
 ## Matching construction
 
 | Declaration | Module | Purpose |
