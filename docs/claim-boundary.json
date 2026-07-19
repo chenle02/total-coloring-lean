@@ -1,5 +1,5 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
@@ -27,6 +27,10 @@
     "independent_seed_proof_branch_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
     "independent_seed_proof_branch_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
     "independent_seed_default_branch_status": "not merged; the default branch does not yet contain the independent-seed declarations",
+    "total_independent_selector_proof_branch": "agent/total-independent-selector-decoder",
+    "total_independent_selector_proof_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
+    "total_independent_selector_proof_tree": "1847934c78da03fe80bb67236868700c79016129",
+    "total_independent_selector_default_branch_status": "not merged; the default branch does not yet contain the selector/path declarations",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -39,7 +43,8 @@
       "contains_supplied_pair_singleton_extension": true,
       "contains_equitable_partition_adapter": true,
       "contains_end_to_end_high_degree_result": true,
-      "contains_conditional_independent_seed_endpoint": false
+      "contains_conditional_independent_seed_endpoint": false,
+      "contains_total_independent_selector_decoder": false
     },
     "proof_branch": {
       "name": "agent/pair-singleton-extension",
@@ -110,6 +115,44 @@
         ]
       },
       "base_branch": "main"
+    },
+    "total_independent_selector_proof_branch": {
+      "name": "agent/total-independent-selector-decoder",
+      "proof_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
+      "proof_tree": "1847934c78da03fe80bb67236868700c79016129",
+      "contains_total_independent_selector_decoder": true,
+      "contains_maximum_degree_selector_wrapper": true,
+      "contains_alternating_rainbow_path_certificate_wrapper": true,
+      "merge_status": "not-merged",
+      "default_branch_contains_result": false,
+      "source_archive_sha256": "9ba0103e358cd761c6e591cfa00b13352236ff2b1774df1fd2f75cba8215561c",
+      "module_sha256": "21c0c665d1a29369295c38db8af99f4fe54b24478e9cc079e6fe8fdc26eed4d7",
+      "sealed_verification": {
+        "incoming_cache_sha256": "d0950006c5b6bb292484e60b10b4fad83d9d2ad6ecbc016589a5f26766b042aa",
+        "outgoing_cache_sha256": "1b398677c310ff2db0c9a1afa9a3e65f77691bd92123914dfa17a2387635e4bc",
+        "harness_sha256": "be059d0533f854142aba26764caa0de88517bdc45598784ec938adc00c41e479",
+        "axiom_audit_sha256": "445b932c917467ada1dc29164fa813c62e7283f15a584c376df1b7bee0c696cf",
+        "job": {
+          "job_id": 5391803,
+          "node": "node411",
+          "elapsed": "00:16:09",
+          "peak_rss_kb": 125399676,
+          "exit": "0:0"
+        },
+        "gates": [
+          "exact source-tree reconstruction",
+          "strict selector leaf compile with warnings as errors",
+          "selector target build",
+          "umbrella build",
+          "full default build",
+          "Quickstart",
+          "declaration and axiom audit",
+          "leanchecker",
+          "JSON and diff gates",
+          "outgoing cache archive"
+        ]
+      },
+      "base_branch": "agent/independent-seed-endpoint"
     }
   },
   "verified_results": [
@@ -175,6 +218,65 @@
         "existence of an independent seed A with an IndependentSeedPeelCertificate G A (G.maxDegree + 1)"
       ],
       "claim_boundary": "The declaration is not an unrestricted Total Coloring Conjecture theorem and does not strengthen the unconditional scope of TotalColoring.exists_valid_assignment_of_highDegree."
+    },
+    {
+      "id": "conditional-total-independent-selector-decoder",
+      "declaration": "TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel",
+      "maximum_degree_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel",
+      "path_certificate": "TotalColoring.AlternatingRainbowPathSelectorCertificate",
+      "path_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector",
+      "maximum_degree_path_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector",
+      "module": "TotalColoring.TotalIndependentSelector",
+      "source_path": "TotalColoring/TotalIndependentSelector.lean",
+      "availability": "proof branch only; not yet on the default branch",
+      "proof_branch": "agent/total-independent-selector-decoder",
+      "proof_branch_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
+      "proof_branch_tree": "1847934c78da03fe80bb67236868700c79016129",
+      "default_branch_contains_declarations": false,
+      "signature_summary": "{V : Type u} -> [Fintype V] -> [DecidableEq V] -> (G : SimpleGraph V) -> [DecidableRel G.Adj] -> {q : Nat} -> (phi : EdgeAssignment G (Fin q)) -> phi.Valid -> (S : Finset V) -> G.IsIndepSet (S : Set V) -> (F : Finset G.edgeSet) -> EdgeFinsetIsMatching F -> EdgeFinsetAvoids F S -> (K : Finset V) -> (g0 : V -> Fin q) -> SelectorOldColoringGoodOn G phi S F K g0 -> SelectorCorePeelCertificate G S K q -> exists assignment : Assignment G (Fin (q + 1)), assignment.Valid",
+      "scope": "a finite simple graph with decidable vertex equality and adjacency, a supplied proper Fin q edge assignment, an independent fresh-color vertex selector S, a matching fresh-color edge selector F avoiding S, a supplied actual-list old coloring on the core K minus S, and a supplied core-relative peel certificate",
+      "hypotheses": [
+        "Fintype V",
+        "DecidableEq V",
+        "DecidableRel G.Adj",
+        "phi : EdgeAssignment G (Fin q)",
+        "phi.Valid",
+        "S : Finset V",
+        "G.IsIndepSet (S : Set V)",
+        "F : Finset G.edgeSet",
+        "EdgeFinsetIsMatching F",
+        "EdgeFinsetAvoids F S",
+        "K : Finset V",
+        "g0 : V -> Fin q",
+        "SelectorOldColoringGoodOn G phi S F K g0",
+        "cert : SelectorCorePeelCertificate G S K q"
+      ],
+      "peel_inequality": "(G.neighborFinset v intersect ((K minus S) union tail.toFinset)).card < q - G.degree v",
+      "palette": "Fin (q + 1)",
+      "output_kind": "conditional propositional existence of a semantically valid total-coloring assignment",
+      "conclusion_expansion": "Vertices in S and edges in F receive the fresh color. The supplied core coloring and reverse greedy peel give allowed proper old colors to every other vertex, yielding a valid Assignment G (Fin (q + 1)).",
+      "maximum_degree_specialization": "Setting q = G.maxDegree + 1 gives palette Fin (G.maxDegree + 2), hence a conditional Delta + 2 conclusion.",
+      "maximum_degree_wrapper_boundary": "The proper edge assignment, independent set, matching selector, avoidance proof, actual-list core coloring, and core-relative peel certificate remain explicit inputs.",
+      "path_certificate_fields": [
+        "k + 1 indexed injective vertices and k indexed edges",
+        "exact consecutive path-edge endpoints",
+        "the path vertices span the supplied core",
+        "pairwise-distinct original path-edge colors",
+        "a globally unused old spare color",
+        "alternating old-lift and fresh-edge membership",
+        "matching proofs for both alternating edge families",
+        "fresh edges avoid the path start",
+        "successor core colors equal predecessor edge colors",
+        "a SelectorCorePeelCertificate rooted at the path start"
+      ],
+      "path_wrapper_boundary": "The wrapper proves the donor exchange and decoding from the explicit certificate; it does not prove existence of the proper edge coloring, selector/core, peel certificate, or alternating rainbow path.",
+      "declaration_local_missing_inputs": [
+        "existence of a proper EdgeAssignment G (Fin (G.maxDegree + 1)); the library does not prove Vizing's theorem",
+        "existence of compatible selector vertex and edge sets",
+        "existence of a proper actual-list core coloring and core-relative peel certificate",
+        "existence of the indexed alternating rainbow-path certificate"
+      ],
+      "claim_boundary": "The declarations are conditional decoders, not an unrestricted Total Coloring Conjecture theorem, and they do not strengthen the unconditional scope of TotalColoring.exists_valid_assignment_of_highDegree."
     },
     {
       "id": "supplied-pair-singleton-extension-seam",
@@ -312,6 +414,7 @@
     "an unconditional high-degree or all-graphs total-coloring theorem with Delta + 2 colors",
     "Vizing's theorem or universal existence of the proper edge-coloring witness required by the conditional independent-seed endpoint",
     "universal existence of an independent seed and peel certificate satisfying the endpoint hypotheses",
+    "universal existence of a compatible total-independent selector, actual-list core coloring, core-relative peel certificate, or alternating rainbow-path certificate for the selector wrappers",
     "an end-to-end Delta + 3 theorem without the half-order density hypothesis",
     "an author-approved or manuscript-integrated paper theorem; the checked package declaration is not identified with the manuscript theorem",
     "an executable total-coloring construction or a complexity bound",
@@ -324,6 +427,7 @@
     "Production Lean modules prohibit sorry, admit, custom axiom declarations, and native_decide.",
     "Executable certificate checkers have semantic soundness theorems.",
     "The independent-seed endpoint is a semantic existence theorem conditional on all of its supplied witnesses; it is not a witness generator for Vizing or the peel certificate.",
+    "The total-independent selector and alternating-path wrappers are semantic existence theorems conditional on every displayed edge-coloring, selector, core, peel, and path witness; they do not generate those witnesses.",
     "External JSON parsing and claims of census completeness remain outside the trusted Lean interface.",
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],

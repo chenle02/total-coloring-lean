@@ -63,6 +63,7 @@ shown on the left. No parity hypothesis occurs.
 | Supplied-partition adapter | `EquitablePairSingleton` | Retained alternate API from an explicit equitable independent partition |
 | Structural class | `AuxiliaryClass`, `Distinguished` | Definition of `A_D`, deletion closure, and stable distinguished-edge transport |
 | Certificates | `Certificate` | Executable checkers connected to semantic propositions by soundness theorems |
+| Conditional selector decoding | `IndependentSeed`, `TotalIndependentSelector` | Reverse greedy extension from supplied seed/core peel data; fresh-color vertex/edge selector and explicit alternating-path donor wrappers on proof branches |
 | Critical extraction | `CriticalState`, `MinimalExtraction`, `DeletionBridge` | Minimal hypothetical counterexample and one-hole state |
 | Recoloring geometry | `RainbowSwap`, `Kempe`, `PartialKempe`, `TwoColorGeometry` | Exact swap safety and physical two-color components |
 | Fan mechanics | `Fan*`, `Dependency*`, `CriticalFan*` | Legal shifts, reachability, missing colors, and capacity |
@@ -71,7 +72,8 @@ shown on the left. No parity hypothesis occurs.
 | Terminal composition | `EmptyAssignment`, `AuxiliaryTransfer`, `HighDegreeTotalColoring` | Empty base case, nonempty decoding, and the final package theorem |
 
 The umbrella `TotalColoring.lean` imports every production module, including
-the matching, empty, and high-degree terminal layers.
+the matching, empty, high-degree terminal, and proof-branch selector layers at
+the exact branch tree where those modules are present.
 
 ## Two routes into the reusable auxiliary engine
 
@@ -93,6 +95,17 @@ Likewise, a downstream development may start from a supplied
 `PairSingletonWitness`, or directly from a compatible `Auxiliary.Extension`
 and `InAuxiliaryClass`. These are stable interfaces, not unresolved premises
 of `TotalColoring.exists_valid_assignment_of_highDegree`.
+
+The conditional `Delta + 2` proof branches form a separate route. The
+independent-seed endpoint starts from a supplied proper old-palette edge
+coloring, independent seed, and peel certificate. The later
+`TotalIndependentSelector` module permits both an independent fresh-color
+vertex set and an avoiding matching of fresh-color edges, together with a
+supplied actual-list core coloring and core-relative peel certificate. Its
+alternating rainbow-path wrapper proves the donor exchange only after the full
+indexed path certificate is supplied. These modules do not feed the terminal
+high-degree theorem and do not discharge Vizing, selector/core, peel, or path
+existence.
 
 ## The matching route in detail
 

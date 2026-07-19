@@ -9,6 +9,9 @@ This page gives coding assistants a small, safe context window for the project.
    For the separate supplied-witness endpoint, inspect
    `TotalColoring/IndependentSeed.lean` at proof-branch source commit
    `cc4dd7ae1d858ea0583549f88707952e2414bf60` instead.
+   For the total-independent selector and alternating-path wrappers, inspect
+   `TotalColoring/TotalIndependentSelector.lean` at source commit
+   `d008514c7a1cf834007bf0bd8de0d10a93926711`.
 2. Read [`claim-boundary.json`](claim-boundary.json) and check that its pinned
    tree matches the code tree you are discussing.
 3. For the terminal route, inspect `MatchingLowerBound.lean`,
@@ -23,8 +26,8 @@ This page gives coding assistants a small, safe context window for the project.
 ## Authority order
 
 1. Lean declarations at the exact pinned tree determine what is proved.
-   The default-branch authority and the independent-seed proof-branch
-   authority are distinct until merge.
+   The default-branch authority and each proof-branch authority are distinct
+   until merge.
 2. `AGENTS.md` determines repository and trust policy.
 3. `docs/claim-boundary.json` is the machine-readable public mirror.
 4. The README and Pages explain the result but cannot broaden it.
@@ -80,6 +83,28 @@ for one does not automatically verify the other.
   `5389587` and `5389588`, including strict leaf, umbrella/full, Quickstart,
   axiom, `leanchecker`, metadata, and reconstruction gates. This verifies the
   conditional decoder; it does not verify existence of its inputs.
+- The newer selector declarations exist only on
+  `agent/total-independent-selector-decoder` at source commit
+  `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
+  `1847934c78da03fe80bb67236868700c79016129`; `main` does not contain them.
+- `exists_valid_assignment_of_totalIndependentSelectorPeel` requires a
+  supplied proper `Fin q` edge coloring, independent fresh-color vertex set,
+  matching fresh-color edge set avoiding those vertices, actual-list core
+  coloring, and core-relative peel certificate. Its maximum-degree wrapper
+  only substitutes `q = G.maxDegree + 1`.
+- `AlternatingRainbowPathSelectorCertificate` makes the proposed donor
+  exchange explicit: indexed path/endpoints, rainbow colors, unused old spare,
+  alternating matching families, start avoidance, core colors, and peel data.
+  The corresponding wrapper checks the exchange but does not prove existence
+  of the path or certificate.
+- Neither selector wrapper proves Vizing, constructs a canonical core or
+  selector, or proves the peel/path existence seam. Never present its
+  conditional `Fin (G.maxDegree + 2)` conclusion as the unrestricted Total
+  Coloring Conjecture.
+- Exact source tree `1847934c…` passed sealed Easley job `5391803` with exit
+  `0:0` through strict leaf, target/umbrella/full, Quickstart, axiom,
+  `leanchecker`, JSON/diff, and exact-tree gates. The receipt verifies the
+  implications only.
 - Keep package proof status and publication trust separate. The exact
   proof-development tree `4624044788ab42c0dc116cfbf7f38c696065263c`
   passed five separate high-memory full/Quickstart/`leanchecker` jobs
@@ -110,6 +135,10 @@ Do not erase or misdescribe the more general supplied-input theorems:
   wrapper remain conditional on the explicitly supplied proper edge coloring,
   independent seed, and peel certificate. They are not default-branch APIs
   before merge.
+- At proof-branch source commit `d008514…`, the total-independent selector
+  decoder and alternating-path wrapper retain every selector, core, peel, and
+  path witness as explicit input. They are not default-branch APIs before
+  merge.
 
 The supplied equitable partition is no longer a premise of the package
 terminal theorem. `HighDegreeTotalColoring` constructs the needed witness from
@@ -122,6 +151,7 @@ limitations from one interface over to another.
 | --- | --- |
 | Package terminal theorem | `TotalColoring/HighDegreeTotalColoring.lean` |
 | Proof-branch conditional independent-seed endpoint | `TotalColoring/IndependentSeed.lean` at `cc4dd7ae…`, tree `9af6a84e…` |
+| Proof-branch total-independent selector decoder | `TotalColoring/TotalIndependentSelector.lean` at `d008514…`, tree `1847934c…` |
 | Empty-vertex base case | `TotalColoring/EmptyAssignment.lean` |
 | General matching lower bound | `TotalColoring/MatchingLowerBound.lean` |
 | High-degree complement specialization | `TotalColoring/HighDegreeComplementMatching.lean` |
@@ -172,6 +202,18 @@ limitations from one interface over to another.
 > declaration does not prove Vizing or seed existence and is not an
 > unrestricted Total Coloring Conjecture theorem. Also state that this wrapper
 > is on proof branch `agent/independent-seed-endpoint`, not yet on `main`.
+
+### Use the total-independent selector safely
+
+> Apply
+> `TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel`
+> only with an explicit proper edge coloring, independent vertex selector,
+> matching edge selector avoiding it, actual-list core coloring, and peel
+> certificate. If using
+> `exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector`, list
+> the certificate fields and state that Lean checks the donor exchange but
+> does not prove path/certificate existence. Cite proof branch
+> `agent/total-independent-selector-decoder`, not `main`.
 
 ### Audit prose
 

@@ -40,7 +40,15 @@
 > independent seed, and a supplied peel certificate, with `0 < q`. Setting
 > `q = G.maxDegree + 1` therefore gives a conditional `Delta + 2` palette, but
 > the library does not prove Vizing's theorem or existence of the required
-> seed/certificate. It does not prove the unrestricted Total Coloring
+> seed/certificate. The later proof branch
+> `agent/total-independent-selector-decoder`, at source commit
+> `d008514c7a1cf834007bf0bd8de0d10a93926711` and tree
+> `1847934c78da03fe80bb67236868700c79016129`, checks a more general decoder:
+> an independent fresh-color vertex set may be combined with a matching of
+> fresh-color edges avoiding that set. It also checks the donor exchange from
+> an explicitly supplied alternating rainbow-path certificate. These results
+> remain conditional on their edge coloring, selector/core, path, and peel
+> inputs. The library does not prove the unrestricted Total Coloring
 > Conjecture, the manuscript's still-unlocked main theorem, or novelty.
 
 ## The checked results
@@ -233,8 +241,62 @@ builds, Quickstart, the declaration/axiom audit, `leanchecker`, and metadata
 gates. These receipts verify the displayed conditional declarations at source
 tree `9af6a84e…`; they do not discharge any mathematical hypothesis.
 
-These declarations and the final two `#check` lines below require the named
-proof branch; `main` does not contain them before merge.
+### Proof-branch total-independent selector decoder
+
+Proof branch
+[`agent/total-independent-selector-decoder`](https://github.com/chenle02/total-coloring-lean/tree/agent/total-independent-selector-decoder)
+adds `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel`
+at source commit
+[`d008514`](https://github.com/chenle02/total-coloring-lean/commit/d008514c7a1cf834007bf0bd8de0d10a93926711),
+exact tree `1847934c78da03fe80bb67236868700c79016129`. In addition to finite and
+decidable graph structure, its explicit inputs are:
+
+```text
+phi : EdgeAssignment G (Fin q), with phi.Valid
+S : Finset V, with G.IsIndepSet (S : Set V)
+F : Finset G.edgeSet, a matching whose edges avoid S
+K : Finset V
+g0 : V -> Fin q
+SelectorOldColoringGoodOn G phi S F K g0
+SelectorCorePeelCertificate G S K q
+------------------------------------------------------------
+exists assignment : Assignment G (Fin (q + 1)), assignment.Valid
+```
+
+The selected vertices `S` and selected edges `F` receive the one fresh color.
+The supplied core coloring uses old colors that avoid every incident edge
+retaining its old color. The peel certificate covers exactly the vertices
+outside `K` and uses the core-relative strict inequality
+
+```text
+(G.neighborFinset v ∩ ((K \ S) ∪ tail.toFinset)).card
+  < q - G.degree v.
+```
+
+The same module defines
+`AlternatingRainbowPathSelectorCertificate`. Given that certificate, the
+wrapper `exists_valid_assignment_of_alternatingRainbowPathSelector` checks the
+old-spare/fresh-edge donor exchange along the indexed rainbow path and then
+invokes the general decoder. The certificate explicitly carries the path,
+rainbow, unused-spare, matching, seed-avoidance, core-color, and peel facts;
+the wrapper does not prove that such a path or certificate exists. Its
+maximum-degree specialization concludes a valid assignment in
+`Fin (G.maxDegree + 2)`, while the proper `(Delta + 1)` edge coloring and every
+selector/path/core/peel witness remain inputs.
+
+Sealed Easley job `5391803` checked the exact source tree on node411 and
+completed `0:0` in 16m09s with peak RSS `125399676K`. It passed exact-tree
+reconstruction, strict leaf compilation, target/umbrella/full builds,
+Quickstart, the axiom audit, `leanchecker`, JSON/diff checks, and cache
+archiving. The source archive SHA-256 is
+`9ba0103e358cd761c6e591cfa00b13352236ff2b1774df1fd2f75cba8215561c`.
+This receipt verifies the conditional decoder, not existence of its supplied
+witnesses.
+
+The independent-seed declarations and the next two `#check` lines require
+`agent/independent-seed-endpoint`. The selector declarations after them
+require `agent/total-independent-selector-decoder`. Neither branch is yet on
+`main`.
 
 ```lean
 import TotalColoring
@@ -255,6 +317,12 @@ import TotalColoring
 #check TotalColoring.exists_valid_assignment_of_highDegree
 #check TotalColoring.exists_valid_assignment_of_independentSeedPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
+#check TotalColoring.SelectorCorePeelCertificate
+#check TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
+#check TotalColoring.AlternatingRainbowPathSelectorCertificate
+#check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+#check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
 ```
 
 The all-orders theorem was introduced at commit
@@ -321,8 +389,8 @@ release that actually contains them.
 
 ### Exact boundary
 
-Neither the current default branch nor the independent-seed proof branch
-establishes:
+Neither the current default branch nor either conditional `Delta + 2` proof
+branch establishes:
 
 - the Total Coloring Conjecture;
 - an unconditional high-degree or all-graphs `Delta + 2` total-coloring
@@ -333,6 +401,9 @@ establishes:
 - Vizing's theorem or existence of the proper edge-coloring witness required
   by the conditional independent-seed endpoint;
 - existence of an independent seed and peel certificate for every graph;
+- existence of a total-independent selector, an actual-list coloring of its
+  core, a core-relative peel certificate, or the alternating rainbow-path
+  certificate used by the newer decoder;
 - the stronger auxiliary `D + 1` palette;
 - an identification of the checked declaration with a final, author-approved
   manuscript theorem; or
@@ -350,6 +421,11 @@ author-approved manuscript or novelty claim.
 The separate independent-seed endpoint reaches a `Delta + 2` palette only
 after its proper edge coloring, independent seed, and peel certificate have
 all been supplied; it does not discharge those hypotheses.
+The total-independent selector decoder permits both fresh-color vertices and
+fresh-color matching edges, but likewise reaches that palette only after its
+proper edge coloring, selector/core data, and peel certificate have been
+supplied. Its alternating-path wrapper proves the donor exchange from the
+explicit certificate; it does not prove the certificate exists.
 See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).

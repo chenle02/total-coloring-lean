@@ -59,6 +59,41 @@ Both exited `0:0` after strict leaf, umbrella/full, Quickstart, axiom,
 `leanchecker`, metadata, and exact-tree gates. The receipts validate the
 conditional declarations, not existence of their supplied witnesses.
 
+## Proof-branch total-independent selector decoder
+
+The following declarations are present on
+`agent/total-independent-selector-decoder` at source commit
+`d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
+`1847934c78da03fe80bb67236868700c79016129`. They are not on `main`.
+
+| Declaration | Module | Checked conclusion |
+| --- | --- | --- |
+| `TotalColoring.totalIndependentSelectorAssignment_valid` | `TotalIndependentSelector` | Semantic decoder: a fresh-color independent vertex set and a fresh-color matching of edges avoiding that set combine with a proper allowed old coloring on all remaining vertices to give a valid total assignment in `Fin (q + 1)` |
+| `TotalColoring.SelectorCorePeelCertificate` | `TotalIndependentSelector` | Packages `S ⊆ K`, a duplicate-free order covering exactly the complement of `K`, and the exact core-relative peel inequalities |
+| `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel` | `TotalIndependentSelector` | Extends a supplied actual-list coloring on `K \ S` along the supplied core-relative peel order and invokes the semantic decoder |
+| `TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel` | `TotalIndependentSelector` | Specializes the conditional decoder to a proper `Fin (G.maxDegree + 1)` edge assignment and returns a valid `Fin (G.maxDegree + 2)` total assignment |
+| `TotalColoring.AlternatingRainbowPathSelectorCertificate` | `TotalIndependentSelector` | Explicit indexed path, rainbow, spare, alternating matching, start-avoidance, core-color, and peel evidence; it does not assert certificate existence |
+| `TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector` | `TotalIndependentSelector` | Checks the donor exchange from the supplied alternating rainbow-path certificate and returns a valid assignment in `Fin (q + 1)` |
+| `TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector` | `TotalIndependentSelector` | Maximum-degree specialization of the explicit path-certificate wrapper |
+
+The generic peel inequality at a step `v :: tail` is exactly
+
+```text
+(G.neighborFinset v ∩ ((K \ S) ∪ tail.toFinset)).card
+  < q - G.degree v.
+```
+
+No declaration in this section constructs the proper old-palette edge
+coloring, the selector matching, the core coloring, the peel certificate, or
+the alternating rainbow path. The maximum-degree wrappers are therefore
+conditional `G.maxDegree + 2` implications, not an unrestricted Total
+Coloring Conjecture theorem.
+
+Exact source tree `1847934c…` passed sealed Easley job `5391803` on node411:
+exit `0:0`, elapsed 16m09s, peak RSS `125399676K`, with exact-tree, strict
+leaf, target/umbrella/full, Quickstart, axiom, `leanchecker`, JSON/diff, and
+cache-archive gates.
+
 ## Matching construction
 
 | Declaration | Module | Purpose |
@@ -161,6 +196,12 @@ import TotalColoring
 #check TotalColoring.exists_valid_assignment_of_highDegree
 #check TotalColoring.exists_valid_assignment_of_independentSeedPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
+#check TotalColoring.SelectorCorePeelCertificate
+#check TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
+#check TotalColoring.AlternatingRainbowPathSelectorCertificate
+#check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+#check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
 #check TotalColoring.Auxiliary
   .exists_valid_assignment_of_highDegree_nonempty
 #check TotalColoring.exists_valid_assignment_of_isEmpty
@@ -181,7 +222,8 @@ import TotalColoring
 
 The proof-branch version of this snippet is maintained in
 [`examples/Quickstart.lean`](examples/Quickstart.lean). Its two
-independent-seed `#check` lines require source commit `cc4dd7ae…`; the
-default-branch Quickstart does not yet contain them. The source declaration is
+independent-seed `#check` lines require source commit `cc4dd7ae…`; its six
+selector/path lines require source commit `d008514…`. The default-branch
+Quickstart does not yet contain either group. Source declarations are
 authoritative, and a later integration tree still needs its own exact-tree
 verification before publication.

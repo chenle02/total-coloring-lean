@@ -32,4 +32,14 @@ import TotalColoring
 -- `9af6a84e1305aed9a0156dcd59c279de792dea4a`; not yet on `main`.
 #check TotalColoring.exists_valid_assignment_of_independentSeedPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
+
+-- Proof branch `agent/total-independent-selector-decoder`, source commit
+-- `d008514c7a1cf834007bf0bd8de0d10a93926711`, tree
+-- `1847934c78da03fe80bb67236868700c79016129`; not yet on `main`.
+#check TotalColoring.SelectorCorePeelCertificate
+#check TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
+#check TotalColoring.AlternatingRainbowPathSelectorCertificate
+#check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+#check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
 #check TotalColoring.Certificate.checkExtension_sound
