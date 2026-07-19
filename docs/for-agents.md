@@ -6,6 +6,9 @@ This page gives coding assistants a small, safe context window for the project.
 
 1. Inspect the exact terminal declaration in
    `TotalColoring/HighDegreeTotalColoring.lean`.
+   For the separate supplied-witness endpoint, inspect
+   `TotalColoring/IndependentSeed.lean` at proof-branch source commit
+   `cc4dd7ae1d858ea0583549f88707952e2414bf60` instead.
 2. Read [`claim-boundary.json`](claim-boundary.json) and check that its pinned
    tree matches the code tree you are discussing.
 3. For the terminal route, inspect `MatchingLowerBound.lean`,
@@ -20,6 +23,8 @@ This page gives coding assistants a small, safe context window for the project.
 ## Authority order
 
 1. Lean declarations at the exact pinned tree determine what is proved.
+   The default-branch authority and the independent-seed proof-branch
+   authority are distinct until merge.
 2. `AGENTS.md` determines repository and trust policy.
 3. `docs/claim-boundary.json` is the machine-readable public mirror.
 4. The README and Pages explain the result but cannot broaden it.
@@ -47,9 +52,34 @@ for one does not automatically verify the other.
   coloring, and semantic decoding.
 - The empty branch uses `exists_valid_assignment_of_isEmpty`; it is not an
   unproved side condition.
-- Never call this the Total Coloring Conjecture, a `G.maxDegree + 2` result, a
-  locked or fully proved manuscript theorem, or a novelty result.
+- Never call the package terminal theorem the Total Coloring Conjecture, a
+  `G.maxDegree + 2` result, a locked or fully proved manuscript theorem, or a
+  novelty result.
 - Do not extend the theorem to graphs outside its density hypothesis.
+- The independent-seed declarations currently exist only on
+  `agent/independent-seed-endpoint` at commit
+  `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
+  `9af6a84e1305aed9a0156dcd59c279de792dea4a`; `main` does not yet contain
+  them.
+- The separate generic endpoint
+  `TotalColoring.exists_valid_assignment_of_independentSeedPeel` requires
+  exactly `0 < q`, a supplied proper `phi : EdgeAssignment G (Fin q)`, a
+  supplied independent seed `A`, and a supplied
+  `IndependentSeedPeelCertificate G A q`; it concludes a valid assignment in
+  `Fin (q + 1)`.
+- The direct wrapper
+  `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel`
+  takes the corresponding explicit witnesses at `q = G.maxDegree + 1` and
+  concludes a valid assignment in `Fin (G.maxDegree + 2)`.
+- Neither independent-seed declaration proves Vizing's theorem, constructs
+  the proper edge assignment, or proves existence of the independent seed or
+  peel certificate. Never present either as an unrestricted Total Coloring
+  Conjecture theorem or as a strengthening of the terminal high-degree
+  theorem's unconditional scope.
+- Exact source tree `9af6a84e…` passed sealed offline Easley trust jobs
+  `5389587` and `5389588`, including strict leaf, umbrella/full, Quickstart,
+  axiom, `leanchecker`, metadata, and reconstruction gates. This verifies the
+  conditional decoder; it does not verify existence of its inputs.
 - Keep package proof status and publication trust separate. The exact
   proof-development tree `4624044788ab42c0dc116cfbf7f38c696065263c`
   passed five separate high-memory full/Quickstart/`leanchecker` jobs
@@ -75,6 +105,11 @@ Do not erase or misdescribe the more general supplied-input theorems:
 - `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`
   remains a valid route from an explicit supplied partition on a nonempty
   graph together with `Fintype.card V <= 2 * G.maxDegree`.
+- At proof-branch commit `cc4dd7ae…`,
+  `exists_valid_assignment_of_independentSeedPeel` and its maximum-degree
+  wrapper remain conditional on the explicitly supplied proper edge coloring,
+  independent seed, and peel certificate. They are not default-branch APIs
+  before merge.
 
 The supplied equitable partition is no longer a premise of the package
 terminal theorem. `HighDegreeTotalColoring` constructs the needed witness from
@@ -86,6 +121,7 @@ limitations from one interface over to another.
 | Need | Start here |
 | --- | --- |
 | Package terminal theorem | `TotalColoring/HighDegreeTotalColoring.lean` |
+| Proof-branch conditional independent-seed endpoint | `TotalColoring/IndependentSeed.lean` at `cc4dd7ae…`, tree `9af6a84e…` |
 | Empty-vertex base case | `TotalColoring/EmptyAssignment.lean` |
 | General matching lower bound | `TotalColoring/MatchingLowerBound.lean` |
 | High-degree complement specialization | `TotalColoring/HighDegreeComplementMatching.lean` |
@@ -126,6 +162,16 @@ limitations from one interface over to another.
 > `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`
 > only when an explicit partition and the required high-degree density
 > inequality have already been supplied.
+
+### Use the conditional `Delta + 2` wrapper safely
+
+> Apply
+> `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel` while
+> keeping the proper `EdgeAssignment G (Fin (G.maxDegree + 1))`, its validity,
+> the independent seed, and its peel certificate explicit. State that the
+> declaration does not prove Vizing or seed existence and is not an
+> unrestricted Total Coloring Conjecture theorem. Also state that this wrapper
+> is on proof branch `agent/independent-seed-endpoint`, not yet on `main`.
 
 ### Audit prose
 

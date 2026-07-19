@@ -133,5 +133,5 @@ to a later integration or publication tree. Accordingly, the later publishable
 tree `89a32c7a78e294a8b1484092ec79afaa3b4ace5a` received a separate Wave 11
 exact-tree gate and public CI before PR #8 merged it into `main` as
 `0e938606`. The package theorem still does not lock a manuscript theorem,
-establish novelty, prove the stronger palette, or settle the Total Coloring
-Conjecture.
+establish novelty, prove an unconditional stronger palette, or settle the
+Total Coloring Conjecture.

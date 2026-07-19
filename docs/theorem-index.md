@@ -24,6 +24,41 @@ leaf `5388961`, all 64 distinct matrix roles after narrow repairs, container
 `5389030`--`5389032`. PR #8 merged that exact tree into `main` as `0e938606`;
 PR-head and post-merge Lean/docs CI passed.
 
+## Proof-branch conditional independent-seed endpoint
+
+The following declarations are present on
+`agent/independent-seed-endpoint` at exact source commit
+`cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
+`9af6a84e1305aed9a0156dcd59c279de792dea4a`. They are not yet on `main`.
+
+| Declaration | Module | Checked conclusion |
+| --- | --- | --- |
+| `TotalColoring.exists_valid_assignment_of_independentSeedPeel` | `IndependentSeed` | From `0 < q`, a supplied proper `phi : EdgeAssignment G (Fin q)`, a supplied independent seed `A`, and a supplied `IndependentSeedPeelCertificate G A q`, produces `assignment : Assignment G (Fin (q + 1))` with `assignment.Valid` |
+| `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel` | `IndependentSeed` | Direct specialization from a supplied proper `EdgeAssignment G (Fin (G.maxDegree + 1))`, independent seed, and certificate at `G.maxDegree + 1` to a valid `Assignment G (Fin (G.maxDegree + 2))` |
+
+The peel certificate supplies a duplicate-free order covering exactly the
+vertices outside `A` and the strict bound
+
+```text
+(neighbors of v later in the order).card < q - G.degree v
+```
+
+at every deletion step. Setting `q = G.maxDegree + 1` makes the conclusion a
+conditional `Fin (G.maxDegree + 2)` palette. The declaration does not prove
+Vizing's theorem or construct the proper edge assignment, and it does not
+prove existence of the independent seed or peel certificate. It is therefore
+not an unrestricted Total Coloring Conjecture theorem and does not change the
+`G.maxDegree + 3` palette of the package terminal theorem above.
+The maximum-degree wrapper only performs this substitution; all witnesses
+remain explicit inputs.
+
+Exact source tree `9af6a84e…` passed two sealed offline Easley trust replays:
+job `5389587` on node408 completed in 11m40s with peak RSS `121378968K`, and
+job `5389588` on node412 completed in 11m39s with peak RSS `122474236K`.
+Both exited `0:0` after strict leaf, umbrella/full, Quickstart, axiom,
+`leanchecker`, metadata, and exact-tree gates. The receipts validate the
+conditional declarations, not existence of their supplied witnesses.
+
 ## Matching construction
 
 | Declaration | Module | Purpose |
@@ -124,6 +159,8 @@ or proving an external census complete is outside these soundness theorems.
 import TotalColoring
 
 #check TotalColoring.exists_valid_assignment_of_highDegree
+#check TotalColoring.exists_valid_assignment_of_independentSeedPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
 #check TotalColoring.Auxiliary
   .exists_valid_assignment_of_highDegree_nonempty
 #check TotalColoring.exists_valid_assignment_of_isEmpty
@@ -142,8 +179,9 @@ import TotalColoring
 #check TotalColoring.Certificate.checkExtension_sound
 ```
 
-The maintained version of this snippet is
-[`docs/examples/Quickstart.lean`](https://github.com/chenle02/total-coloring-lean/blob/main/docs/examples/Quickstart.lean)
-and is compiled by CI. The package declaration is authoritative; a modified
-integration tree still needs its own exact-tree verification before
-publication.
+The proof-branch version of this snippet is maintained in
+[`examples/Quickstart.lean`](examples/Quickstart.lean). Its two
+independent-seed `#check` lines require source commit `cc4dd7ae…`; the
+default-branch Quickstart does not yet contain them. The source declaration is
+authoritative, and a later integration tree still needs its own exact-tree
+verification before publication.

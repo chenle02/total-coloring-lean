@@ -38,6 +38,95 @@ makes no novelty claim.
 The theorem is propositional: it proves that an assignment exists. It is not
 an executable routine for extracting a coloring from an external graph file.
 
+## Proof-branch conditional independent-seed endpoint
+
+Proof branch `agent/independent-seed-endpoint` contains the separate
+supplied-witness declaration at exact source commit
+`cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
+`9af6a84e1305aed9a0156dcd59c279de792dea4a`:
+
+```lean
+TotalColoring.exists_valid_assignment_of_independentSeedPeel
+```
+
+Its exact mathematical boundary, in addition to finite/decidable graph
+structure, is:
+
+```text
+0 < q
+phi : EdgeAssignment G (Fin q)
+phi.Valid
+A : Finset V
+G.IsIndepSet (A : Set V)
+cert : IndependentSeedPeelCertificate G A q
+------------------------------------------------------------
+exists assignment : Assignment G (Fin (q + 1)), assignment.Valid
+```
+
+The certificate stores a duplicate-free deletion order covering exactly the
+vertices outside `A`. At the step for `v`, the number of its neighbors later
+in the order is strictly less than `q - G.degree v`. The checked proof colors
+in reverse order. The existing missing-color count leaves more eligible old
+colors at `v` than the already colored later neighbors can forbid. All seed
+vertices receive the single fresh color; their independence gives
+vertex-vertex validity inside the seed.
+
+For `q = G.maxDegree + 1`, the palette is
+`Fin (G.maxDegree + 2)`, so this theorem gives a conditional `Delta + 2`
+implication. Its hypotheses are not discharged by the declaration: the
+library does not prove Vizing's theorem or otherwise construct the supplied
+proper `(Delta + 1)`-edge coloring, and it does not prove that every graph has
+the required independent seed and peel certificate. Consequently this is not
+an unrestricted Total Coloring Conjecture theorem and it does not change the
+scope or `Delta + 3` palette of the package's high-degree terminal theorem.
+
+The direct specialization
+
+```lean
+TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
+```
+
+takes the explicit inputs
+
+```text
+phi : EdgeAssignment G (Fin (G.maxDegree + 1))
+phi.Valid
+A : Finset V
+G.IsIndepSet (A : Set V)
+cert : IndependentSeedPeelCertificate G A (G.maxDegree + 1)
+```
+
+and concludes a valid `Assignment G (Fin (G.maxDegree + 2))`. This wrapper
+only substitutes `q = G.maxDegree + 1` in the generic theorem. It does not
+construct any of the displayed witnesses.
+
+!!! warning "Distribution boundary"
+
+    These two independent-seed declarations are present on the named proof
+    branch only. They are not yet on `main`; do not attribute them to the
+    default branch before merge and a tree-specific verification gate.
+
+### Exact proof-source trust receipt
+
+The proof source archive had SHA-256
+`cdee04ebfed9da64ad6b579f74f18d0ac80fec06047a87668fecf95e9f891db7`;
+`TotalColoring/IndependentSeed.lean` had SHA-256
+`47d25f6d5ef2766b43b290d1a28502a8469013cd845c84b3b85095e8c610ea12`.
+Two sealed offline Easley jobs rebuilt and audited the exact source tree:
+
+| Job | Node | Exit | Elapsed | Peak RSS |
+| --- | --- | --- | --- | --- |
+| `5389587` | node408 | `0:0` | 11m40s | `121378968K` |
+| `5389588` | node412 | `0:0` | 11m39s | `122474236K` |
+
+Both passed archive/tree reconstruction, the strict leaf compile, the module,
+umbrella and full builds, Quickstart, declaration and axiom auditing,
+`leanchecker`, and JSON/diff gates. The sealed cache SHA-256 was
+`d0950006c5b6bb292484e60b10b4fad83d9d2ad6ecbc016589a5f26766b042aa`.
+These are trust receipts for the conditional declarations at source commit
+`cc4dd7ae…`; they do not construct or verify the endpoint's supplied
+mathematical witnesses for an arbitrary graph.
+
 ## Checked end-to-end route
 
 ### 1. A matching lower bound
@@ -155,7 +244,13 @@ useful when a downstream proof already has more structured input:
   `EquitableIndependentPartition G (G.maxDegree + 1)` on a nonempty graph can
   use the theorem below when it also has
   `Fintype.card V <= 2 * G.maxDegree`:
-  `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`.
+  `EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition`;
+  and
+- on proof branch commit `cc4dd7ae…`, a supplied proper
+  `phi : EdgeAssignment G (Fin q)`, independent seed `A`, and
+  `IndependentSeedPeelCertificate G A q`, together with `0 < q`, can use
+  `TotalColoring.exists_valid_assignment_of_independentSeedPeel`; this API is
+  not yet present on `main`.
 
 The equitable-partition theorem remains a valid conditional interface. It is
 no longer a missing premise of
@@ -182,8 +277,13 @@ witness.
 The checked declarations do **not** establish:
 
 - the Total Coloring Conjecture;
-- a `G.maxDegree + 2` total-coloring conclusion;
-- a theorem for graphs outside the displayed high-degree regime;
+- an unconditional `G.maxDegree + 2` total-coloring conclusion;
+- an unconditional theorem from graph hypotheses alone for graphs outside the
+  displayed high-degree regime;
+- Vizing's theorem or universal existence of the proper edge-coloring witness
+  required by the independent-seed endpoint;
+- universal existence of an independent seed and peel certificate satisfying
+  that endpoint;
 - a locked or fully proved theorem in the separate research manuscript;
 - novelty of the package theorem or of any proposed manuscript result;
 - an executable coloring extractor for arbitrary external graph data; or
@@ -194,9 +294,12 @@ The checked declarations do **not** establish:
 
     The checked terminal palette is
     `ExtensionPalette (G.maxDegree + 1)`, definitionally
-    `Fin (G.maxDegree + 3)`. Do not shorten this to a stronger palette, and do
-    not identify the package result with a manuscript claim without the
-    manuscript's independent theorem and novelty gates.
+    `Fin (G.maxDegree + 3)`. Do not shorten this terminal theorem to a stronger
+    palette. The separate `Fin (q + 1)` independent-seed theorem is conditional
+    on its proper edge coloring, independent seed, and peel certificate; it
+    does not alter this terminal palette. Do not identify either package result
+    with a manuscript claim without the manuscript's independent theorem and
+    novelty gates.
 
 ## Exact proof-tree verification receipt
 
@@ -261,4 +364,8 @@ certifies, so recording these job IDs does not invalidate that exact-tree gate.
 
 For tools, the public boundary is mirrored in
 [`claim-boundary.json`](claim-boundary.json). Lean declarations at the pinned
-commit remain authoritative if prose and code disagree.
+default-branch commit remain authoritative for `main` if prose and code
+disagree. The independent-seed declarations are separately authoritative only
+at proof-branch source commit
+`cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
+`9af6a84e1305aed9a0156dcd59c279de792dea4a`, until merged.

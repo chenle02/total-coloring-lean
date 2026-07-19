@@ -130,10 +130,23 @@ boundaries take priority over breadth or automation.
   `∃ assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)),
   assignment.Valid`. Thus its palette has `G.maxDegree + 3` colors. It includes
   the empty vertex type and uses no even-order or other parity hypothesis.
+- Proof branch `agent/independent-seed-endpoint` contains the separate checked
+  declarations `TotalColoring.exists_valid_assignment_of_independentSeedPeel`
+  and
+  `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel` at
+  source commit `cc4dd7ae1d858ea0583549f88707952e2414bf60`, exact tree
+  `9af6a84e1305aed9a0156dcd59c279de792dea4a`. The generic theorem requires
+  `0 < q`, a supplied proper `EdgeAssignment G (Fin q)`, a supplied independent
+  seed, and a supplied peel certificate, and concludes a valid assignment in
+  `Fin (q + 1)`. The wrapper specializes to `q = G.maxDegree + 1` but retains
+  every witness as an explicit input. Neither declaration proves Vizing's
+  theorem or seed/certificate existence, and neither is on `main` before
+  merge.
 - Do not state that this repository proves the Total Coloring Conjecture, the
-  manuscript's still-unlocked main theorem, a `Delta + 2` conclusion, or an
-  unrestricted total-coloring theorem outside the explicit high-degree
-  hypothesis. Do not attach a novelty claim to the checked terminal theorem.
+  manuscript's still-unlocked main theorem, an unconditional `Delta + 2`
+  conclusion, or an unrestricted total-coloring theorem outside the explicit
+  hypotheses of a checked declaration. Do not attach a novelty claim to the
+  checked terminal or independent-seed theorem.
 - The checked all-orders theorem is confined to the exact formal predicate
   `InAuxiliaryClass`. The conditional transfer uses the same `D + 2` type as a
   total-coloring palette only after a supplied extension is provided. The
@@ -155,6 +168,11 @@ boundaries take priority over breadth or automation.
   post-merge main Lean/docs CI passed; PR #8 merged as `0e938606`, whose tree
   is exactly the verified tree. The PR body is the external receipt so adding
   job IDs did not change the tree it certifies.
+- The independent-seed exact source tree separately passed sealed offline
+  Easley jobs `5389587` and `5389588`, both exit `0:0`, through strict leaf,
+  umbrella/full, Quickstart, declaration/axiom, `leanchecker`, JSON/diff, and
+  exact-tree gates. These receipts verify the conditional declarations only;
+  they do not discharge their supplied mathematical hypotheses.
 - Kernel verification establishes correctness of the formal statement, not
   novelty. Novelty remains subject to the literature check and author lock.
 - A checked positive assignment proves that assignment is valid. It does not

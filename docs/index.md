@@ -43,16 +43,28 @@
       <code>EquitableIndependentPartition</code>. The abstract theorem for
       every finite <code>InAuxiliaryClass D H J</code> also remains available.
     </p>
+    <p>
+      On proof branch <code>agent/independent-seed-endpoint</code>, the separate
+      theorem <code>exists_valid_assignment_of_independentSeedPeel</code>
+      constructs a <code>Fin (q + 1)</code> total assignment from a supplied
+      proper <code>Fin q</code> edge coloring, independent seed, and peel
+      certificate. Its direct maximum-degree wrapper has palette
+      <code>Fin (G.maxDegree + 2)</code>, while retaining all of those witnesses
+      as explicit hypotheses. Two sealed Easley trust replays passed at exact
+      source tree <code>9af6a84e...</code>.
+    </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
   <section class="tc-card tc-card--boundary">
     <h2>What is not proved</h2>
     <p>
-      This package theorem is not the Total Coloring Conjecture, does not prove
-      the stronger <code>Delta + 2</code> target, and does not establish a paper
-      theorem or novelty claim. Those manuscript claims remain under their own
-      author and literature-review gates. The merged public proof tree received
-      its own Wave 11 exact-tree gate plus PR-head and post-merge public CI.
+      This package does not prove the Total Coloring Conjecture or an
+      unconditional <code>Delta + 2</code> theorem, and it does not establish a
+      paper theorem or novelty claim. The proof-branch endpoint does not prove
+      Vizing's theorem or existence of its seed/certificate inputs. Those
+      manuscript claims remain under their own author and literature-review
+      gates. The merged public proof tree and the separate endpoint source tree
+      each received tree-specific verification.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -79,11 +91,15 @@ import TotalColoring
   .isAuxiliaryClassMember_of_highDegree
 #check TotalColoring.Auxiliary.EquitableIndependentPartition
   .exists_valid_assignment_of_highDegreePartition
+#check TotalColoring.exists_valid_assignment_of_independentSeedPeel
+#check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
 ```
 
-These coloring declarations are propositional existence theorems. They do not
-compute a coloring from external data. For executable finite certificates,
-begin with `TotalColoring.Certificate` and its soundness theorems.
+The last two declarations currently require proof branch
+`agent/independent-seed-endpoint`; they are not yet on `main`. These coloring
+declarations are propositional existence theorems. They do not compute a
+coloring from external data. For executable finite certificates, begin with
+`TotalColoring.Certificate` and its soundness theorems.
 
 ## Choose your route
 
