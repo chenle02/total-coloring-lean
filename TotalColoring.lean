@@ -82,6 +82,7 @@ import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap
 import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
+import TotalColoring.RigidCageCounting
 import TotalColoring.SimpleReachability
 import TotalColoring.Total
 import TotalColoring.TotalIndependentSelector
