@@ -44,18 +44,20 @@
       every finite <code>InAuxiliaryClass D H J</code> also remains available.
     </p>
     <p>
-      On proof branch <code>agent/independent-seed-endpoint</code>, the separate
+      On current <code>main</code> commit <code>61e79bea...</code>, tree
+      <code>cb2d7d06...</code>, the separate
       theorem <code>exists_valid_assignment_of_independentSeedPeel</code>
       constructs a <code>Fin (q + 1)</code> total assignment from a supplied
       proper <code>Fin q</code> edge coloring, independent seed, and peel
       certificate. Its direct maximum-degree wrapper has palette
       <code>Fin (G.maxDegree + 2)</code>, while retaining all of those witnesses
-      as explicit hypotheses. Two sealed Easley trust replays passed at exact
-      source tree <code>9af6a84e...</code>.
+      as explicit hypotheses. Its historical proof source is branch
+      <code>agent/independent-seed-endpoint</code>; two sealed Easley trust
+      replays passed at exact source tree <code>9af6a84e...</code>.
     </p>
     <p>
-      The later proof branch
-      <code>agent/total-independent-selector-decoder</code> checks a broader
+      The later selector layer, also merged into current <code>main</code>,
+      checks a broader
       supplied-witness decoder: an independent fresh-color vertex set may be
       combined with a matching of fresh-color edges avoiding it, an
       actual-list-colored core, and a core-relative peel certificate. An
@@ -63,18 +65,30 @@
       exchange. The maximum-degree wrappers have palette
       <code>Fin (G.maxDegree + 2)</code>, but all edge-coloring,
       selector/core, path, and peel witnesses remain hypotheses. Exact source
-      tree <code>1847934c...</code> passed sealed Easley job
-      <code>5391803</code>.
+      tree <code>1847934c...</code> on historical branch
+      <code>agent/total-independent-selector-decoder</code> passed sealed Easley
+      job <code>5391803</code>.
     </p>
     <p>
-      The stacked branch
-      <code>agent/partial-edge-selector-normalization</code> weakens the old
+      The partial-edge layer, merged by PR #12, weakens the old
       edge premise further: colors stored on the selected matching are
       ignored, and properness is required only outside it. It also gives an
       exact reverse decomposition of any supplied valid total coloring after
       choosing one fresh color class. The decoded assignment is literally the
       supplied assignment. This converse starts from the coloring and does
       not establish its existence.
+    </p>
+    <p>
+      Unmerged branch <code>agent/donor-global-formalization</code> adds the
+      exact vertex-side equivalence
+      <code>adaptedSpareVertexColor_proper_iff</code>. Under
+      <code>Disjoint A B</code>, the supplied endpoint assignment is proper
+      exactly when <code>A</code> is independent, equal-missing conflicts meet
+      <code>A ∪ B</code>, head labels are clean against unchanged neighbors,
+      and head labels are proper on adjacent vertices of <code>B</code>. It
+      constructs no donor matching, edge coloring, or total coloring. Every
+      proposed source tree requires a tree-specific external receipt before
+      merge.
     </p>
     <p><a href="proof-status/">Read the exact theorem →</a></p>
   </section>
@@ -83,14 +97,19 @@
     <p>
       This package does not prove the Total Coloring Conjecture or an
       unconditional <code>Delta + 2</code> theorem, and it does not establish a
-      paper theorem or novelty claim. The proof-branch endpoint does not prove
+      paper theorem or novelty claim. The conditional endpoint does not prove
       Vizing's theorem or existence of its seed/certificate inputs. The newer
-      selector branch likewise does not prove existence of its selector,
+      selector layer likewise does not prove existence of its selector,
       canonical core, peel order, or alternating rainbow path. Those
       statements are not supplied by the later normalization either, because
       that construction assumes a valid total coloring as input. Those
+      statements are also not supplied by the adapted-spare vertex endpoint,
+      which assumes all endpoint data and proves only vertex properness. Those
       manuscript claims remain under their own author and literature-review
-      gates. Each cited source tree received tree-specific verification.
+      gates. Attribute verification only to the exact trees and jobs named in
+      the proof-status page. Until merge, attribute the adapted-spare
+      declaration only to <code>agent/donor-global-formalization</code>; any
+      verification claim must cite a tree-specific external receipt.
     </p>
     <p><a href="claim-boundary.json">Inspect the machine-readable boundary →</a></p>
   </section>
@@ -132,12 +151,12 @@ import TotalColoring
 #check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
 ```
 
-The independent-seed declarations require proof branch
-`agent/independent-seed-endpoint`; the six selector/path declarations after
-them require `agent/total-independent-selector-decoder`. The final five
-partial-edge/normalization declarations require the stacked branch
-`agent/partial-edge-selector-normalization`. None is yet on `main`. The
-forward coloring declarations are propositional existence theorems, while the
+The independent-seed, selector/path, and partial-edge/normalization
+declarations shown above are all on current `main` commit `61e79bea…`, tree
+`cb2d7d06…`; their earlier proof branches and source trees remain historical
+provenance. The adapted-spare endpoint is intentionally absent from this
+current-main snippet because it remains unmerged. The forward coloring
+declarations are propositional existence theorems, while the
 normalization declarations start from a supplied valid assignment.
 They do not compute a coloring from external data. For executable finite
 certificates, begin with `TotalColoring.Certificate` and its soundness

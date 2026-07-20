@@ -24,12 +24,13 @@ leaf `5388961`, all 64 distinct matrix roles after narrow repairs, container
 `5389030`--`5389032`. PR #8 merged that exact tree into `main` as `0e938606`;
 PR-head and post-merge Lean/docs CI passed.
 
-## Proof-branch conditional independent-seed endpoint
+## Conditional independent-seed endpoint on `main`
 
-The following declarations are present on
+The following declarations are present on current `main` commit `61e79bea…`,
+tree `cb2d7d06…`. Their historical proof source is branch
 `agent/independent-seed-endpoint` at exact source commit
 `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
-`9af6a84e1305aed9a0156dcd59c279de792dea4a`. They are not yet on `main`.
+`9af6a84e1305aed9a0156dcd59c279de792dea4a`; PR #10 merged them.
 
 | Declaration | Module | Checked conclusion |
 | --- | --- | --- |
@@ -59,12 +60,13 @@ Both exited `0:0` after strict leaf, umbrella/full, Quickstart, axiom,
 `leanchecker`, metadata, and exact-tree gates. The receipts validate the
 conditional declarations, not existence of their supplied witnesses.
 
-## Proof-branch total-independent selector decoder
+## Total-independent selector decoder on `main`
 
-The following declarations are present on
+The following declarations are present on current `main` commit `61e79bea…`,
+tree `cb2d7d06…`. Their historical proof source is branch
 `agent/total-independent-selector-decoder` at source commit
 `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
-`1847934c78da03fe80bb67236868700c79016129`. They are not on `main`.
+`1847934c78da03fe80bb67236868700c79016129`; PR #11 merged them.
 
 | Declaration | Module | Checked conclusion |
 | --- | --- | --- |
@@ -94,12 +96,13 @@ exit `0:0`, elapsed 16m09s, peak RSS `125399676K`, with exact-tree, strict
 leaf, target/umbrella/full, Quickstart, axiom, `leanchecker`, JSON/diff, and
 cache-archive gates.
 
-## Stacked partial-edge selector normalization
+## Partial-edge selector normalization on `main`
 
-The following declarations are present on
+The following declarations are present on current `main` commit `61e79bea…`,
+tree `cb2d7d06…`. Their historical proof source is stacked branch
 `agent/partial-edge-selector-normalization` at source commit
 `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
-`11007a4aa381984a8d66aa1db297312cebe8d8b5`. They are not on `main`.
+`11007a4aa381984a8d66aa1db297312cebe8d8b5`; PR #12 merged them.
 
 | Declaration | Module | Checked conclusion |
 | --- | --- | --- |
@@ -114,6 +117,23 @@ The following declarations are present on
 The forward theorem does not construct any selector or coloring. The reverse
 constructor starts from a supplied valid total coloring, so it cannot be used
 as an existence proof for that coloring or for the Total Coloring Conjecture.
+
+## Adapted-spare vertex endpoint (unmerged)
+
+The following declaration is on `agent/donor-global-formalization`, based on
+current `main` commit `61e79bea…`, tree `cb2d7d06…`. Until merge, attribute
+the declaration only to that branch; any verification claim must cite a
+tree-specific external receipt.
+
+| Declaration | Module | Checked conclusion |
+| --- | --- | --- |
+| `TotalColoring.adaptedSpareVertexColor_proper_iff` | `AdaptedSpareEndpoint` | Assuming `Disjoint A B`, the supplied endpoint coloring (`none` on `A`, `some (head v)` on `B`, `some (missing v)` elsewhere) is proper on `K` exactly when `A` is independent, every equal-missing conflict is covered by `A ∪ B`, head labels are clean against unchanged neighbors, and head labels are proper on adjacent vertices of `B` |
+
+This is an exact vertex-side equivalence. It does not construct `A`, `B`, a
+physical donor matching, donor-label transport, seed or matching witnesses,
+missing/head data, a proper edge coloring, or a total coloring. It gives no
+unrestricted `Delta + 2` theorem and does not prove the Total Coloring
+Conjecture.
 
 ## Matching construction
 
@@ -241,10 +261,11 @@ import TotalColoring
 #check TotalColoring.Certificate.checkExtension_sound
 ```
 
-The proof-branch version of this snippet is maintained in
-[`examples/Quickstart.lean`](examples/Quickstart.lean). Its two
-independent-seed `#check` lines require source commit `cc4dd7ae…`; its six
-selector/path lines require source commit `d008514…`. The default-branch
-Quickstart does not yet contain either group. Source declarations are
-authoritative, and a later integration tree still needs its own exact-tree
-verification before publication.
+The canonical version of this snippet is maintained in
+[`examples/Quickstart.lean`](examples/Quickstart.lean). Current `main` commit
+`61e79bea…`, tree `cb2d7d06…`, contains the independent-seed, selector/path,
+and partial-edge groups. Their earlier source commits and trees remain
+historical proof provenance. The final adapted-spare endpoint `#check` in the
+branch Quickstart requires `agent/donor-global-formalization`. Until merge,
+attribute it only to that branch; any verification claim must cite a
+tree-specific external receipt.

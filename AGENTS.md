@@ -130,24 +130,26 @@ boundaries take priority over breadth or automation.
   `∃ assignment : Assignment G (ExtensionPalette (G.maxDegree + 1)),
   assignment.Valid`. Thus its palette has `G.maxDegree + 3` colors. It includes
   the empty vertex type and uses no even-order or other parity hypothesis.
-- Proof branch `agent/independent-seed-endpoint` contains the separate checked
-  declarations `TotalColoring.exists_valid_assignment_of_independentSeedPeel`
-  and
-  `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel` at
-  source commit `cc4dd7ae1d858ea0583549f88707952e2414bf60`, exact tree
-  `9af6a84e1305aed9a0156dcd59c279de792dea4a`. The generic theorem requires
+- Current `main` contains the separate checked declarations
+  `TotalColoring.exists_valid_assignment_of_independentSeedPeel` and
+  `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel`,
+  first checked on historical proof branch `agent/independent-seed-endpoint`
+  at source commit `cc4dd7ae1d858ea0583549f88707952e2414bf60`, exact tree
+  `9af6a84e1305aed9a0156dcd59c279de792dea4a`, and merged by PR #10. The generic
+  theorem requires
   `0 < q`, a supplied proper `EdgeAssignment G (Fin q)`, a supplied independent
   seed, and a supplied peel certificate, and concludes a valid assignment in
   `Fin (q + 1)`. The wrapper specializes to `q = G.maxDegree + 1` but retains
   every witness as an explicit input. Neither declaration proves Vizing's
-  theorem or seed/certificate existence, and neither is on `main` before
-  merge.
-- Proof branch `agent/total-independent-selector-decoder` adds the checked
+  theorem or seed/certificate existence.
+- Current `main` contains the checked
   `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel` and
   maximum-degree wrapper, plus an explicit alternating rainbow-path
-  certificate and its two wrappers, at source commit
+  certificate and its two wrappers, first checked on historical proof branch
+  `agent/total-independent-selector-decoder` at source commit
   `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
-  `1847934c78da03fe80bb67236868700c79016129`. The general decoder requires a
+  `1847934c78da03fe80bb67236868700c79016129`, and merged by PR #11. The general
+  decoder requires a
   supplied proper `Fin q` edge coloring, an independent fresh-color vertex
   set, a matching fresh-color edge set avoiding those vertices, an
   actual-list-colored core, and a core-relative peel certificate; it concludes
@@ -155,12 +157,13 @@ boundaries take priority over breadth or automation.
   exchange from an explicit indexed rainbow-path/spare/matching/core/peel
   certificate. No declaration constructs Vizing's edge coloring, a canonical
   selector or core, the peel certificate, or the path. The maximum-degree
-  wrappers are conditional `Fin (G.maxDegree + 2)` implications only, and the
-  declarations are not on `main` before merge.
-- Stacked proof branch `agent/partial-edge-selector-normalization` adds the
-  checked partial-edge decoder and exact reverse normalization at source commit
+  wrappers are conditional `Fin (G.maxDegree + 2)` implications only.
+- Current `main` contains the checked partial-edge decoder and exact reverse
+  normalization, first checked on historical stacked proof branch
+  `agent/partial-edge-selector-normalization` at source commit
   `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
-  `11007a4aa381984a8d66aa1db297312cebe8d8b5`. The forward theorem requires
+  `11007a4aa381984a8d66aa1db297312cebe8d8b5`, and merged by PR #12. The
+  forward theorem requires
   old edge properness only outside the selected matching; values on selected
   edges are overwritten and unconstrained. The selected vertices must still
   be independent, the selected edges must still be a matching avoiding those
@@ -170,7 +173,19 @@ boundaries take priority over breadth or automation.
   records literal equality after decoding. Its maximum-degree notation begins
   with a supplied `Fin (G.maxDegree + 2)` assignment. It does not construct
   such a coloring, prove selector existence, or prove the Total Coloring
-  Conjecture, and it is not on `main` before merge.
+  Conjecture.
+- Unmerged proof branch `agent/donor-global-formalization` adds the checked
+  declaration `TotalColoring.adaptedSpareVertexColor_proper_iff`. Under an
+  explicit `Disjoint A B` hypothesis, it proves that the supplied endpoint
+  vertex assignment is proper exactly when `A` is independent, every adjacent
+  equal-missing conflict meets `A ∪ B`, head labels avoid the supplied missing
+  colors of unchanged neighbors, and head labels properly color adjacent
+  vertices of `B`. It constructs neither `A` nor `B`, a physical donor
+  matching, donor transport, compatible seed or matching data, the supplied
+  missing/head maps, a proper edge coloring, or a total coloring. It is not an
+  unrestricted `Delta + 2` theorem or a proof of the Total Coloring Conjecture.
+  Before merge, its exact proposed source tree requires a tree-specific
+  external verification receipt.
 - Do not state that this repository proves the Total Coloring Conjecture, the
   manuscript's still-unlocked main theorem, an unconditional `Delta + 2`
   conclusion, or an unrestricted total-coloring theorem outside the explicit

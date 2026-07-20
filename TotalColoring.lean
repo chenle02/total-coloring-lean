@@ -1,3 +1,4 @@
+import TotalColoring.AdaptedSpareEndpoint
 import TotalColoring.Auxiliary
 import TotalColoring.AuxiliaryClass
 import TotalColoring.AuxiliaryTransfer

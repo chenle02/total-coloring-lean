@@ -63,7 +63,8 @@ shown on the left. No parity hypothesis occurs.
 | Supplied-partition adapter | `EquitablePairSingleton` | Retained alternate API from an explicit equitable independent partition |
 | Structural class | `AuxiliaryClass`, `Distinguished` | Definition of `A_D`, deletion closure, and stable distinguished-edge transport |
 | Certificates | `Certificate` | Executable checkers connected to semantic propositions by soundness theorems |
-| Conditional selector decoding | `IndependentSeed`, `TotalIndependentSelector` | Reverse greedy extension from supplied seed/core peel data; fresh-color vertex/edge selector and explicit alternating-path donor wrappers on proof branches |
+| Conditional selector decoding | `IndependentSeed`, `TotalIndependentSelector`, `PartialEdgeSelector` | Reverse greedy extension from supplied seed/core peel data; fresh-color vertex/edge selector, explicit alternating-path donor wrappers, properness outside the selected matching, and exact reverse normalization; all are on current `main` |
+| Adapted-spare endpoint | `AdaptedSpareEndpoint` | On an unmerged branch, exactly characterizes vertex properness of a supplied spare/head/missing endpoint assignment; constructs no donor matching or coloring |
 | Critical extraction | `CriticalState`, `MinimalExtraction`, `DeletionBridge` | Minimal hypothetical counterexample and one-hole state |
 | Recoloring geometry | `RainbowSwap`, `Kempe`, `PartialKempe`, `TwoColorGeometry` | Exact swap safety and physical two-color components |
 | Fan mechanics | `Fan*`, `Dependency*`, `CriticalFan*` | Legal shifts, reachability, missing colors, and capacity |
@@ -71,9 +72,13 @@ shown on the left. No parity hypothesis occurs.
 | Auxiliary closure | `CriticalDirectEntry`, `CriticalDominator*`, `CriticalCrossing*`, `CriticalAllDClosure` | External-source cases and the all-orders contradiction |
 | Terminal composition | `EmptyAssignment`, `AuxiliaryTransfer`, `HighDegreeTotalColoring` | Empty base case, nonempty decoding, and the final package theorem |
 
-The umbrella `TotalColoring.lean` imports every production module, including
-the matching, empty, high-degree terminal, and proof-branch selector layers at
-the exact branch tree where those modules are present.
+At current `main` commit `61e79bea…`, tree `cb2d7d06…`, the umbrella
+`TotalColoring.lean` imports every merged production module, including the
+matching, empty, high-degree terminal, independent-seed, selector/path, and
+partial-edge normalization layers. On `agent/donor-global-formalization`, it
+additionally imports `AdaptedSpareEndpoint`; that branch is unmerged. Until
+merge, attribute the declaration only to that branch, and support any
+verification claim with a tree-specific external receipt.
 
 ## Two routes into the reusable auxiliary engine
 
@@ -96,7 +101,7 @@ Likewise, a downstream development may start from a supplied
 and `InAuxiliaryClass`. These are stable interfaces, not unresolved premises
 of `TotalColoring.exists_valid_assignment_of_highDegree`.
 
-The conditional `Delta + 2` proof branches form a separate route. The
+The conditional `Delta + 2` modules form a separate route. The
 independent-seed endpoint starts from a supplied proper old-palette edge
 coloring, independent seed, and peel certificate. The later
 `TotalIndependentSelector` module permits both an independent fresh-color
@@ -114,7 +119,20 @@ also gives a reverse normalization for a supplied valid total coloring: choose
 one palette color, take its vertex and edge color classes, and pull the
 remaining colors back through `Fin.succAbove`. This reverse path ends in
 literal equality with the supplied assignment and introduces no coloring
-existence theorem.
+existence theorem. The independent-seed, selector/path, and partial-edge
+layers were merged by PRs #10--#12; their earlier branch commits and trees
+remain historical proof provenance.
+
+The unmerged `AdaptedSpareEndpoint` module isolates the final vertex-side
+logic of a different route. Given disjoint supplied sets `A` and `B`, supplied
+missing colors, and supplied head labels, it assigns the spare `none` to `A`,
+the head labels to `B`, and missing colors elsewhere. Properness is equivalent
+to independence of `A`, coverage of every equal-missing conflict by `A ∪ B`,
+clean head labels against unchanged neighbors, and proper head labels on
+adjacent vertices of `B`. This equivalence does not construct the sets, a
+physical donor matching, seed or matching data, missing/head data, a proper
+edge coloring, or a total coloring, so it is not a route completion or an
+unrestricted `Delta + 2` theorem.
 
 ## The matching route in detail
 
