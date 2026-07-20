@@ -74,6 +74,9 @@ import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount
 import TotalColoring.MissingGeneralCount
+import TotalColoring.MinSixCageModel
+import TotalColoring.MinSixCountLemmas
+import TotalColoring.MinSixGuardSoundness
 import TotalColoring.OrderedFan
 import TotalColoring.PairSingletonExtension
 import TotalColoring.Partial
