@@ -24,31 +24,37 @@
 > [!IMPORTANT]
 > The default branch proves an all-orders **auxiliary edge-coloring theorem**,
 > a **conditional auxiliary-to-total transfer**, and the formal high-degree
-> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. The
-> proof branch `agent/independent-seed-endpoint`, at exact source commit
+> theorem `TotalColoring.exists_valid_assignment_of_highDegree`. Current
+> `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
+> `cb2d7d06998c213e68a7372f743f67f9cff815f7`, also contains the declarations
+> first checked on proof branch `agent/independent-seed-endpoint`, at exact
+> source commit
 > `cc4dd7ae1d858ea0583549f88707952e2414bf60` and tree
-> `9af6a84e1305aed9a0156dcd59c279de792dea4a`, additionally contains the
-> conditional endpoint
+> `9af6a84e1305aed9a0156dcd59c279de792dea4a`: the conditional endpoint
 > `TotalColoring.exists_valid_assignment_of_independentSeedPeel` and its
 > maximum-degree wrapper
 > `TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel`.
-> These two declarations are not yet on the default branch. The high-degree
-> theorem produces a valid total assignment with
+> The high-degree theorem produces a valid total assignment with
 > `G.maxDegree + 3` colors from
 > `Fintype.card V ≤ 2 * G.maxDegree`. The endpoint produces an assignment in
 > `Fin (q + 1)` only from a supplied proper `Fin q` edge coloring, a supplied
 > independent seed, and a supplied peel certificate, with `0 < q`. Setting
 > `q = G.maxDegree + 1` therefore gives a conditional `Delta + 2` palette, but
 > the library does not prove Vizing's theorem or existence of the required
-> seed/certificate. The later proof branch
-> `agent/total-independent-selector-decoder`, at source commit
+> seed/certificate. Current `main` also contains the later selector layer,
+> whose historical proof source was branch
+> `agent/total-independent-selector-decoder` at commit
 > `d008514c7a1cf834007bf0bd8de0d10a93926711` and tree
-> `1847934c78da03fe80bb67236868700c79016129`, checks a more general decoder:
+> `1847934c78da03fe80bb67236868700c79016129`. This layer checks a more general decoder:
 > an independent fresh-color vertex set may be combined with a matching of
 > fresh-color edges avoiding that set. It also checks the donor exchange from
 > an explicitly supplied alternating rainbow-path certificate. These results
 > remain conditional on their edge coloring, selector/core, path, and peel
-> inputs. The library does not prove the unrestricted Total Coloring
+> inputs, and the merged partial-edge normalization likewise begins its
+> reverse direction with a supplied valid coloring. The unmerged branch
+> `agent/donor-global-formalization` adds only an exact vertex-side endpoint
+> properness equivalence; it does not construct donors or a coloring. The
+> library does not prove the unrestricted Total Coloring
 > Conjecture, the manuscript's still-unlocked main theorem, or novelty.
 
 ## The checked results
@@ -181,11 +187,12 @@ Here `ExtensionPalette (G.maxDegree + 1)` has cardinality
 `G.maxDegree + 3`. The theorem covers both empty and nonempty finite vertex
 types and assumes neither even order nor any other parity condition.
 
-### Proof-branch conditional independent-seed endpoint
+### Conditional independent-seed endpoint on `main`
 
-At proof-branch source commit
+The declarations are available on current `main` commit `61e79bea…`, tree
+`cb2d7d06…`. Their historical proof source is commit
 [`cc4dd7ae`](https://github.com/chenle02/total-coloring-lean/commit/cc4dd7ae1d858ea0583549f88707952e2414bf60),
-exact tree `9af6a84e1305aed9a0156dcd59c279de792dea4a`, the separate declaration
+exact tree `9af6a84e1305aed9a0156dcd59c279de792dea4a`. The separate declaration
 `TotalColoring.exists_valid_assignment_of_independentSeedPeel` has the
 following explicit supplied-input boundary on a finite graph with decidable
 vertex equality and adjacency:
@@ -241,11 +248,12 @@ builds, Quickstart, the declaration/axiom audit, `leanchecker`, and metadata
 gates. These receipts verify the displayed conditional declarations at source
 tree `9af6a84e…`; they do not discharge any mathematical hypothesis.
 
-### Proof-branch total-independent selector decoder
+### Total-independent selector decoder on `main`
 
-Proof branch
+The declarations are available on current `main` commit `61e79bea…`, tree
+`cb2d7d06…`. Historical proof branch
 [`agent/total-independent-selector-decoder`](https://github.com/chenle02/total-coloring-lean/tree/agent/total-independent-selector-decoder)
-adds `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel`
+introduced `TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel`
 at source commit
 [`d008514`](https://github.com/chenle02/total-coloring-lean/commit/d008514c7a1cf834007bf0bd8de0d10a93926711),
 exact tree `1847934c78da03fe80bb67236868700c79016129`. In addition to finite and
@@ -293,11 +301,12 @@ archiving. The source archive SHA-256 is
 This receipt verifies the conditional decoder, not existence of its supplied
 witnesses.
 
-### Stacked partial-edge selector normalization
+### Partial-edge selector normalization on `main`
 
-The stacked proof branch
+The declarations are available on current `main` commit `61e79bea…`, tree
+`cb2d7d06…`. Historical stacked proof branch
 [`agent/partial-edge-selector-normalization`](https://github.com/chenle02/total-coloring-lean/tree/agent/partial-edge-selector-normalization)
-adds a strictly weaker old-edge hypothesis at source commit
+introduced a strictly weaker old-edge hypothesis at source commit
 `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
 `11007a4aa381984a8d66aa1db297312cebe8d8b5`. For a selected edge finset `F`,
 `EdgeAssignment.ValidOutside F` requires distinct old colors only for adjacent
@@ -329,11 +338,12 @@ notation wrapper starts from a supplied `Fin (G.maxDegree + 2)` coloring. This
 reverse normalization does not construct such a coloring and is not a proof
 of an unconditional `Delta + 2` result or the Total Coloring Conjecture.
 
-The independent-seed declarations and the next two `#check` lines require
-`agent/independent-seed-endpoint`. The selector declarations after them
-require `agent/total-independent-selector-decoder`. The partial-edge and
-normalization declarations require the stacked branch
-`agent/partial-edge-selector-normalization`. None is yet on `main`.
+All independent-seed, selector/path, partial-edge, and normalization
+declarations displayed below are present on current `main` commit
+`61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
+`cb2d7d06998c213e68a7372f743f67f9cff815f7`. Their earlier source
+commits and trees above remain the provenance of the individual proof layers;
+PRs #10, #11, and #12 merged the three layers into `main`.
 
 ```lean
 import TotalColoring
@@ -368,6 +378,29 @@ import TotalColoring
 #check TotalColoring.partialEdgeSelectorNormalization_of_valid
 #check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
 ```
+
+### Adapted-spare vertex endpoint (unmerged proof branch)
+
+Proof branch `agent/donor-global-formalization` adds
+`TotalColoring.adaptedSpareVertexColor_proper_iff`. For a graph `K`, color
+functions `missing head : V -> C`, finite sets `A B`, and supplied
+`Disjoint A B`, the endpoint assignment gives `none` to `A`, `some (head v)`
+to `B`, and `some (missing v)` elsewhere. The theorem proves that this vertex
+assignment is proper on every edge of `K` if and only if all four conditions
+hold:
+
+1. `A` is independent in `K`;
+2. every adjacent equal-`missing` pair has an endpoint in `A ∪ B`;
+3. every head label differs from the missing color of each unchanged
+   neighbor; and
+4. donor labels are proper on the graph induced by `B`.
+
+This is an exact vertex-side equivalence only. It does not construct `A` or
+`B`, a physical donor matching, the `missing` or `head` data, a compatible
+seed or matching, a proper edge coloring, or a total coloring. It proves
+neither an unrestricted `Delta + 2` result nor the Total Coloring Conjecture.
+The declaration is pending merge and is not part of current `main` commit
+`61e79bea…`, tree `cb2d7d06…`.
 
 The all-orders theorem was introduced at commit
 [`310b82c`](https://github.com/chenle02/total-coloring-lean/commit/310b82c174ab2281581900897d4646875575e89b)
@@ -433,7 +466,7 @@ release that actually contains them.
 
 ### Exact boundary
 
-Neither the current default branch nor either conditional `Delta + 2` proof
+Neither the current default branch nor the unmerged adapted-spare endpoint
 branch establishes:
 
 - the Total Coloring Conjecture;
@@ -448,6 +481,9 @@ branch establishes:
 - existence of a total-independent selector, an actual-list coloring of its
   core, a core-relative peel certificate, or the alternating rainbow-path
   certificate used by the newer decoder;
+- construction of the adapted-spare sets, a physical donor matching,
+  compatible seed or matching data, missing/head labels, or a proper edge
+  coloring needed before the vertex endpoint can apply;
 - the stronger auxiliary `D + 1` palette;
 - an identification of the checked declaration with a final, author-approved
   manuscript theorem; or
@@ -470,6 +506,9 @@ fresh-color matching edges, but likewise reaches that palette only after its
 proper edge coloring, selector/core data, and peel certificate have been
 supplied. Its alternating-path wrapper proves the donor exchange from the
 explicit certificate; it does not prove the certificate exists.
+The unmerged adapted-spare theorem is an exact vertex-properness equivalence
+for supplied data. It constructs no donor matching, proper edge coloring, or
+total coloring and therefore does not close the unrestricted route.
 See the
 [human-readable boundary](docs/proof-status.md) or its
 [machine-readable mirror](docs/claim-boundary.json).

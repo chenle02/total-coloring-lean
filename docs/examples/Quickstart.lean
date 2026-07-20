@@ -27,15 +27,19 @@ import TotalColoring
 #check TotalColoring.exists_valid_assignment_of_isEmpty
 #check TotalColoring.exists_valid_assignment_of_highDegree
 
--- Proof branch `agent/independent-seed-endpoint`, source commit
+-- Historical proof branch `agent/independent-seed-endpoint`, source commit
 -- `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
--- `9af6a84e1305aed9a0156dcd59c279de792dea4a`; not yet on `main`.
+-- `9af6a84e1305aed9a0156dcd59c279de792dea4a`.  These declarations are on
+-- current `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`,
+-- tree `cb2d7d06998c213e68a7372f743f67f9cff815f7`.
 #check TotalColoring.exists_valid_assignment_of_independentSeedPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel
 
--- Proof branch `agent/total-independent-selector-decoder`, source commit
+-- Historical proof branch `agent/total-independent-selector-decoder`, source commit
 -- `d008514c7a1cf834007bf0bd8de0d10a93926711`, tree
--- `1847934c78da03fe80bb67236868700c79016129`; not yet on `main`.
+-- `1847934c78da03fe80bb67236868700c79016129`.  These declarations are on
+-- current `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`,
+-- tree `cb2d7d06998c213e68a7372f743f67f9cff815f7`.
 #check TotalColoring.SelectorCorePeelCertificate
 #check TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
 #check TotalColoring.exists_valid_assignment_of_maxDegreeTotalIndependentSelectorPeel
@@ -43,9 +47,11 @@ import TotalColoring
 #check TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
 #check TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector
 
--- Stacked proof branch `agent/partial-edge-selector-normalization`, source
+-- Historical stacked branch `agent/partial-edge-selector-normalization`, source
 -- commit `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, tree
--- `11007a4aa381984a8d66aa1db297312cebe8d8b5`; not yet on `main`.
+-- `11007a4aa381984a8d66aa1db297312cebe8d8b5`.  These declarations are on
+-- current `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`,
+-- tree `cb2d7d06998c213e68a7372f743f67f9cff815f7`.
 #check TotalColoring.EdgeAssignment.ValidOutside
 #check TotalColoring.partialEdgeSelectorEdgeAssignment_valid
 #check TotalColoring.partialEdgeSelectorAssignment_valid
@@ -53,4 +59,11 @@ import TotalColoring
 #check TotalColoring.PartialEdgeSelectorNormalization
 #check TotalColoring.partialEdgeSelectorNormalization_of_valid
 #check TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid
+
+-- Proof branch `agent/donor-global-formalization`, pending merge into current
+-- `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
+-- `cb2d7d06998c213e68a7372f743f67f9cff815f7`; exact endpoint
+-- vertex-coloring interface only.  Physical donor-matching existence and
+-- unrestricted total-coloring existence remain outside this declaration.
+#check TotalColoring.adaptedSpareVertexColor_proper_iff
 #check TotalColoring.Certificate.checkExtension_sound
