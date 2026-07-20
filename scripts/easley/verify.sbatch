@@ -39,24 +39,35 @@ cd "$WORK"
 HEAD_SHA="$(git -C "$REPO" rev-parse HEAD)"
 echo "=== total-coloring-lean verify @ ${HEAD_SHA} on $(hostname) ==="
 
-# Elan/Lake toolchain (pinned by lean-toolchain: leanprover/lean4:v4.32.0).
-export ELAN_HOME="${ELAN_HOME:-$HOME/.elan}"
-export PATH="$ELAN_HOME/bin:$PATH"
+# Easley nodes run CentOS 7 / glibc 2.17, but the Lean 4.32 clang needs glibc
+# 2.29. Run the whole toolchain inside a glibc-2.35 Ubuntu 22.04 container.
+# Singularity auto-binds $HOME, so ~/.elan and the mathlib cache are visible.
+SIF="${LEANCHECK_SIF:-$HOME/Apptainder_Ubuntu_22-04_Chenle02_nvim_texlive-full_nodejs_gh.sif}"
+[[ -f "$SIF" ]] || { echo "container image not found: $SIF"; exit 66; }
+module load singularity 2>/dev/null || true
 
-echo "--- [1/4] lake exe cache get (mathlib cache restore) ---"
-lake exe cache get
+# Whole verification contract runs in ONE container invocation on the compute
+# node. `bash -c` (not -l) skips the host LMOD profile that errors in-container.
+singularity exec "$SIF" bash -c '
+  set -euo pipefail
+  export PATH="$HOME/.elan/bin:$PATH"
+  echo "container glibc: $(ldd --version | head -1)"
 
-echo "--- [2/4] lake build (full package) ---"
-lake build
+  echo "--- [1/4] lake exe cache get (mathlib cache restore) ---"
+  lake exe cache get
 
-echo "--- [3/4] lake env leanchecker (kernel replay trust gate) ---"
-lake env leanchecker
+  echo "--- [2/4] lake build (full package) ---"
+  lake build
 
-echo "--- [4/4] forbidden-token scan (no sorry/admit/axiom/native_decide) ---"
-if rg -n --glob '*.lean' --glob '!.lake/**' \
-     '(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|$)' .; then
-  echo "FAIL: forbidden token found"
-  exit 1
-fi
+  echo "--- [3/4] lake env leanchecker (kernel replay trust gate) ---"
+  lake env leanchecker
+
+  echo "--- [4/4] forbidden-token scan (no sorry/admit/axiom/native_decide) ---"
+  if rg -n --glob "*.lean" --glob "!.lake/**" \
+       "(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|\$)" .; then
+    echo "FAIL: forbidden token found"
+    exit 1
+  fi
+'
 
 echo "=== VERIFY PASSED @ ${HEAD_SHA} ==="
