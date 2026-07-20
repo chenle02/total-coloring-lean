@@ -69,6 +69,7 @@ import TotalColoring.IndependentSeed
 import TotalColoring.Kempe
 import TotalColoring.MatchingExact
 import TotalColoring.MatchingLowerBound
+import TotalColoring.MinSixSymmetry
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount
