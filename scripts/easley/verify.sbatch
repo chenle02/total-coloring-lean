@@ -43,6 +43,11 @@ echo "=== total-coloring-lean verify @ ${HEAD_SHA} on $(hostname) ==="
 # 2.29. Run the whole toolchain inside a glibc-2.35 Ubuntu 22.04 container.
 # Singularity auto-binds $HOME, so ~/.elan and the mathlib cache are visible.
 SIF="${LEANCHECK_SIF:-$HOME/Apptainder_Ubuntu_22-04_Chenle02_nvim_texlive-full_nodejs_gh.sif}"
+ADMIN_SIF="/tools/containers/rocky9-ansysfluent/rocky9-ansysfluent_latest.sif"
+if [[ ! -f "$SIF" && -f "$ADMIN_SIF" ]]; then
+  echo "primary container missing; using HPC-admin-supported rocky9 fallback (glibc >= 2.34)"
+  SIF="$ADMIN_SIF"
+fi
 [[ -f "$SIF" ]] || { echo "container image not found: $SIF"; exit 66; }
 module load singularity 2>/dev/null || true
 
@@ -63,10 +68,16 @@ singularity exec "$SIF" bash -c '
   lake env leanchecker
 
   echo "--- [4/4] forbidden-token scan (no sorry/admit/axiom/native_decide) ---"
-  if rg -n --glob "*.lean" --glob "!.lake/**" \
-       "(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|\$)" .; then
-    echo "FAIL: forbidden token found"
-    exit 1
+  TOKEN_RE="(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|\$)"
+  if command -v rg >/dev/null 2>&1; then
+    if rg -n --glob "*.lean" --glob "!.lake/**" "$TOKEN_RE" .; then
+      echo "FAIL: forbidden token found"; exit 1
+    fi
+  else
+    if find . -name "*.lean" -not -path "./.lake/*" -print0 \
+         | xargs -0 -r grep -nE "$TOKEN_RE"; then
+      echo "FAIL: forbidden token found"; exit 1
+    fi
   fi
 '
 
