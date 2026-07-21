@@ -135,6 +135,21 @@ missing/head data, a proper edge coloring, or a total coloring. It gives no
 unrestricted `Delta + 2` theorem and does not prove the Total Coloring
 Conjecture.
 
+## Minimum-six typed CNF semantics (unmerged)
+
+These declarations are on `agent/minsix-threshold-formula` and are not part
+of current `main`.
+
+| Declaration | Module | Checked conclusion |
+| --- | --- | --- |
+| `TotalColoring.MinSixCNFCore.Sinz.exists_satisfying_extension_iff` | `MinSixCNFCore` | A Sinz prefix block has an auxiliary extension exactly when its displayed primary inputs are at most one |
+| `TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF` | `MinSixThresholdEncoder` | Exact primary count `k` supplies the canonical threshold auxiliaries satisfying the typed bounded exact-count CNF |
+| `TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF_iff` | `MinSixThresholdEncoder` | On that canonical extension only, satisfaction of the typed exact-count CNF is equivalent to primary count `k` |
+
+This is not a concrete DIMACS correspondence, descriptor enumeration, LRAT
+check, UNSAT theorem, blocker composition, or graph-coloring theorem. Every
+proposed branch tree requires a tree-specific external receipt before merge.
+
 ## Matching construction
 
 | Declaration | Module | Purpose |

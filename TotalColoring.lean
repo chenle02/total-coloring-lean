@@ -74,6 +74,7 @@ import TotalColoring.MinSixCageModel
 import TotalColoring.MinSixCountLemmas
 import TotalColoring.MinSixGuardSoundness
 import TotalColoring.MinSixSymmetry
+import TotalColoring.MinSixThresholdEncoder
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount

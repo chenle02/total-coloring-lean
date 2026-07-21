@@ -1,5 +1,5 @@
 {
-  "schema_version": 9,
+  "schema_version": 10,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
@@ -194,6 +194,21 @@
       "base_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
       "base_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7",
       "verification_status": "each proposed source tree requires a tree-specific external receipt before merge; do not attribute this declaration to main before merge"
+    },
+    "minimum_six_threshold_formula_branch": {
+      "name": "agent/minsix-threshold-formula",
+      "contains_typed_cnf_semantics": true,
+      "contains_sinz_extension_characterization": true,
+      "contains_canonical_exact_count_threshold_extension": true,
+      "principal_declarations": [
+        "TotalColoring.MinSixCNFCore.Sinz.exists_satisfying_extension_iff",
+        "TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF",
+        "TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF_iff"
+      ],
+      "merge_status": "pending",
+      "default_branch_contains_result": false,
+      "verification_status": "each proposed source tree requires a tree-specific external receipt before merge; no source tree is asserted by this self-contained metadata",
+      "claim_boundary": "typed generic CNF semantics and canonical auxiliary-extension results only; no concrete DIMACS correspondence, LRAT validation, UNSAT result, semantic blocker composition, or graph-coloring theorem"
     }
   },
   "verified_results": [
@@ -521,6 +536,8 @@
     "universal existence of a compatible total-independent selector, actual-list core coloring, core-relative peel certificate, or alternating rainbow-path certificate for the selector wrappers",
     "existence of the valid total coloring assumed by the exact partial-edge normalization; a reverse decomposition cannot be cited as a coloring-existence theorem",
     "construction or universal existence of the adapted-spare sets, a physical donor matching, compatible seed or matching data, missing/head labels, or a proper edge coloring required before the adapted-spare vertex endpoint can be used",
+    "a correspondence between the minimum-six typed CNF formulas and any serialized DIMACS byte stream, including descriptor enumeration and integer-variable allocation",
+    "a Lean-checked LRAT proof, a concrete minimum-six UNSAT theorem, or composition from a semantic cage blocker to a checked refutation",
     "an end-to-end Delta + 3 theorem without the half-order density hypothesis",
     "an author-approved or manuscript-integrated paper theorem; the checked package declaration is not identified with the manuscript theorem",
     "an executable total-coloring construction or a complexity bound",
@@ -536,6 +553,7 @@
     "The total-independent selector and alternating-path wrappers are semantic existence theorems conditional on every displayed edge-coloring, selector, core, peel, and path witness; they do not generate those witnesses.",
     "The partial-edge decoder ignores old values on the selected matching but retains every other displayed forward hypothesis. Its exact normalization begins with a supplied valid total assignment and proves no existence statement for that input.",
     "The adapted-spare endpoint is an exact vertex-properness equivalence for supplied data only; it constructs no donor matching, edge coloring, total coloring, or unrestricted Delta + 2 witness.",
+    "The minimum-six CNF layer proves generic typed clause semantics and a canonical exact-count extension only. Serialized DIMACS identity, LRAT checking, concrete UNSAT, and graph-semantic composition remain outside that interface.",
     "External JSON parsing and claims of census completeness remain outside the trusted Lean interface.",
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],

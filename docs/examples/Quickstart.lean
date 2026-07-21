@@ -66,4 +66,11 @@ import TotalColoring
 -- vertex-coloring interface only.  Physical donor-matching existence and
 -- unrestricted total-coloring existence remain outside this declaration.
 #check TotalColoring.adaptedSpareVertexColor_proper_iff
+
+-- Unmerged branch `agent/minsix-threshold-formula`: typed CNF semantics only.
+-- These declarations identify neither serialized DIMACS bytes nor LRAT
+-- evidence and prove no graph-coloring theorem.
+#check TotalColoring.MinSixCNFCore.Sinz.exists_satisfying_extension_iff
+#check TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF
+#check TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF_iff
 #check TotalColoring.Certificate.checkExtension_sound

@@ -329,6 +329,33 @@ definition, but the theorem models the intended endpoint only under
     Conjecture. Every proposed source tree requires a tree-specific external
     receipt before merge, so it must not be attributed to current `main` yet.
 
+## Minimum-six typed CNF semantics on an unmerged branch
+
+Branch `agent/minsix-threshold-formula` adds generic, solver-independent
+propositional semantics. The checked declarations include:
+
+```lean
+TotalColoring.MinSixCNFCore.Sinz.exists_satisfying_extension_iff
+TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF
+TotalColoring.MinSixCNFCore.Threshold.extension_satisfies_exactCountCNF_iff
+```
+
+The threshold encoder constructs the same four typed cell shapes used by the
+research generator, assembles all cells through row `n` and threshold
+`k + 1`, and adds the two terminal unit clauses. If the first `n` primary
+inputs contain exactly `k` true values, the canonical threshold-table
+extension satisfies that typed formula. The `_iff` declaration characterizes
+only this canonical extension; it is not an arbitrary-assignment decoder.
+
+!!! warning "Exact finite-certificate boundary"
+
+    This layer does not enumerate descriptors, map typed variables to DIMACS
+    integers, serialize or hash a concrete CNF, validate LRAT evidence, prove
+    a generated branch unsatisfiable, or connect a semantic cage blocker to a
+    checked refutation. It proves no total-coloring theorem. The branch is
+    unmerged and every proposed tree requires a tree-specific external
+    receipt.
+
 ## Checked end-to-end route
 
 ### 1. A matching lower bound
