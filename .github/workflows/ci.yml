@@ -17,9 +17,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # The full build, mk_all check, and leanchecker need headroom for cache and
-    # runner variability; leanchecker alone can exceed the former 20m budget.
-    timeout-minutes: 45
+    # Run 29792338441 remained inside lean-action until the 45-minute job
+    # envelope expired (then took about ten minutes to cancel).  Preserve the
+    # full build, mk_all, and leanchecker gates with a measured-safe envelope.
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
