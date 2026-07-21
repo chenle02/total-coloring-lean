@@ -57,7 +57,7 @@ def allCoreEdges : Finset CoreEdge :=
   simp [allCoreEdges]
 
 @[simp] theorem card_allCoreEdges : allCoreEdges.card = 15 := by
-  simp [allCoreEdges, Finset.card_powersetCard]
+  decide
 
 /-- A pairwise edge-packed family of valid nonempty core matchings has at most
 fifteen members.  This is the semantic upper bound behind the exact selected-
