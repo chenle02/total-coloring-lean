@@ -71,8 +71,10 @@ import TotalColoring.MatchingExact
 import TotalColoring.MatchingLowerBound
 import TotalColoring.MinSixCNFCore
 import TotalColoring.MinSixCageModel
+import TotalColoring.MinSixConcreteVar
 import TotalColoring.MinSixCountLemmas
 import TotalColoring.MinSixGuardSoundness
+import TotalColoring.MinSixRawSatBridge
 import TotalColoring.MinSixSymmetry
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
