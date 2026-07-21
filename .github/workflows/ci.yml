@@ -17,7 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The full build, mk_all check, and leanchecker need headroom for cache and
+    # runner variability; leanchecker alone can exceed the former 20m budget.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
