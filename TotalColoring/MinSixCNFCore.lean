@@ -185,7 +185,7 @@ def extension {Primary : Type*}
 /-- Number of true primary inputs among indices `0, ..., i - 1`. -/
 def trueCount {Primary : Type*}
     (σ : Assignment Primary) (x : Nat → Primary) (i : Nat) : Nat :=
-  ((Finset.range i).filter fun k => σ (x k) = true).card
+  (Finset.range i).sum fun k => if σ (x k) = true then 1 else 0
 
 @[simp] theorem trueCount_zero
     {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary) :
@@ -197,7 +197,7 @@ def trueCount {Primary : Type*}
     (i : Nat) :
     trueCount σ x (i + 1) =
       trueCount σ x i + if σ (x i) = true then 1 else 0 := by
-  simp [trueCount, Finset.range_succ]
+  simp [trueCount, Finset.sum_range_succ]
 
 /-- The canonical threshold table has its intended cardinality semantics:
 `value i j` is true exactly when at least `j` of the first `i` inputs are
@@ -214,7 +214,7 @@ theorem value_eq_true_iff_le_trueCount
       | zero => simp [value]
       | succ j =>
           rw [value_succ_succ, trueCount_succ]
-          cases hx : σ (x i) <;> simp [hx, ih] <;> omega
+          cases σ (x i) <;> simp [ih] <;> omega
 
 /-- At the exact primary count `k`, the `k` threshold is true and the
 `k + 1` threshold is false. -/
