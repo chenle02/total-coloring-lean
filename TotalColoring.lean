@@ -72,6 +72,7 @@ import TotalColoring.MatchingLowerBound
 import TotalColoring.MinSixCageModel
 import TotalColoring.MinSixCountLemmas
 import TotalColoring.MinSixGuardSoundness
+import TotalColoring.MinSixSymmetry
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
 import TotalColoring.MissingCount
@@ -84,6 +85,7 @@ import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap
 import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
+import TotalColoring.RigidCageCounting
 import TotalColoring.SimpleReachability
 import TotalColoring.Total
 import TotalColoring.TotalIndependentSelector
