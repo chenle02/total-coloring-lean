@@ -182,6 +182,57 @@ def extension {Primary : Type*}
     value σ x (i + 1) (j + 1) =
       (value σ x i (j + 1) || (σ (x i) && value σ x i j)) := rfl
 
+/-- Number of true primary inputs among indices `0, ..., i - 1`. -/
+def trueCount {Primary : Type*}
+    (σ : Assignment Primary) (x : Nat → Primary) (i : Nat) : Nat :=
+  ∑ k in Finset.range i, if σ (x k) = true then 1 else 0
+
+@[simp] theorem trueCount_zero
+    {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary) :
+    trueCount σ x 0 = 0 := by
+  simp [trueCount]
+
+@[simp] theorem trueCount_succ
+    {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary)
+    (i : Nat) :
+    trueCount σ x (i + 1) =
+      trueCount σ x i + if σ (x i) = true then 1 else 0 := by
+  simp [trueCount, Finset.sum_range_succ]
+
+/-- The canonical threshold table has its intended cardinality semantics:
+`value i j` is true exactly when at least `j` of the first `i` inputs are
+true. -/
+theorem value_eq_true_iff_le_trueCount
+    {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary)
+    (i j : Nat) :
+    value σ x i j = true ↔ j ≤ trueCount σ x i := by
+  induction i generalizing j with
+  | zero =>
+      cases j <;> simp [value, trueCount]
+  | succ i ih =>
+      cases j with
+      | zero => simp [value]
+      | succ j =>
+          cases hx : σ (x i) <;>
+            simp [value, hx, ih, trueCount, Finset.sum_range_succ] <;>
+            omega
+
+/-- At the exact primary count `k`, the `k` threshold is true and the
+`k + 1` threshold is false. -/
+theorem exact_threshold_values
+    {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary)
+    (i k : Nat) (hcount : trueCount σ x i = k) :
+    value σ x i k = true ∧ value σ x i (k + 1) = false := by
+  constructor
+  · apply (value_eq_true_iff_le_trueCount σ x i k).2
+    omega
+  · cases hv : value σ x i (k + 1) with
+    | false => rfl
+    | true =>
+        have hle :=
+          (value_eq_true_iff_le_trueCount σ x i (k + 1)).1 hv
+        omega
+
 /-- No prefix of length `i` reaches a threshold strictly larger than `i`. -/
 theorem value_eq_false_of_lt
     {Primary : Type*} (σ : Assignment Primary) (x : Nat → Primary)
