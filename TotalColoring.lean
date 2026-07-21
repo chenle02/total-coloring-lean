@@ -69,8 +69,8 @@ import TotalColoring.IndependentSeed
 import TotalColoring.Kempe
 import TotalColoring.MatchingExact
 import TotalColoring.MatchingLowerBound
-import TotalColoring.MinSixCageModel
 import TotalColoring.MinSixCNFCore
+import TotalColoring.MinSixCageModel
 import TotalColoring.MinSixCountLemmas
 import TotalColoring.MinSixGuardSoundness
 import TotalColoring.MinSixSymmetry
