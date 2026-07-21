@@ -48,4 +48,58 @@ theorem Blocker.admissible {B : Mask} {X : Finset Descriptor}
   rw [B.sum_requiredColumn] at hDemand
   omega
 
+/-- The fifteen genuine unordered edges of the six-vertex core. -/
+def allCoreEdges : Finset CoreEdge :=
+  Finset.univ.powersetCard 2
+
+@[simp] theorem mem_allCoreEdges_iff (e : CoreEdge) :
+    e ∈ allCoreEdges ↔ e.card = 2 := by
+  simp [allCoreEdges]
+
+@[simp] theorem card_allCoreEdges : allCoreEdges.card = 15 := by
+  simp [allCoreEdges, Finset.card_powersetCard]
+
+/-- A pairwise edge-packed family of valid nonempty core matchings has at most
+fifteen members.  This is the semantic upper bound behind the exact selected-
+count partition: choose at least one physical core edge from every descriptor;
+pairwise packing makes the resulting edge resources disjoint. -/
+theorem card_le_fifteen_of_valid_edgePacked
+    {X : Finset Descriptor}
+    (hvalid : ∀ d ∈ X, d.Valid)
+    (hpacked : EdgePacked X) :
+    X.card ≤ 15 := by
+  have hpairwise : (X : Set Descriptor).PairwiseDisjoint Descriptor.matching := by
+    intro d₁ hd₁ d₂ hd₂ hne
+    exact hpacked d₁ hd₁ d₂ hd₂ hne
+  have hnonempty : ∀ d ∈ X, d.matching.Nonempty := by
+    intro d hd
+    exact (hvalid d hd).1.1
+  calc
+    X.card ≤ (X.biUnion Descriptor.matching).card :=
+      Finset.card_le_card_biUnion hpairwise hnonempty
+    _ ≤ allCoreEdges.card := by
+      apply Finset.card_le_card
+      intro e he
+      rw [Finset.mem_biUnion] at he
+      obtain ⟨d, hdX, hed⟩ := he
+      rw [mem_allCoreEdges_iff]
+      exact (hvalid d hdX).1.2.1 e hed
+    _ = 15 := card_allCoreEdges
+
+/-- Every semantic blocker lies in exactly one of the selected-count leaves
+`6, ..., 15`.  This proves the mathematical cardinality coverage of that
+partition; it does not yet identify a serialized CNF or prove its threshold
+encoder sound. -/
+theorem Blocker.selectedCount_mem_Icc
+    {B : Mask} {X : Finset Descriptor} (h : Blocker B X) :
+    X.card ∈ Finset.Icc 6 15 := by
+  exact Finset.mem_Icc.mpr
+    ⟨h.atLeastSix, card_le_fifteen_of_valid_edgePacked h.valid h.edgePacked⟩
+
+/-- Existential form used when selecting the unique exact-count branch. -/
+theorem Blocker.exists_selectedCount
+    {B : Mask} {X : Finset Descriptor} (h : Blocker B X) :
+    ∃ k ∈ Finset.Icc 6 15, X.card = k := by
+  exact ⟨X.card, h.selectedCount_mem_Icc, rfl⟩
+
 end TotalColoring.MinSixCage
