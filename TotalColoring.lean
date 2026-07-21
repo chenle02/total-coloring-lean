@@ -84,6 +84,7 @@ import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.RigidCageCounting
 import TotalColoring.SimpleReachability
+import TotalColoring.ThreeResidualRook
 import TotalColoring.Total
 import TotalColoring.TotalIndependentSelector
 import TotalColoring.TwoColorEndpointCapacity
