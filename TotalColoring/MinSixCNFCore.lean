@@ -197,7 +197,8 @@ def trueCount {Primary : Type*}
     (i : Nat) :
     trueCount σ x (i + 1) =
       trueCount σ x i + if σ (x i) = true then 1 else 0 := by
-  simp [trueCount, Finset.sum_range_succ]
+  unfold trueCount
+  rw [Finset.sum_range_succ]
 
 /-- The canonical threshold table has its intended cardinality semantics:
 `value i j` is true exactly when at least `j` of the first `i` inputs are
@@ -214,7 +215,7 @@ theorem value_eq_true_iff_le_trueCount
       | zero => simp [value]
       | succ j =>
           rw [value_succ_succ, trueCount_succ]
-          cases σ (x i) <;> simp [ih] <;> omega
+          cases σ (x i) <;> (simp [ih]; omega)
 
 /-- At the exact primary count `k`, the `k` threshold is true and the
 `k + 1` threshold is false. -/
