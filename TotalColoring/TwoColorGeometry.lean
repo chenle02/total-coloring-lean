@@ -491,6 +491,163 @@ theorem missingAt_other_swapOn_iff
       simpa [PartialEdgeAssignment.swapOn_color_of_not_mem
         a alpha beta K heK] using hswapc
 
+/-- Swapping a genuine two-color component preserves every missing-color
+predicate at an internal vertex of that component.
+
+Internality and properness supply one incident edge of each component color.
+The swap exchanges those two witnesses, so neither component color becomes
+missing; every other color is covered by `missingAt_other_swapOn_iff`. -/
+theorem missingAt_swapOn_iff_of_component_internal
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hvalid : a.Valid)
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta)
+    (hinternal : EdgeSetIsInternal K v) (c : C) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  have hpresent :=
+    (edgeSetIsInternal_iff_meets_and_present_both
+      hvalid hK halphabeta).1 hinternal
+  rcases hpresent.1 with ⟨carrier, hcarrierK, hcarrierInc⟩
+  obtain ⟨ealpha, healphaInc, healphaColor⟩ :=
+    exists_incident_colored_edge_of_not_missing a hpresent.2.1
+  obtain ⟨ebeta, hebetaInc, hebetaColor⟩ :=
+    exists_incident_colored_edge_of_not_missing a hpresent.2.2
+  have healphaK : ealpha ∈ K :=
+    mem_component_of_mem_of_incident_supported a hK hcarrierK hcarrierInc
+      healphaInc (Or.inl healphaColor)
+  have hebetaK : ebeta ∈ K :=
+    mem_component_of_mem_of_incident_supported a hK hcarrierK hcarrierInc
+      hebetaInc (Or.inr hebetaColor)
+  have hafterAlpha : ¬(a.swapOn alpha beta K).MissingAt v alpha := by
+    intro hmissing
+    apply hmissing ebeta hebetaInc
+    rw [PartialEdgeAssignment.swapOn_color_of_mem
+      a alpha beta K hebetaK, hebetaColor]
+    simp
+  have hafterBeta : ¬(a.swapOn alpha beta K).MissingAt v beta := by
+    intro hmissing
+    apply hmissing ealpha healphaInc
+    rw [PartialEdgeAssignment.swapOn_color_of_mem
+      a alpha beta K healphaK, healphaColor]
+    simp
+  by_cases hcalpha : c = alpha
+  · subst c
+    constructor
+    · exact fun h ↦ (hafterAlpha h).elim
+    · exact fun h ↦ (hpresent.2.1 h).elim
+  · by_cases hcbeta : c = beta
+    · subst c
+      constructor
+      · exact fun h ↦ (hafterBeta h).elim
+      · exact fun h ↦ (hpresent.2.2 h).elim
+    · exact missingAt_other_swapOn_iff a K hcalpha hcbeta
+
+/-- A genuine component which is internal at every vertex it meets preserves
+the complete missing-color map when swapped.  This is the abstract interface
+needed for a whole alternating-cycle exchange; global cycle classification is
+kept separate in `TwoColorPath`. -/
+theorem missingAt_swapOn_iff_of_component_internal_or_avoids
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)]
+    (hvalid : a.Valid)
+    (hK : a.IsTwoColorKempeComponent alpha beta K)
+    (halphabeta : alpha ≠ beta)
+    (hbalanced : ∀ v, EdgeSetIsInternal K v ∨ EdgeSetAvoidsVertex K v)
+    (v : V) (c : C) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  rcases hbalanced v with hinternal | havoids
+  · exact missingAt_swapOn_iff_of_component_internal
+      a hvalid hK halphabeta hinternal c
+  · exact missingAt_swapOn_iff_of_avoidsVertex
+      a alpha beta K havoids c
+
+/-- Connectedness is unnecessary for missing-map preservation.  If every
+selected edge has one of the two swapped colors and a vertex is internal to
+the selected set, validity forces its two selected incident edges to have
+opposite colors.  Swapping therefore preserves all missing-color predicates
+at that vertex. -/
+theorem missingAt_swapOn_iff_of_supported_internal
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)] {v : V}
+    (hvalid : a.Valid) (_halphabeta : alpha ≠ beta)
+    (hsupported : ∀ ⦃e⦄, e ∈ K → a.TwoColorSupported alpha beta e)
+    (hinternal : EdgeSetIsInternal K v) (c : C) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  rcases hinternal with
+    ⟨e, f, heK, hfK, heInc, hfInc, hef⟩
+  have heSupported := hsupported heK
+  have hfSupported := hsupported hfK
+  have hopposite :
+      (a.color e = some alpha ∧ a.color f = some beta) ∨
+        (a.color e = some beta ∧ a.color f = some alpha) := by
+    rcases heSupported with healpha | hebeta
+    · rcases hfSupported with hfalpha | hfbeta
+      · exact (hef (edge_eq_of_incident_of_color_eq
+          hvalid heInc hfInc healpha hfalpha)).elim
+      · exact Or.inl ⟨healpha, hfbeta⟩
+    · rcases hfSupported with hfalpha | hfbeta
+      · exact Or.inr ⟨hebeta, hfalpha⟩
+      · exact (hef (edge_eq_of_incident_of_color_eq
+          hvalid heInc hfInc hebeta hfbeta)).elim
+  obtain ⟨ealpha, ebeta, healphaK, hebetaK,
+      healphaInc, hebetaInc, healphaColor, hebetaColor⟩ :
+      ∃ ealpha ebeta,
+        ealpha ∈ K ∧ ebeta ∈ K ∧
+        Incident v ealpha ∧ Incident v ebeta ∧
+        a.color ealpha = some alpha ∧ a.color ebeta = some beta := by
+    rcases hopposite with h | h
+    · exact ⟨e, f, heK, hfK, heInc, hfInc, h.1, h.2⟩
+    · exact ⟨f, e, hfK, heK, hfInc, heInc, h.2, h.1⟩
+  have hbeforeAlpha : ¬a.MissingAt v alpha := by
+    intro hmissing
+    exact hmissing ealpha healphaInc healphaColor
+  have hbeforeBeta : ¬a.MissingAt v beta := by
+    intro hmissing
+    exact hmissing ebeta hebetaInc hebetaColor
+  have hafterAlpha : ¬(a.swapOn alpha beta K).MissingAt v alpha := by
+    intro hmissing
+    apply hmissing ebeta hebetaInc
+    rw [PartialEdgeAssignment.swapOn_color_of_mem
+      a alpha beta K hebetaK, hebetaColor]
+    simp
+  have hafterBeta : ¬(a.swapOn alpha beta K).MissingAt v beta := by
+    intro hmissing
+    apply hmissing ealpha healphaInc
+    rw [PartialEdgeAssignment.swapOn_color_of_mem
+      a alpha beta K healphaK, healphaColor]
+    simp
+  by_cases hcalpha : c = alpha
+  · subst c
+    constructor
+    · exact fun h ↦ (hafterAlpha h).elim
+    · exact fun h ↦ (hbeforeAlpha h).elim
+  · by_cases hcbeta : c = beta
+    · subst c
+      constructor
+      · exact fun h ↦ (hafterBeta h).elim
+      · exact fun h ↦ (hbeforeBeta h).elim
+    · exact missingAt_other_swapOn_iff a K hcalpha hcbeta
+
+/-- A balanced union of supported two-color components preserves the entire
+missing map.  This covers a disjoint union of alternating cycles and is the
+form needed to compare an owner-to-owner path swap with the complementary
+all-cycle swap.  Properness of the swapped assignment remains the separate
+`TwoColorBoundaryClosed` obligation from `PartialSwap`. -/
+theorem missingAt_swapOn_iff_of_supported_internal_or_avoids
+    (a : PartialEdgeAssignment G C) {alpha beta : C} {K : Set G.edgeSet}
+    [DecidablePred (· ∈ K)]
+    (hvalid : a.Valid) (halphabeta : alpha ≠ beta)
+    (hsupported : ∀ ⦃e⦄, e ∈ K → a.TwoColorSupported alpha beta e)
+    (hbalanced : ∀ v, EdgeSetIsInternal K v ∨ EdgeSetAvoidsVertex K v)
+    (v : V) (c : C) :
+    (a.swapOn alpha beta K).MissingAt v c ↔ a.MissingAt v c := by
+  rcases hbalanced v with hinternal | havoids
+  · exact missingAt_swapOn_iff_of_supported_internal
+      a hvalid halphabeta hsupported hinternal c
+  · exact missingAt_swapOn_iff_of_avoidsVertex
+      a alpha beta K havoids c
+
 end Swap
 
 end PartialEdgeAssignment
