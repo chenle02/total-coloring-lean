@@ -215,7 +215,7 @@ theorem value_eq_true_iff_le_trueCount
       | zero => simp [value]
       | succ j =>
           rw [value_succ_succ, trueCount_succ]
-          cases σ (x i) <;> (simp [ih]; omega)
+          cases σ (x i) <;> simp [ih]
 
 /-- At the exact primary count `k`, the `k` threshold is true and the
 `k + 1` threshold is false. -/
