@@ -4,6 +4,9 @@
 # Runs the AGENTS.md verification contract on a high-memory Dept node because
 # leanchecker peaks at 117-142 GiB (lean-easley-slurm-verification skill) and
 # cannot fit on the 62 GiB Greenwood workstation. Submitted by ~/bin/leancheck.
+# This serialized/exclusive variant is for recovery from a node-wide ENFILE
+# condition observed on node407; it deliberately trades throughput for a
+# smaller open-file footprint and excludes the affected node.
 #
 # Submit (from ~/total-coloring-lean on Easley):
 #   sbatch --parsable scripts/easley/verify.sbatch
@@ -12,9 +15,11 @@
 #SBATCH --partition=mathdep_bg2,abebeas_bg2,abebeas_std
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=24
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=180G
 #SBATCH --time=02:00:00
+#SBATCH --exclusive
+#SBATCH --exclude=node407
 #SBATCH --output=/scratch/%u/tclean/logs/verify-%j.out
 #SBATCH --error=/scratch/%u/tclean/logs/verify-%j.err
 #SBATCH --mail-type=END,FAIL
@@ -56,13 +61,16 @@ module load singularity 2>/dev/null || true
 singularity exec "$SIF" bash -c '
   set -euo pipefail
   export PATH="$HOME/.elan/bin:$PATH"
+  export LEAN_NUM_THREADS=1
   echo "container glibc: $(ldd --version | head -1)"
+  echo "open-file limit: $(ulimit -n)"
+  echo "system file table: $(cat /proc/sys/fs/file-nr)"
 
   echo "--- [1/4] lake exe cache get (mathlib cache restore) ---"
   lake exe cache get
 
   echo "--- [2/4] lake build (full package) ---"
-  lake build
+  lake build -j 1
 
   echo "--- [3/4] lake env leanchecker (kernel replay trust gate) ---"
   lake env leanchecker
