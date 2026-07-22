@@ -61,6 +61,7 @@ module load singularity 2>/dev/null || true
 singularity exec "$SIF" bash -c '
   set -euo pipefail
   export PATH="$HOME/.elan/bin:$PATH"
+  export LAKE_JOBS=1
   export LEAN_NUM_THREADS=1
   echo "container glibc: $(ldd --version | head -1)"
   echo "open-file limit: $(ulimit -n)"
@@ -70,7 +71,7 @@ singularity exec "$SIF" bash -c '
   lake exe cache get
 
   echo "--- [2/4] lake build (full package) ---"
-  lake build -j 1
+  lake build
 
   echo "--- [3/4] lake env leanchecker (kernel replay trust gate) ---"
   lake env leanchecker
