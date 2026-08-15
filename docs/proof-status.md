@@ -59,6 +59,36 @@ This is a conditional transfer theorem. It neither constructs the extension
 from an arbitrary graph nor proves a relation between `D` and the original
 graph's maximum degree.
 
+## Tier-(a) constructor arithmetic seams
+
+The library now also contains finite-arithmetic support for the open concrete
+constructor seam.
+
+- `TotalColoring.Auxiliary.PairSingletonWitness`
+  formalizes the fixed pair/singleton split-star arithmetic: exact selector
+  coverage, the matching-plus-full-star decomposition of the distinguished
+  family, copied degree `deg_H (some v) = deg_G v + 1`, center degree equal to
+  the singleton count, and the additive orbit identity
+  `|V| + deg_H(none) = 2 * |J|`.
+- `TotalColoring.Auxiliary.EquitableIndependentPartition`
+  proves the corresponding supplied-partition count formulas in the range
+  `D ≤ |V| < 2D`: pair classes have cardinality `|V| - D`, singleton classes
+  have cardinality `2D - |V|`, the induced distinguished selector family has
+  cardinality `D`, and the auxiliary center degree is `2D - |V|`.
+- `TotalColoring.HallRectangles`
+  proves the exact Cartesian blocker-box cover
+  `∏ i C_i = ⋃ b, ∏ i (C_i ∩ N(b,i))` from a pointwise cover hypothesis, plus
+  the resulting finite product bound and its `4^n` geometric-mean corollary.
+
+These modules are **not** the end-to-end constructor. They do **not** close:
+
+- the Total Coloring Conjecture;
+- the identification `D = Δ(G) + 1` for an original graph;
+- construction of a concrete `Auxiliary.Extension` from an arbitrary graph;
+- proof of `InAuxiliaryClass` for the concrete split-star witness;
+- existence of the equitable partition input; or
+- any end-to-end high-degree total-coloring conclusion.
+
 ## Structural hypothesis
 
 `InAuxiliaryClass D H J` existentially supplies a center `x` and an off-center

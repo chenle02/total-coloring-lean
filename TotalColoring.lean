@@ -46,6 +46,7 @@ import TotalColoring.DependencyMobileSwap
 import TotalColoring.DependencySwap
 import TotalColoring.Distinguished
 import TotalColoring.Dominator
+import TotalColoring.EquitablePairSingleton
 import TotalColoring.Examples
 import TotalColoring.Fan
 import TotalColoring.FanCount
@@ -59,6 +60,7 @@ import TotalColoring.FanSaturatedProfile
 import TotalColoring.FanShift
 import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
+import TotalColoring.HallRectangleProduct
 import TotalColoring.Kempe
 import TotalColoring.MinimalExtraction
 import TotalColoring.Missing
@@ -68,6 +70,7 @@ import TotalColoring.OrderedFan
 import TotalColoring.Partial
 import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap
+import TotalColoring.PairSingletonExtension
 import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.SimpleReachability
