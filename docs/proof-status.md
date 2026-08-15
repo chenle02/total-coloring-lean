@@ -459,6 +459,31 @@ no longer a missing premise of
 `TotalColoring.exists_valid_assignment_of_highDegree`: the terminal theorem
 uses the checked complement-matching construction instead.
 
+This is a conditional transfer theorem. It neither constructs the extension
+from an arbitrary graph nor proves a relation between `D` and the original
+graph's maximum degree.
+
+## Tier-(a) constructor arithmetic seams
+
+The library now also contains finite-arithmetic support for the open concrete
+constructor seam. (The pair/singleton witness and equitable-partition count
+formulas are documented in the sections above; this section records the
+Hall-rectangle addition.)
+
+- `TotalColoring.HallRectangles`
+  proves the exact Cartesian blocker-box cover
+  `∏ i C_i = ⋃ b, ∏ i (C_i ∩ N(b,i))` from a pointwise cover hypothesis, plus
+  the resulting finite product bound and its `4^n` geometric-mean corollary.
+
+These modules are **not** the end-to-end constructor. They do **not** close:
+
+- the Total Coloring Conjecture;
+- the identification `D = Δ(G) + 1` for an original graph;
+- construction of a concrete `Auxiliary.Extension` from an arbitrary graph;
+- proof of `InAuxiliaryClass` for the concrete split-star witness;
+- existence of the equitable partition input; or
+- any end-to-end high-degree total-coloring conclusion.
+
 ## Structural auxiliary hypothesis
 
 `InAuxiliaryClass D H J` existentially supplies a center `x` and an off-center
