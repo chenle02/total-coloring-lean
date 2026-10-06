@@ -1,6 +1,11 @@
 name = "TotalColoring"
 version = "0.1.0"
 defaultTargets = ["TotalColoring"]
+license = "Apache-2.0"
+licenseFiles = ["LICENSE", "NOTICE"]
+description = "Lean 4 formalization and certificate checking for total coloring and auxiliary rainbow edge-coloring reductions"
+keywords = ["graph-theory", "total-coloring", "edge-coloring", "combinatorics", "formal-verification"]
+homepage = "https://github.com/chenle02/total-coloring-lean"
 
 [leanOptions]
 pp.unicode.fun = true
