@@ -12,9 +12,9 @@ This page gives coding assistants a small, safe context window for the project.
    For the total-independent selector and alternating-path wrappers, inspect
    `TotalColoring/TotalIndependentSelector.lean`; historical source commit
    `d008514c7a1cf834007bf0bd8de0d10a93926711` remains their proof provenance.
-   For the unmerged adapted-spare vertex endpoint, inspect
-   `TotalColoring/AdaptedSpareEndpoint.lean` on
-   `agent/donor-global-formalization`.
+   For the adapted-spare vertex endpoint, inspect
+   `TotalColoring/AdaptedSpareEndpoint.lean`; historical source commit
+   `a7ed2453ca044d37583240a9b47729c9c4d5a940` remains its proof provenance.
 2. Read [`claim-boundary.json`](claim-boundary.json) and check that its pinned
    tree matches the code tree you are discussing.
 3. For the terminal route, inspect `MatchingLowerBound.lean`,
@@ -62,8 +62,8 @@ for one does not automatically verify the other.
   novelty result.
 - Do not extend the theorem to graphs outside its density hypothesis.
 - The independent-seed declarations are on current `main` commit
-  `61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
-  `cb2d7d06998c213e68a7372f743f67f9cff815f7`. Their historical proof source
+  `da0595da1fa93c51a00be78193071bdea74aeb02`, tree
+  `34824cd54afb9a244a3fb58608a8d4da9bd6cfa6`. Their historical proof source
   is `agent/independent-seed-endpoint` at commit
   `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
   `9af6a84e1305aed9a0156dcd59c279de792dea4a`; PR #10 merged them.
@@ -86,8 +86,8 @@ for one does not automatically verify the other.
   `5389587` and `5389588`, including strict leaf, umbrella/full, Quickstart,
   axiom, `leanchecker`, metadata, and reconstruction gates. This verifies the
   conditional decoder; it does not verify existence of its inputs.
-- The selector declarations are on current `main` commit `61e79bea…`, tree
-  `cb2d7d06…`. Their historical proof source is
+- The selector declarations are on current `main` commit `da0595da…`, tree
+  `34824cd5…`. Their historical proof source is
   `agent/total-independent-selector-decoder` at source commit
   `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
   `1847934c78da03fe80bb67236868700c79016129`; PR #11 merged them.
@@ -113,8 +113,8 @@ for one does not automatically verify the other.
   current `main` after PR #12. Their historical source commit is `c3dbe69c…`,
   tree `11007a4a…`. The reverse theorem still begins with a supplied valid
   total assignment and is not a coloring-existence theorem.
-- Unmerged `TotalColoring.adaptedSpareVertexColor_proper_iff` assumes
-  `Disjoint A B` and characterizes properness of the supplied endpoint
+- `TotalColoring.adaptedSpareVertexColor_proper_iff`, on `main` after PR #13,
+  assumes `Disjoint A B` and characterizes properness of the supplied endpoint
   assignment exactly by: independence of `A`; coverage of every adjacent
   equal-missing pair by `A ∪ B`; cleanliness of head labels against unchanged
   neighbors; and properness of head labels on adjacent vertices of `B`.
@@ -122,8 +122,7 @@ for one does not automatically verify the other.
   `A`, `B`, a physical donor matching, seed or matching data, missing/head
   labels, a proper edge coloring, or a total coloring. Never present it as an
   unrestricted `Delta + 2` theorem or a proof of the Total Coloring
-  Conjecture. Until merge, attribute it only to
-  `agent/donor-global-formalization`; any verification claim must cite a
+  Conjecture. Attribute it to `main`; any verification claim must cite a
   tree-specific external receipt.
 - Keep package proof status and publication trust separate. The exact
   proof-development tree `4624044788ab42c0dc116cfbf7f38c696065263c`
@@ -171,7 +170,7 @@ limitations from one interface over to another.
 | Conditional independent-seed endpoint on `main` | `TotalColoring/IndependentSeed.lean`; historical source `cc4dd7ae…`, tree `9af6a84e…` |
 | Total-independent selector decoder on `main` | `TotalColoring/TotalIndependentSelector.lean`; historical source `d008514…`, tree `1847934c…` |
 | Partial-edge decoder and normalization on `main` | `TotalColoring/PartialEdgeSelector.lean`; historical source `c3dbe69c…`, tree `11007a4a…` |
-| Unmerged adapted-spare vertex endpoint | `TotalColoring/AdaptedSpareEndpoint.lean` on `agent/donor-global-formalization` |
+| Adapted-spare vertex endpoint on `main` | `TotalColoring/AdaptedSpareEndpoint.lean`; historical source `a7ed2453…` |
 | Empty-vertex base case | `TotalColoring/EmptyAssignment.lean` |
 | General matching lower bound | `TotalColoring/MatchingLowerBound.lean` |
 | High-degree complement specialization | `TotalColoring/HighDegreeComplementMatching.lean` |
@@ -249,7 +248,7 @@ limitations from one interface over to another.
 
 ### Use the adapted-spare endpoint safely
 
-> On unmerged branch `agent/donor-global-formalization`, apply
+> On `main`, apply
 > `TotalColoring.adaptedSpareVertexColor_proper_iff` only with explicit
 > `Disjoint A B` and supplied `missing` and `head` data. State all four
 > equivalent conditions and that the theorem is vertex-side only. Do not

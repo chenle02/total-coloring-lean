@@ -40,8 +40,8 @@ an executable routine for extracting a coloring from an external graph file.
 
 ## Conditional independent-seed endpoint on `main`
 
-Current `main` commit `61e79beac7d4759568187bd43a5a40f23bf83af1`,
-tree `cb2d7d06998c213e68a7372f743f67f9cff815f7`, contains the separate
+Current `main` commit `da0595da1fa93c51a00be78193071bdea74aeb02`,
+tree `34824cd54afb9a244a3fb58608a8d4da9bd6cfa6`, contains the separate
 supplied-witness declaration. Its historical proof source is branch
 `agent/independent-seed-endpoint` at exact source commit
 `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
@@ -105,7 +105,7 @@ construct any of the displayed witnesses.
 !!! info "Distribution and provenance"
 
     PR #10 merged these declarations into `main` as commit `f4c56956…`.
-    Current `main` commit `61e79bea…`, tree `cb2d7d06…`, contains them. The
+    Current `main` commit `da0595da…`, tree `34824cd5…`, contains them. The
     source commit `cc4dd7ae…` and tree `9af6a84e…` remain the historical proof
     provenance and trust-receipt target.
 
@@ -236,7 +236,7 @@ the formal implications at the named tree, not existence of their inputs.
 !!! info "Distribution and provenance"
 
     PR #11 merged the selector declarations into `main` as commit
-    `35e127c1…`. Current `main` commit `61e79bea…`, tree `cb2d7d06…`, contains
+    `35e127c1…`. Current `main` commit `da0595da…`, tree `34824cd5…`, contains
     them. Source commit `d008514…` and tree `1847934c…` remain their historical
     proof provenance and sealed-receipt target.
 
@@ -290,11 +290,13 @@ existence theorem, a proof of Vizing's theorem, or an unrestricted
     historical source tree inside this document; exact-tree trust receipts
     are external evidence and must name the tree they certify.
 
-## Adapted-spare vertex endpoint on an unmerged branch
+## Adapted-spare vertex endpoint on `main`
 
-Proof branch `agent/donor-global-formalization`, based on current `main`
-commit `61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
-`cb2d7d06998c213e68a7372f743f67f9cff815f7`, adds:
+Current `main` commit `da0595da1fa93c51a00be78193071bdea74aeb02`, tree
+`34824cd54afb9a244a3fb58608a8d4da9bd6cfa6`, contains the declaration below.
+Its historical proof source is branch `agent/donor-global-formalization` at
+commit `a7ed2453ca044d37583240a9b47729c9c4d5a940`; PR #13 merged it into
+`main` as commit `dc6e3a4b…` on 2026-07-20:
 
 ```lean
 TotalColoring.adaptedSpareVertexColor_proper_iff
@@ -326,8 +328,8 @@ definition, but the theorem models the intended endpoint only under
     transport, compatible seed or matching data, the `missing` or `head`
     functions, a proper edge coloring, or a total coloring. It is neither an
     unrestricted `Delta + 2` theorem nor a proof of the Total Coloring
-    Conjecture. Every proposed source tree requires a tree-specific external
-    receipt before merge, so it must not be attributed to current `main` yet.
+    Conjecture. Any verification claim must cite a tree-specific external
+    receipt.
 
 ## Checked end-to-end route
 
@@ -452,7 +454,7 @@ useful when a downstream proof already has more structured input:
   `phi : EdgeAssignment G (Fin q)`, independent seed `A`, and
   `IndependentSeedPeelCertificate G A q`, together with `0 < q`, can use
   `TotalColoring.exists_valid_assignment_of_independentSeedPeel`; this API is
-  present on current `main` commit `61e79bea…`, tree `cb2d7d06…`.
+  present on current `main` commit `da0595da…`, tree `34824cd5…`.
 
 The equitable-partition theorem remains a valid conditional interface. It is
 no longer a missing premise of
@@ -599,10 +601,10 @@ For tools, the public boundary is mirrored in
 [`claim-boundary.json`](claim-boundary.json). Lean declarations at the pinned
 default-branch commit remain authoritative for `main` if prose and code
 disagree. Current `main` commit
-`61e79beac7d4759568187bd43a5a40f23bf83af1`, tree
-`cb2d7d06998c213e68a7372f743f67f9cff815f7`, contains the independent-seed,
+`da0595da1fa93c51a00be78193071bdea74aeb02`, tree
+`34824cd54afb9a244a3fb58608a8d4da9bd6cfa6`, contains the independent-seed,
 selector/path, and partial-edge normalization declarations merged by PRs
 #10--#12. Their earlier source commits and trees remain historical proof and
-receipt provenance. The adapted-spare vertex endpoint remains authoritative
-only on `agent/donor-global-formalization` until merge; any verification claim
-must cite a tree-specific external receipt.
+receipt provenance. The adapted-spare vertex endpoint, merged by PR #13, is
+also on current `main`; any verification claim must cite a tree-specific
+external receipt.

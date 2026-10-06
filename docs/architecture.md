@@ -64,7 +64,7 @@ shown on the left. No parity hypothesis occurs.
 | Structural class | `AuxiliaryClass`, `Distinguished` | Definition of `A_D`, deletion closure, and stable distinguished-edge transport |
 | Certificates | `Certificate` | Executable checkers connected to semantic propositions by soundness theorems |
 | Conditional selector decoding | `IndependentSeed`, `TotalIndependentSelector`, `PartialEdgeSelector` | Reverse greedy extension from supplied seed/core peel data; fresh-color vertex/edge selector, explicit alternating-path donor wrappers, properness outside the selected matching, and exact reverse normalization; all are on current `main` |
-| Adapted-spare endpoint | `AdaptedSpareEndpoint` | On an unmerged branch, exactly characterizes vertex properness of a supplied spare/head/missing endpoint assignment; constructs no donor matching or coloring |
+| Adapted-spare endpoint | `AdaptedSpareEndpoint` | On current `main`, exactly characterizes vertex properness of a supplied spare/head/missing endpoint assignment; constructs no donor matching or coloring |
 | Critical extraction | `CriticalState`, `MinimalExtraction`, `DeletionBridge` | Minimal hypothetical counterexample and one-hole state |
 | Recoloring geometry | `RainbowSwap`, `Kempe`, `PartialKempe`, `TwoColorGeometry` | Exact swap safety and physical two-color components |
 | Fan mechanics | `Fan*`, `Dependency*`, `CriticalFan*` | Legal shifts, reachability, missing colors, and capacity |
@@ -72,13 +72,13 @@ shown on the left. No parity hypothesis occurs.
 | Auxiliary closure | `CriticalDirectEntry`, `CriticalDominator*`, `CriticalCrossing*`, `CriticalAllDClosure` | External-source cases and the all-orders contradiction |
 | Terminal composition | `EmptyAssignment`, `AuxiliaryTransfer`, `HighDegreeTotalColoring` | Empty base case, nonempty decoding, and the final package theorem |
 
-At current `main` commit `61e79bea…`, tree `cb2d7d06…`, the umbrella
+At current `main` commit `da0595da…`, tree `34824cd5…`, the umbrella
 `TotalColoring.lean` imports every merged production module, including the
 matching, empty, high-degree terminal, independent-seed, selector/path, and
-partial-edge normalization layers. On `agent/donor-global-formalization`, it
-additionally imports `AdaptedSpareEndpoint`; that branch is unmerged. Until
-merge, attribute the declaration only to that branch, and support any
-verification claim with a tree-specific external receipt.
+partial-edge normalization layers. It also imports `AdaptedSpareEndpoint`,
+merged by PR #13 from `agent/donor-global-formalization`. Attribute the
+declaration to `main`, and support any verification claim with a
+tree-specific external receipt.
 
 ## Two routes into the reusable auxiliary engine
 
@@ -123,7 +123,7 @@ existence theorem. The independent-seed, selector/path, and partial-edge
 layers were merged by PRs #10--#12; their earlier branch commits and trees
 remain historical proof provenance.
 
-The unmerged `AdaptedSpareEndpoint` module isolates the final vertex-side
+The `AdaptedSpareEndpoint` module isolates the final vertex-side
 logic of a different route. Given disjoint supplied sets `A` and `B`, supplied
 missing colors, and supplied head labels, it assigns the spare `none` to `A`,
 the head labels to `B`, and missing colors elsewhere. Properness is equivalent
