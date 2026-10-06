@@ -6,7 +6,7 @@ site_url: https://chenle02.github.io/total-coloring-lean/
 repo_url: https://github.com/chenle02/total-coloring-lean
 repo_name: chenle02/total-coloring-lean
 edit_uri: edit/main/docs/
-copyright: Copyright © 2026 Le Chen and contributors · MIT License
+copyright: Copyright © 2026 Le Chen and contributors · Apache License 2.0
 
 theme:
   name: material
