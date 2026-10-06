@@ -604,5 +604,7 @@ releases. Sponsorship does not affect theorem claims or proof-review standards.
 
 ## License
 
-Copyright © 2026 Le Chen and contributors. Distributed under the [MIT
-License](LICENSE).
+Copyright © 2026 Le Chen and contributors. Distributed under the
+[Apache License 2.0](LICENSE) (see also `NOTICE`); every Lean file carries the
+standard Apache header, and contributions are accepted under the same license.
+
