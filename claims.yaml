@@ -1,0 +1,146 @@
+schema: claims/1
+package: total-coloring-lean
+claims:
+- id: total-coloring-lean/exists-valid-assignment-of-highdegree
+  decl: TotalColoring.exists_valid_assignment_of_highDegree
+  kind: theorem
+  summary: "Every finite graph G with Fintype.card V <= 2 * G.maxDegree has a valid total assignment with palette ExtensionPalette (G.maxDegree + 1), i.e. G.maxDegree + 3 colors, covering empty and nonempty vertex types with no parity hypothesis."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/HighDegreeTotalColoring.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/hasvalidrainbowcoloring-of-inauxiliaryclass
+  decl: TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
+  kind: theorem
+  summary: "Every finite member of the matching-plus-star auxiliary class (InAuxiliaryClass D H J) has a proper auxiliary edge coloring with palette Fin (D + 2) that is rainbow on the distinguished set J."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/CriticalAllDClosure.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/false-of-critical-alld
+  decl: TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD
+  kind: theorem
+  summary: "A finite outside-edge-minimal noncolorable auxiliary member is impossible."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/CriticalAllDClosure.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/decode-valid
+  decl: TotalColoring.Auxiliary.Extension.decode_valid
+  kind: theorem
+  summary: "A proper selector-rainbow auxiliary edge assignment decodes to a valid total assignment."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/Auxiliary.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-matchinggraph-edgefinset-card-ge
+  decl: TotalColoring.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge
+  kind: theorem
+  summary: "Produces a matching with at least k edges from minimum-degree and order bounds."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/MatchingLowerBound.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/isauxiliaryclassmember-of-highdegree
+  decl: TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_highDegree
+  kind: theorem
+  summary: "A pair/singleton witness with exact class count G.maxDegree + 1 and Fintype.card V <= 2 * G.maxDegree gives auxiliary-class membership at parameter G.maxDegree + 1."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/PairSingletonExtension.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/partialedgeselectorassignment-valid
+  decl: TotalColoring.partialEdgeSelectorAssignment_valid
+  kind: theorem
+  summary: "An independent fresh vertex class and an avoiding fresh edge matching, with old colors valid only outside the matching, give a valid total assignment."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/PartialEdgeSelector.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/checkextension-sound
+  decl: TotalColoring.Certificate.checkExtension_sound
+  kind: theorem
+  summary: "An accepted auxiliary certificate (executable checker returns true) decodes to a valid total assignment."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/Certificate.lean
+  status: reusable
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-valid-decode-of-inauxiliaryclass
+  decl: TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass
+  kind: theorem
+  summary: "Conditional auxiliary-to-total transfer: a supplied compatible extension into an auxiliary-class member yields a valid total assignment with palette Fin (D + 2). Conditional on: a supplied conflict-preserving Auxiliary.Extension G H, every vertex selector edge in the distinguish."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/AuxiliaryTransfer.lean
+  status: experimental
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-valid-assignment-of-highdegreepartition
+  decl: TotalColoring.Auxiliary.EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition
+  kind: theorem
+  summary: "Alternate high-degree entrypoint giving G.maxDegree + 3 colors from a supplied equitable independent partition. Conditional on: a supplied Q : EquitableIndependentPartition G (G.maxDegree + 1) and Fintype.card V <= 2 * G.maxDegree."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/EquitablePairSingleton.lean
+  status: experimental
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-valid-assignment-of-independentseedpeel
+  decl: TotalColoring.exists_valid_assignment_of_independentSeedPeel
+  kind: theorem
+  summary: "Conditional independent-seed endpoint: produces a valid total assignment in Fin (q + 1), a conditional Delta + 2 palette at q = G.maxDegree + 1 (maximum-degree wrapper exists_valid_assignment_of_maxDegreeIndependentSeedPeel in the same file). Conditional on: 0 < q, a supplied pr."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/IndependentSeed.lean
+  status: experimental
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-valid-assignment-of-totalindependentselectorpeel
+  decl: TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+  kind: theorem
+  summary: "Total-independent selector decoder: a fresh-color independent vertex set plus a fresh-color matching avoiding it, with a supplied core coloring and peel certificate, gives a valid assignment in Fin (q + 1). Conditional on: a supplied proper edge coloring, independent S, matching."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/TotalIndependentSelector.lean
+  status: experimental
+  superseded_by: null
+  citation: null
+  depends_on: []
+- id: total-coloring-lean/exists-valid-assignment-of-alternatingrainbowpathselector
+  decl: TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector
+  kind: theorem
+  summary: "Checks the old-spare/fresh-edge donor exchange along an indexed rainbow path and invokes the selector decoder. Conditional on: a supplied AlternatingRainbowPathSelectorCertificate (path, rainbow, spare, matching, seed-avoidance, core-color and peel facts); existence of the certi."
+  aliases: []
+  keywords: [graph-theory, total-coloring]
+  file: TotalColoring/TotalIndependentSelector.lean
+  status: experimental
+  superseded_by: null
+  citation: null
+  depends_on: []
