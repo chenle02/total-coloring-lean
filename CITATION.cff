@@ -11,7 +11,7 @@ authors:
     given-names: Songling
 repository-code: "https://github.com/chenle02/total-coloring-lean"
 url: "https://github.com/chenle02/total-coloring-lean"
-license: MIT
+license: Apache-2.0
 keywords:
   - formal verification
   - graph coloring
