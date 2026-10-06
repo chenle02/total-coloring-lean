@@ -26,8 +26,8 @@ PR-head and post-merge Lean/docs CI passed.
 
 ## Conditional independent-seed endpoint on `main`
 
-The following declarations are present on current `main` commit `61e79bea…`,
-tree `cb2d7d06…`. Their historical proof source is branch
+The following declarations are present on current `main` commit `da0595da…`,
+tree `34824cd5…`. Their historical proof source is branch
 `agent/independent-seed-endpoint` at exact source commit
 `cc4dd7ae1d858ea0583549f88707952e2414bf60`, tree
 `9af6a84e1305aed9a0156dcd59c279de792dea4a`; PR #10 merged them.
@@ -62,8 +62,8 @@ conditional declarations, not existence of their supplied witnesses.
 
 ## Total-independent selector decoder on `main`
 
-The following declarations are present on current `main` commit `61e79bea…`,
-tree `cb2d7d06…`. Their historical proof source is branch
+The following declarations are present on current `main` commit `da0595da…`,
+tree `34824cd5…`. Their historical proof source is branch
 `agent/total-independent-selector-decoder` at source commit
 `d008514c7a1cf834007bf0bd8de0d10a93926711`, exact tree
 `1847934c78da03fe80bb67236868700c79016129`; PR #11 merged them.
@@ -98,8 +98,8 @@ cache-archive gates.
 
 ## Partial-edge selector normalization on `main`
 
-The following declarations are present on current `main` commit `61e79bea…`,
-tree `cb2d7d06…`. Their historical proof source is stacked branch
+The following declarations are present on current `main` commit `da0595da…`,
+tree `34824cd5…`. Their historical proof source is stacked branch
 `agent/partial-edge-selector-normalization` at source commit
 `c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2`, exact source tree
 `11007a4aa381984a8d66aa1db297312cebe8d8b5`; PR #12 merged them.
@@ -118,12 +118,13 @@ The forward theorem does not construct any selector or coloring. The reverse
 constructor starts from a supplied valid total coloring, so it cannot be used
 as an existence proof for that coloring or for the Total Coloring Conjecture.
 
-## Adapted-spare vertex endpoint (unmerged)
+## Adapted-spare vertex endpoint on `main`
 
-The following declaration is on `agent/donor-global-formalization`, based on
-current `main` commit `61e79bea…`, tree `cb2d7d06…`. Until merge, attribute
-the declaration only to that branch; any verification claim must cite a
-tree-specific external receipt.
+The following declaration is present on current `main` commit `da0595da…`,
+tree `34824cd5…`. Its historical proof source is branch
+`agent/donor-global-formalization` at commit `a7ed2453…`; PR #13 merged it
+on 2026-07-20. Any verification claim must cite a tree-specific external
+receipt.
 
 | Declaration | Module | Checked conclusion |
 | --- | --- | --- |
@@ -263,9 +264,8 @@ import TotalColoring
 
 The canonical version of this snippet is maintained in
 [`examples/Quickstart.lean`](examples/Quickstart.lean). Current `main` commit
-`61e79bea…`, tree `cb2d7d06…`, contains the independent-seed, selector/path,
+`da0595da…`, tree `34824cd5…`, contains the independent-seed, selector/path,
 and partial-edge groups. Their earlier source commits and trees remain
-historical proof provenance. The final adapted-spare endpoint `#check` in the
-branch Quickstart requires `agent/donor-global-formalization`. Until merge,
-attribute it only to that branch; any verification claim must cite a
-tree-specific external receipt.
+historical proof provenance. The final adapted-spare endpoint `#check`
+targets the declaration merged into `main` by PR #13; any verification claim
+must cite a tree-specific external receipt.

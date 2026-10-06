@@ -1,10 +1,10 @@
 {
-  "schema_version": 9,
+  "schema_version": 10,
   "project": "Total Coloring Lean",
   "authority": {
     "kind": "Lean declarations at pinned git commits",
-    "current_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
-    "current_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7",
+    "current_main_commit": "da0595da1fa93c51a00be78193071bdea74aeb02",
+    "current_main_tree": "34824cd54afb9a244a3fb58608a8d4da9bd6cfa6",
     "commit": "06d43af7f4ea8fefea9e07e2bc29bdc960548171",
     "tree": "89a32c7a78e294a8b1484092ec79afaa3b4ace5a",
     "default_branch_merge_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
@@ -28,17 +28,17 @@
     "independent_seed_proof_branch": "agent/independent-seed-endpoint",
     "independent_seed_proof_branch_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
     "independent_seed_proof_branch_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
-    "independent_seed_default_branch_status": "merged by PR #10; current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1 contains the declarations, while the named source commit and tree remain their historical proof provenance",
+    "independent_seed_default_branch_status": "merged by PR #10; current main commit da0595da1fa93c51a00be78193071bdea74aeb02 contains the declarations, while the named source commit and tree remain their historical proof provenance",
     "total_independent_selector_proof_branch": "agent/total-independent-selector-decoder",
     "total_independent_selector_proof_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
     "total_independent_selector_proof_tree": "1847934c78da03fe80bb67236868700c79016129",
-    "total_independent_selector_default_branch_status": "merged by PR #11; current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1 contains the declarations, while the named source commit and tree remain their historical proof provenance",
+    "total_independent_selector_default_branch_status": "merged by PR #11; current main commit da0595da1fa93c51a00be78193071bdea74aeb02 contains the declarations, while the named source commit and tree remain their historical proof provenance",
     "partial_edge_selector_proof_branch": "agent/partial-edge-selector-normalization",
     "partial_edge_selector_proof_commit": "c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2",
     "partial_edge_selector_proof_tree": "11007a4aa381984a8d66aa1db297312cebe8d8b5",
-    "partial_edge_selector_default_branch_status": "merged by PR #12; current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1 contains the declarations, while the named source commit and tree remain their historical proof provenance",
+    "partial_edge_selector_default_branch_status": "merged by PR #12; current main commit da0595da1fa93c51a00be78193071bdea74aeb02 contains the declarations, while the named source commit and tree remain their historical proof provenance",
     "adapted_spare_endpoint_proof_branch": "agent/donor-global-formalization",
-    "adapted_spare_endpoint_default_branch_status": "pending merge; absent from current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1 and tree cb2d7d06998c213e68a7372f743f67f9cff815f7",
+    "adapted_spare_endpoint_default_branch_status": "merged by PR #13 as commit dc6e3a4b7510b3d2df4fb5074afaee2027e9b442 on 2026-07-20; current main commit da0595da1fa93c51a00be78193071bdea74aeb02, tree 34824cd54afb9a244a3fb58608a8d4da9bd6cfa6, contains the declaration; the proof branch agent/donor-global-formalization has since been deleted",
     "repository": "https://github.com/chenle02/total-coloring-lean"
   },
   "distribution": {
@@ -189,11 +189,15 @@
       "name": "agent/donor-global-formalization",
       "contains_adapted_spare_vertex_endpoint": true,
       "principal_declaration": "TotalColoring.adaptedSpareVertexColor_proper_iff",
-      "merge_status": "pending",
-      "default_branch_contains_result": false,
-      "base_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
-      "base_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7",
-      "verification_status": "each proposed source tree requires a tree-specific external receipt before merge; do not attribute this declaration to main before merge"
+      "merge_status": "merged",
+      "default_branch_contains_result": true,
+      "base_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1 (historical base of the proof branch)",
+      "base_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7 (historical)",
+      "verification_status": "merged by PR #13; the declaration builds on current main with standard axioms (propext, Classical.choice, Quot.sound) per the lower-tier receipt at 55edc8145228ebe48da378188d632a6991144919 in .lean-receipts/; vertex-side equivalence for supplied data only",
+      "pull_request": 13,
+      "merge_commit": "dc6e3a4b7510b3d2df4fb5074afaee2027e9b442",
+      "merged_at": "2026-07-20",
+      "branch_status": "deleted after merge; historical proof provenance only"
     }
   },
   "verified_results": [
@@ -230,7 +234,7 @@
       "maximum_degree_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_maxDegreeIndependentSeedPeel",
       "module": "TotalColoring.IndependentSeed",
       "source_path": "TotalColoring/IndependentSeed.lean",
-      "availability": "present on current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1, tree cb2d7d06998c213e68a7372f743f67f9cff815f7; the named proof branch commit and tree are historical source provenance",
+      "availability": "present on current main commit da0595da1fa93c51a00be78193071bdea74aeb02, tree 34824cd54afb9a244a3fb58608a8d4da9bd6cfa6; the named proof branch commit and tree are historical source provenance",
       "proof_branch": "agent/independent-seed-endpoint",
       "proof_branch_commit": "cc4dd7ae1d858ea0583549f88707952e2414bf60",
       "proof_branch_tree": "9af6a84e1305aed9a0156dcd59c279de792dea4a",
@@ -269,7 +273,7 @@
       "maximum_degree_path_wrapper_declaration": "TotalColoring.exists_valid_assignment_of_maxDegreeAlternatingRainbowPathSelector",
       "module": "TotalColoring.TotalIndependentSelector",
       "source_path": "TotalColoring/TotalIndependentSelector.lean",
-      "availability": "present on current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1, tree cb2d7d06998c213e68a7372f743f67f9cff815f7; the named proof branch commit and tree are historical source provenance",
+      "availability": "present on current main commit da0595da1fa93c51a00be78193071bdea74aeb02, tree 34824cd54afb9a244a3fb58608a8d4da9bd6cfa6; the named proof branch commit and tree are historical source provenance",
       "proof_branch": "agent/total-independent-selector-decoder",
       "proof_branch_commit": "d008514c7a1cf834007bf0bd8de0d10a93926711",
       "proof_branch_tree": "1847934c78da03fe80bb67236868700c79016129",
@@ -328,7 +332,7 @@
       "maximum_degree_reverse_declaration": "TotalColoring.maxDegreePartialEdgeSelectorNormalization_of_valid",
       "module": "TotalColoring.PartialEdgeSelector",
       "source_path": "TotalColoring/PartialEdgeSelector.lean",
-      "availability": "present on current main commit 61e79beac7d4759568187bd43a5a40f23bf83af1, tree cb2d7d06998c213e68a7372f743f67f9cff815f7; the named stacked proof branch commit and tree are historical source provenance",
+      "availability": "present on current main commit da0595da1fa93c51a00be78193071bdea74aeb02, tree 34824cd54afb9a244a3fb58608a8d4da9bd6cfa6; the named stacked proof branch commit and tree are historical source provenance",
       "proof_branch": "agent/partial-edge-selector-normalization",
       "proof_branch_commit": "c3dbe69c15f96e3c71d8481ae4e517ee2f4fdbf2",
       "proof_branch_tree": "11007a4aa381984a8d66aa1db297312cebe8d8b5",
@@ -359,11 +363,11 @@
       ],
       "module": "TotalColoring.AdaptedSpareEndpoint",
       "source_path": "TotalColoring/AdaptedSpareEndpoint.lean",
-      "availability": "unmerged proof branch agent/donor-global-formalization; each proposed source tree requires a tree-specific external receipt before merge",
+      "availability": "present on current main commit da0595da1fa93c51a00be78193071bdea74aeb02, tree 34824cd54afb9a244a3fb58608a8d4da9bd6cfa6, merged by PR #13 as dc6e3a4b7510b3d2df4fb5074afaee2027e9b442; the named proof branch commit and tree are historical proof provenance",
       "proof_branch": "agent/donor-global-formalization",
-      "base_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
-      "base_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7",
-      "default_branch_contains_declaration": false,
+      "base_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1 (historical base of the proof branch)",
+      "base_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7 (historical)",
+      "default_branch_contains_declaration": true,
       "signature_summary": "{V : Type u} -> [DecidableEq V] -> {C : Type v} -> (K : SimpleGraph V) -> (A B : Finset V) -> (missing head : V -> C) -> Disjoint A B -> ((forall adjacent v w, adaptedSpareVertexColor A B missing head v != adaptedSpareVertexColor A B missing head w) iff (K.IsIndepSet (A : Set V) and EqualMissingConflictsCovered K A B missing and HeadLabelsClean K A B missing head and HeadLabelsProper K B head))",
       "endpoint_assignment": "Vertices in A receive none, vertices in B receive some (head v), and every other vertex receives some (missing v); membership in A has definition-level priority and the theorem assumes Disjoint A B.",
       "equivalent_conditions": [
@@ -540,15 +544,15 @@
     "A checked positive assignment validates that assignment; it does not prove an external enumeration complete."
   ],
   "verification": {
-    "current_main_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
-    "current_main_tree": "cb2d7d06998c213e68a7372f743f67f9cff815f7",
+    "current_main_commit": "da0595da1fa93c51a00be78193071bdea74aeb02",
+    "current_main_tree": "34824cd54afb9a244a3fb58608a8d4da9bd6cfa6",
     "independent_seed_merge_pull_request": 10,
     "independent_seed_merge_commit": "f4c56956ed535864daa0116b66fd895c81d9d719",
     "selector_merge_pull_request": 11,
     "selector_merge_commit": "35e127c177201c0ab1e35689741132ea2bb559c7",
     "partial_edge_merge_pull_request": 12,
     "partial_edge_merge_commit": "61e79beac7d4759568187bd43a5a40f23bf83af1",
-    "adapted_spare_endpoint_verification_status": "tree-specific external verification receipt required before merge on agent/donor-global-formalization",
+    "adapted_spare_endpoint_verification_status": "merged by PR #13 (dc6e3a4b7510b3d2df4fb5074afaee2027e9b442); built from source on current main in the lower-tier receipt at 55edc8145228ebe48da378188d632a6991144919 with standard axioms only",
     "all_orders_public_ci_run": "https://github.com/chenle02/total-coloring-lean/actions/runs/29588129760",
     "all_orders_public_ci_conclusion": "success",
     "conditional_transfer_easley_job": "5387732",
@@ -722,18 +726,35 @@
     "terminal_publishable_matrix_repair_jobs": [
       {
         "job": "5389033",
-        "successful_role_indices": [39, 40, 42, 43, 44, 45, 47, 48],
-        "redundant_success_role_indices": [46],
-        "failed_role_indices": [41],
+        "successful_role_indices": [
+          39,
+          40,
+          42,
+          43,
+          44,
+          45,
+          47,
+          48
+        ],
+        "redundant_success_role_indices": [
+          46
+        ],
+        "failed_role_indices": [
+          41
+        ],
         "failed_role_repaired_by": "5389046_41"
       },
       {
         "job": "5389046_41",
-        "successful_role_indices": [41]
+        "successful_role_indices": [
+          41
+        ]
       },
       {
         "job": "5389029",
-        "successful_role_indices": [57],
+        "successful_role_indices": [
+          57
+        ],
         "purpose": "compatible-container mk_all role"
       }
     ],
