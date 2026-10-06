@@ -63,9 +63,9 @@ import TotalColoring.FanSaturatedProfile
 import TotalColoring.FanShift
 import TotalColoring.FixedDListThreshold
 import TotalColoring.Graph
+import TotalColoring.HallRectangleProduct
 import TotalColoring.HighDegreeComplementMatching
 import TotalColoring.HighDegreeTotalColoring
-import TotalColoring.HallRectangleProduct
 import TotalColoring.IndependentSeed
 import TotalColoring.Kempe
 import TotalColoring.MatchingExact
@@ -84,7 +84,6 @@ import TotalColoring.Partial
 import TotalColoring.PartialEdgeSelector
 import TotalColoring.PartialKempe
 import TotalColoring.PartialSwap
-import TotalColoring.PairSingletonExtension
 import TotalColoring.RainbowSwap
 import TotalColoring.ResidualDegree
 import TotalColoring.RigidCageCounting
