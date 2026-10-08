@@ -33,12 +33,7 @@ jobs:
 
       - name: Reject proof placeholders and native-evaluation axioms
         shell: bash
-        run: |
-          if git grep -n -E \
-            '(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|$)' \
-            -- '*.lean'; then
-            exit 1
-          fi
+        run: bash scripts/check-placeholders.sh
 
       - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1
         with:
@@ -48,7 +43,12 @@ jobs:
           leanchecker: false
 
       - name: Ensure all files are imported
-        run: lake exe mk_all --check
+        # The Audit library has no umbrella module: each Challenge and its
+        # Solution declare the same name and cannot be imported together.
+        run: lake exe mk_all --check --lib TotalColoring
+
+      - name: Build the comparator audit
+        run: lake build Audit
 
       - name: Check minimum-six proof objects sequentially
         shell: bash

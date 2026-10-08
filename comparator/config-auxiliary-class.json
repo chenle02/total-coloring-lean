@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.AuxiliaryClass.Challenge",
+  "solution_module": "Audit.AuxiliaryClass.Solution",
+  "theorem_names": ["TotalColoringAudit.AuxiliaryClass.exists_rainbow_edge_coloring_of_auxiliaryClass"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

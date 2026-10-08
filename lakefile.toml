@@ -19,3 +19,10 @@ rev = "v4.32.0"
 
 [[lean_lib]]
 name = "TotalColoring"
+
+# Comparator challenges and solutions (see Audit/README.md). Challenge proofs are
+# `sorry` by design, so this library alone does not turn warnings into errors.
+[[lean_lib]]
+name = "Audit"
+globs = ["Audit.+"]
+leanOptions = { warningAsError = false }

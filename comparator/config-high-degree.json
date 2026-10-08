@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.HighDegree.Challenge",
+  "solution_module": "Audit.HighDegree.Solution",
+  "theorem_names": ["TotalColoringAudit.HighDegree.exists_total_coloring_of_card_le_two_mul_maxDegree"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}
