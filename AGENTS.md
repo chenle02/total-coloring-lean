@@ -234,10 +234,14 @@ boundaries take priority over breadth or automation.
 
 ## Proof discipline
 
-- Do not add `sorry`, `admit`, custom `axiom` declarations, or
-  `native_decide` to production Lean modules. The committed tiny examples use
-  kernel reduction with `decide`; any future trust-boundary change requires
-  explicit review and documentation.
+- Do not add `sorry`, `admit`, custom `axiom` declarations, or `native_decide`
+  to production Lean modules. The one exception is a comparator challenge,
+  `Audit/<Claim>/Challenge.lean`: a statement-only file that imports only
+  Mathlib and whose proofs are `sorry` by design (see `Audit/README.md`). It
+  may contain no other placeholder, and its `Solution.lean` is held to the
+  full rule. `scripts/check-placeholders.sh` enforces both. The committed tiny
+  examples use kernel reduction with `decide`; any future trust-boundary
+  change requires explicit review and documentation.
 - Keep conjectures in documentation or as clearly named proposition
   definitions. Do not present an unproved proposition as a theorem.
 - Prefer small semantic definitions and explicit soundness theorems over
@@ -274,14 +278,9 @@ Run from the repository root before every commit:
 ```bash
 lake exe cache get
 lake build
+lake build Audit
 lake env leanchecker
-if rg -n \
-  --glob '*.lean' \
-  --glob '!.lake/**' \
-  '(^|[^[:alnum:]_])(sorry|admit|axiom|native_decide)([^[:alnum:]_]|$)' \
-  .; then
-  exit 1
-fi
+bash scripts/check-placeholders.sh
 git diff --check
 git diff --cached --check
 ```
