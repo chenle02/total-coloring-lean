@@ -603,6 +603,14 @@ the included `CITATION.cff` and exposes a **Cite this repository** menu.
 maintenance, documentation, CI and cluster verification, and reproducible
 releases. Sponsorship does not affect theorem claims or proof-review standards.
 
+## Acknowledgments
+
+This work was completed in part with resources provided by the Auburn University Easley Cluster. The sealed lower-tier verification runs recorded above (`lake build`,
+forbidden-token and axiom audits, and `leanchecker` kernel replay of the exact
+source tree) ran as Slurm jobs on Easley through
+[`scripts/easley/verify.sbatch`](scripts/easley/verify.sbatch); other builds
+and receipts ran on lab workstations.
+
 ## License
 
 Copyright © 2026 Le Chen and contributors. Distributed under the
