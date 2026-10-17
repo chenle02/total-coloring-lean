@@ -18,7 +18,6 @@
 #SBATCH --output=/scratch/%u/tclean/logs/verify-%j.out
 #SBATCH --error=/scratch/%u/tclean/logs/verify-%j.err
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=lzc0090@auburn.edu
 
 set -euo pipefail
 

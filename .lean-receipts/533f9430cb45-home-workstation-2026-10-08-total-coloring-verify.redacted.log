@@ -1,0 +1,17 @@
+total-coloring-lean lower-tier verification report
+commit: 533f9430cb4595faa9878bf2eecb8350ce57a068
+lean_toolchain: leanprover/lean4:v4.32.0
+mathlib_rev: 81a5d257c8e410db227a6665ed08f64fea08e997
+host: home-workstation (Linux)
+
+1. lake exe cache get; lake build  -> Build completed successfully (8755 jobs)
+2. lake build Audit                 -> Build completed successfully; 2 warnings, both `declaration uses sorry` in Audit/*/Challenge.lean (by design)
+3. lake env leanchecker             -> exit 0 (123.59 s elapsed, 36827020 KB max RSS)
+4. bash scripts/check-placeholders.sh -> exit 0 (no sorry/admit/axiom/native_decide outside Audit/*/Challenge.lean; Challenge files import only Mathlib)
+5. #print axioms (headline theorems):
+'TotalColoring.exists_valid_assignment_of_highDegree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+sorry_count (production modules): 0
