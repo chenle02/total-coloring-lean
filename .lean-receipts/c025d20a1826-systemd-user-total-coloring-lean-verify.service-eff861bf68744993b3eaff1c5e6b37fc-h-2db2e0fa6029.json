@@ -1,0 +1,33 @@
+{
+  "commit": "c025d20a182644bbacdd96165c93e1b8b2a403c6",
+  "lean_toolchain": "leanprover/lean4:v4.32.0",
+  "mathlib_rev": "81a5d257c8e410db227a6665ed08f64fea08e997",
+  "sorry_count": 0,
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "report_sha256": "23f81ff45cdd46a5b355026530fd690effbe6c0d1a7baaa2dbf06f55d1827b14",
+  "job_id": "systemd-user:total-coloring-lean-verify.service:eff861bf68744993b3eaff1c5e6b37fc@h-2db2e0fa6029",
+  "checker": "verify.sh (lake build TotalColoring Audit.HighDegree.Solution Audit.AuxiliaryClass.Solution Audit.CriticalAllD.Solution Audit.Decode.Solution Audit.Certificate.Solution Audit.MatchingLowerBound.Solution Audit.PairSingleton.Solution Audit.PartialEdgeSelector.Solution; lake env leanchecker; scripts/check-placeholders.sh; lake env lean scripts/Axioms.lean; claim axioms)",
+  "generated_at": "2026-10-18T05:18:31Z",
+  "job_stdout_sha256": "7365e5f1378d36112fe00ffc7a4984421b706a00d686dbd167d122e1dbecea01",
+  "manifest_sha256": "4169dc5ae9cda862154f9a513dd98ff1785298ff9a9e9e41ff0f9f904f0a2141",
+  "log_commit_bound": true,
+  "claim_axioms": {
+    "checked": 13,
+    "nonstandard": [],
+    "missing": []
+  },
+  "producer": {
+    "lean_pkg": "0.14.0",
+    "install": "installed",
+    "commit": null,
+    "dirty": null,
+    "sources_sha256": "40892ef7e64a606f97d745e82f11b62bdea3b9b00182e221cce897e244fe64fa",
+    "source_files": 70,
+    "python": "3.12.3"
+  },
+  "unit_properties_sha256": "2bd4d5da0a5f5dc7c375c586bc5ef24c6cfab917984238625d44dbdd5ccced22"
+}
