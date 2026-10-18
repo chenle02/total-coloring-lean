@@ -609,11 +609,14 @@ releases. Sponsorship does not affect theorem claims or proof-review standards.
 
 ## Acknowledgments
 
-This work was completed in part with resources provided by the Auburn University Easley Cluster. The sealed lower-tier verification runs recorded above (`lake build`,
-forbidden-token and axiom audits, and `leanchecker` kernel replay of the exact
-source tree) ran as Slurm jobs on Easley through
-[`scripts/easley/verify.sbatch`](scripts/easley/verify.sbatch); other builds
-and receipts ran on lab workstations.
+This work was completed in part with resources provided by the Auburn University
+[Easley Cluster](https://hpc.auburn.edu/hpc/docs/hpcdocs/build/html/easley/intro.html).
+The sealed Easley verification jobs recorded above (jobs `5389587`, `5389588`
+and `5391803`: `lake build`, forbidden-token and axiom audits, and `leanchecker`
+kernel replay of the exact source tree) ran as Slurm jobs through
+[`scripts/easley/verify.sbatch`](scripts/easley/verify.sbatch). The receipts of
+release v0.2.0 (commit `c025d20a1826`, lower tier and comparator) were produced
+on a lab workstation; other builds also ran on lab workstations.
 Developed and verified with [lean-pkg](https://github.com/lean-pkg/lean-pkg)
 ([doi:10.5281/zenodo.23272098](https://doi.org/10.5281/zenodo.23272098)).
 
