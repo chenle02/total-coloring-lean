@@ -1,0 +1,164 @@
+commit: 3f364b51d2c74677384c95c9ad92403c06a43b15
+lean-toolchain: leanprover/lean4:v4.32.0
+checker: verify.sh (lake build TotalColoring Audit.HighDegree.Solution Audit.AuxiliaryClass.Solution Audit.CriticalAllD.Solution Audit.Decode.Solution Audit.Certificate.Solution Audit.MatchingLowerBound.Solution Audit.PairSingleton.Solution Audit.PartialEdgeSelector.Solution; lake env leanchecker; scripts/check-placeholders.sh; lake env lean scripts/Axioms.lean; claim axioms)
+lean-pkg-build: begin
+✔ [977/1093] Built TotalColoring.Graph (1.8s)
+✔ [988/1093] Built TotalColoring.Critical (1.7s)
+✔ [989/1093] Built TotalColoring.SimpleReachability (1.7s)
+✔ [1216/1492] Built TotalColoring.AuxiliaryClass (1.8s)
+✔ [2458/2517] Built TotalColoring.Total (765ms)
+✔ [2494/2565] Built TotalColoring.AdaptedSpareEndpoint (1.3s)
+✔ [2963/3112] Built TotalColoring.Auxiliary (1.3s)
+✔ [3037/3112] Built TotalColoring.RainbowSwap (1.8s)
+✔ [3039/3112] Built TotalColoring.Distinguished (1.8s)
+✔ [3040/3118] Built TotalColoring.Dominator (1.3s)
+✔ [3042/3125] Built TotalColoring.EmptyAssignment (954ms)
+✔ [3043/3125] Built TotalColoring.Certificate (1.1s)
+✔ [3045/3125] Built TotalColoring.Partial (834ms)
+✔ [3046/3125] Built TotalColoring.PairSingletonExtension (1.4s)
+✔ [3049/3125] Built TotalColoring.Kempe (744ms)
+✔ [3050/3125] Built TotalColoring.FanCount (4.1s)
+✔ [3052/3125] Built TotalColoring.FixedDListThreshold (2.6s)
+✔ [3053/3125] Built TotalColoring.HallRectangleProduct (2.0s)
+✔ [3054/3125] Built TotalColoring.Examples (753ms)
+✔ [3055/3125] Built TotalColoring.Missing (728ms)
+✔ [3056/3125] Built TotalColoring.Dependency (789ms)
+✔ [3057/3126] Built TotalColoring.CenterSpoke (729ms)
+✔ [3058/3126] Built TotalColoring.PartialSwap (896ms)
+✔ [3060/3126] Built TotalColoring.DeletionBridge (814ms)
+✔ [3061/3126] Built TotalColoring.ComplementMatchingWitness (1.1s)
+✔ [3062/3126] Built TotalColoring.MatchingLowerBound (1.1s)
+✔ [3063/3126] Built TotalColoring.FanSaturatedProfile (1.4s)
+✔ [3064/3129] Built TotalColoring.MissingCount (906ms)
+✔ [3065/3129] Built TotalColoring.Fan (1.0s)
+✔ [3066/3129] Built TotalColoring.FanMissingCount (1.5s)
+✔ [3068/3129] Built TotalColoring.PartialKempe (799ms)
+✔ [3069/3130] Built TotalColoring.HighDegreeComplementMatching (827ms)
+✔ [3070/3130] Built TotalColoring.MatchingExact (790ms)
+✔ [3072/3131] Built TotalColoring.CriticalState (881ms)
+✔ [3075/3131] Built TotalColoring.MissingGeneralCount (752ms)
+✔ [3076/3133] Built TotalColoring.OrderedFan (930ms)
+✔ [3077/3133] Built TotalColoring.TwoColorGeometry (888ms)
+✔ [3078/3133] Built TotalColoring.MinimalExtraction (803ms)
+✔ [3081/3133] Built TotalColoring.ResidualDegree (807ms)
+✔ [3082/3133] Built TotalColoring.FanPrefix (783ms)
+✔ [3083/3133] Built TotalColoring.BalancedFixedWitnessExchange (997ms)
+✔ [3084/3133] Built TotalColoring.IndependentSeed (946ms)
+✔ [3085/3133] Built TotalColoring.TwoColorEndpointCapacity (1.2s)
+✔ [3088/3133] Built TotalColoring.FanLeaves (753ms)
+✔ [3089/3135] Built TotalColoring.FanReachability (764ms)
+✔ [3090/3139] Built TotalColoring.FanShift (979ms)
+✔ [3091/3139] Built TotalColoring.FanPrefixRepair (774ms)
+✔ [3095/3142] Built TotalColoring.CriticalFan (852ms)
+✔ [3096/3142] Built TotalColoring.FanPrefixRepairThroughCenter (795ms)
+✔ [3097/3142] Built TotalColoring.DependencySwap (996ms)
+✔ [3101/3142] Built TotalColoring.TwoColorPath (1.2s)
+✔ [3104/3145] Built TotalColoring.CriticalThroughCenter (772ms)
+✔ [3105/3145] Built TotalColoring.CriticalAllLeaf (745ms)
+✔ [3108/3145] Built TotalColoring.DependencyMobileSwap (874ms)
+✔ [3109/3145] Built TotalColoring.CriticalFanCount (1.5s)
+✔ [3110/3182] Built TotalColoring.CriticalComponentClosure (827ms)
+✔ [3111/3182] Built TotalColoring.CriticalFixedSequence (860ms)
+✔ [3673/3872] Built TotalColoring.CriticalSpareMultiplicity (1.5s)
+✔ [5260/5375] Built TotalColoring.CriticalSpareCenter (1.6s)
+✔ [7741/7973] Built TotalColoring.CriticalUsedColorMultiplicity (2.7s)
+✔ [8714/8758] Built TotalColoring.Wave4Examples (941ms)
+✔ [8715/8759] Built TotalColoring.CriticalReachableCount (1.8s)
+✔ [8716/8759] Built TotalColoring.TotalIndependentSelector (1.4s)
+✔ [8717/8759] Built TotalColoring.CriticalMatchingCarriers (2.4s)
+✔ [8718/8759] Built TotalColoring.ThreeResidualActivation (8.4s)
+✔ [8719/8760] Built TotalColoring.ThreeResidualRook (8.7s)
+✔ [8720/8760] Built TotalColoring.RigidCageCounting (8.5s)
+✔ [8721/8760] Built TotalColoring.CriticalCenteredRotation (1.7s)
+✔ [8722/8760] Built TotalColoring.CriticalFanCapacity (1.9s)
+✔ [8723/8760] Built TotalColoring.MinSixCageModel (2.8s)
+✔ [8724/8761] Built TotalColoring.CriticalGlobalMaximal (1.6s)
+✔ [8725/8761] Built TotalColoring.PartialEdgeSelector (1.5s)
+✔ [8726/8762] Built TotalColoring.CriticalRecenteredLocation (1.6s)
+✔ [8727/8762] Built Audit.Decode.Solution (2.8s)
+✔ [8728/8762] Built TotalColoring.CriticalTripleDichotomy (1.6s)
+✔ [8729/8762] Built TotalColoring.ThreeResidualGraphAdapter (2.0s)
+✔ [8730/8762] Built Audit.Certificate.Solution (2.0s)
+✔ [8731/8762] Built TotalColoring.MinSixGuardSoundness (2.9s)
+✔ [8733/8763] Built TotalColoring.CriticalRootPivot (1.7s)
+✔ [8734/8763] Built TotalColoring.MinSixCountLemmas (2.7s)
+✔ [8735/8763] Built TotalColoring.CriticalRecenteredCapacity (1.4s)
+✔ [8736/8763] Built Audit.MatchingLowerBound.Solution (2.6s)
+✔ [8737/8763] Built Audit.PairSingleton.Solution (2.7s)
+✔ [8738/8763] Built TotalColoring.CriticalFrozenMobility (1.7s)
+✔ [8739/8763] Built TotalColoring.CriticalSaturatedProfile (1.5s)
+✔ [8740/8763] Built TotalColoring.CriticalDetachedPivot (1.7s)
+✔ [8741/8763] Built TotalColoring.CriticalDirectEntry (1.9s)
+✔ [8742/8763] Built TotalColoring.CriticalDominator (1.3s)
+✔ [8743/8763] Built Audit.PartialEdgeSelector.Solution (2.7s)
+✔ [8744/8763] Built TotalColoring.CriticalDominatorPivot (1.5s)
+✔ [8745/8763] Built TotalColoring.CriticalCenteredGlobalRotation (1.7s)
+✔ [8746/8763] Built TotalColoring.CriticalRobustExpansion (1.4s)
+✔ [8747/8763] Built TotalColoring.CriticalRobustColumn (1.4s)
+✔ [8748/8763] Built TotalColoring.CriticalCrossingPlacement (1.4s)
+✔ [8749/8763] Built TotalColoring.CriticalDominatorCases (1.4s)
+✔ [8750/8763] Built TotalColoring.CriticalCrossingExternality (1.4s)
+✔ [8751/8763] Built TotalColoring.MinSixSymmetry (30s)
+✔ [8752/8763] Built TotalColoring.CriticalCrossingComponents (1.3s)
+✔ [8753/8763] Built TotalColoring.CriticalTwoExternalCase (1.3s)
+✔ [8754/8763] Built TotalColoring.CriticalDominatorClosure (1.2s)
+✔ [8755/8763] Built TotalColoring.CriticalAllDClosure (1.3s)
+✔ [8756/8763] Built TotalColoring.AuxiliaryTransfer (1.3s)
+✔ [8757/8763] Built TotalColoring.HighDegreeTotalColoring (1.4s)
+✔ [8758/8763] Built Audit.AuxiliaryClass.Solution (2.7s)
+✔ [8759/8763] Built Audit.CriticalAllD.Solution (2.9s)
+✔ [8760/8763] Built TotalColoring.EquitablePairSingleton (1.8s)
+✔ [8761/8763] Built TotalColoring (2.1s)
+✔ [8763/8763] Built Audit.HighDegree.Solution (2.5s)
+Build completed successfully (8763 jobs).
+lean-pkg-build: end
+== lake env leanchecker exited 0
+== scripts/check-placeholders.sh exited 0
+'TotalColoring.exists_valid_assignment_of_highDegree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.Auxiliary.Extension.decode_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TotalColoring.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_highDegree' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.partialEdgeSelectorAssignment_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TotalColoring.Certificate.checkExtension_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.Auxiliary.EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.exists_valid_assignment_of_independentSeedPeel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+claim-axioms: TotalColoring.exists_valid_assignment_of_highDegree Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.Auxiliary.Extension.decode_valid Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_highDegree Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.partialEdgeSelectorAssignment_valid Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.Certificate.checkExtension_sound Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.Auxiliary.EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.exists_valid_assignment_of_independentSeedPeel Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel Classical.choice,Quot.sound,propext
+claim-axioms: TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector Classical.choice,Quot.sound,propext
+claim-axioms-done: 13
+sorry-count: 0
+axioms: Classical.choice,Quot.sound,propext
+generated-at: 2026-10-18T04:35:44Z

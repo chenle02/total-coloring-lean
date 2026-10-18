@@ -1,0 +1,13 @@
+Building Audit.HighDegree.Challenge
+⚠ [8655/8655] Replayed Audit.HighDegree.Challenge
+warning: Audit/HighDegree/Challenge.lean:22:8: declaration uses `sorry`
+Build completed successfully (8655 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, TotalColoringAudit.HighDegree.exists_total_coloring_of_card_le_two_mul_maxDegree, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Audit.HighDegree.Challenge
+Building Audit.HighDegree.Solution
+Build completed successfully (8730 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, TotalColoringAudit.HighDegree.exists_total_coloring_of_card_le_two_mul_maxDegree, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Audit.HighDegree.Solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
