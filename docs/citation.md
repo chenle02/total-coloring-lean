@@ -15,6 +15,24 @@ repository** interface.
     `89a32c7a78e294a8b1484092ec79afaa3b4ace5a`), or use a later release that
     actually contains the declaration you need.
 
+## Release DOI
+
+Release `v0.2.0` is archived on Zenodo as
+[doi:10.5281/zenodo.23452514](https://doi.org/10.5281/zenodo.23452514); the
+concept DOI [doi:10.5281/zenodo.23452513](https://doi.org/10.5281/zenodo.23452513)
+always resolves to the latest archived release.
+
+```bibtex
+@software{ChenShanTotalColoringLean2026v020,
+  author  = {Le Chen and Songling Shan},
+  title   = {Total Coloring Lean},
+  version = {0.2.0},
+  year    = {2026},
+  doi     = {10.5281/zenodo.23452514},
+  url     = {https://github.com/chenle02/total-coloring-lean/tree/v0.2.0}
+}
+```
+
 ## Suggested commit-level citation
 
 ```bibtex

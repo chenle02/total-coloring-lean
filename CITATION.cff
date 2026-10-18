@@ -4,6 +4,14 @@ title: "Total Coloring Lean"
 type: software
 version: 0.2.0
 date-released: 2026-10-18
+doi: 10.5281/zenodo.23452513
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23452514
+    description: "Zenodo DOI of release v0.2.0 (this version)"
+  - type: doi
+    value: 10.5281/zenodo.23452513
+    description: "Zenodo concept DOI (all versions)"
 authors:
   - family-names: Chen
     given-names: Le

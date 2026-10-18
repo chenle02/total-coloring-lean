@@ -7,6 +7,7 @@
     <a href="https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml"><img alt="Lean CI status" src="https://github.com/chenle02/total-coloring-lean/actions/workflows/ci.yml/badge.svg"></a>
     <a href="https://chenle02.github.io/total-coloring-lean/"><img alt="Project documentation" src="https://img.shields.io/badge/docs-GitHub%20Pages-4051b5?logo=materialformkdocs&logoColor=white"></a>
     <a href="https://github.com/chenle02/total-coloring-lean/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/chenle02/total-coloring-lean?display_name=tag"></a>
+    <a href="https://doi.org/10.5281/zenodo.23452514"><img alt="DOI 10.5281/zenodo.23452514" src="https://zenodo.org/badge/DOI/10.5281/zenodo.23452514.svg"></a>
     <a href="lean-toolchain"><img alt="Lean version 4.32.0" src="https://img.shields.io/badge/Lean-4.32.0-0f766e"></a>
     <a href="LICENSE"><img alt="Apache-2.0 license" src="https://img.shields.io/badge/license-Apache--2.0-4338ca"></a>
     <a href="https://github.com/sponsors/chenle02"><img alt="Sponsor on GitHub" src="https://img.shields.io/badge/sponsor-GitHub-e11d48?logo=githubsponsors&logoColor=white"></a>
@@ -598,6 +599,9 @@ the complete gate in `AGENTS.md`.
 
 If you use the project, cite the exact release or commit you used. GitHub reads
 the included `CITATION.cff` and exposes a **Cite this repository** menu.
+Release `v0.2.0` is archived on Zenodo as
+[doi:10.5281/zenodo.23452514](https://doi.org/10.5281/zenodo.23452514)
+(all versions: [doi:10.5281/zenodo.23452513](https://doi.org/10.5281/zenodo.23452513)).
 
 [GitHub Sponsors](https://github.com/sponsors/chenle02) supports formalization
 maintenance, documentation, CI and cluster verification, and reproducible
@@ -610,6 +614,8 @@ forbidden-token and axiom audits, and `leanchecker` kernel replay of the exact
 source tree) ran as Slurm jobs on Easley through
 [`scripts/easley/verify.sbatch`](scripts/easley/verify.sbatch); other builds
 and receipts ran on lab workstations.
+Developed and verified with [lean-pkg](https://github.com/lean-pkg/lean-pkg)
+([doi:10.5281/zenodo.23272098](https://doi.org/10.5281/zenodo.23272098)).
 
 ## License
 

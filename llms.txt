@@ -55,4 +55,4 @@ Terminal proof-tree provenance: exact Git tree `4624044788ab42c0dc116cfbf7f38c69
 - [Trust and reproduction](https://chenle02.github.io/total-coloring-lean/trust/): Kernel, checker, parser, and CI boundaries.
 - [Compiled Quickstart](https://github.com/chenle02/total-coloring-lean/blob/main/docs/examples/Quickstart.lean): Copyable merged public declarations compiled by CI.
 - [Contributing](https://github.com/chenle02/total-coloring-lean/blob/main/CONTRIBUTING.md): Contribution workflow.
-- [Citation metadata](https://github.com/chenle02/total-coloring-lean/blob/main/CITATION.cff): Software citation record.
+- [Citation metadata](https://github.com/chenle02/total-coloring-lean/blob/main/CITATION.cff): Software citation record; release v0.2.0 is doi:10.5281/zenodo.23452514 (all versions: doi:10.5281/zenodo.23452513).
