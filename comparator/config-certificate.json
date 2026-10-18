@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.Certificate.Challenge",
+  "solution_module": "Audit.Certificate.Solution",
+  "theorem_names": ["TotalColoringAudit.Certificate.checkExtension_sound"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

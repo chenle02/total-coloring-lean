@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.Decode.Challenge",
+  "solution_module": "Audit.Decode.Solution",
+  "theorem_names": ["TotalColoringAudit.Decode.decode_valid"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

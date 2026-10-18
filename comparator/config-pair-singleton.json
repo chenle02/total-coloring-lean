@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.PairSingleton.Challenge",
+  "solution_module": "Audit.PairSingleton.Solution",
+  "theorem_names": ["TotalColoringAudit.PairSingleton.isAuxiliaryClassMember_of_highDegree"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

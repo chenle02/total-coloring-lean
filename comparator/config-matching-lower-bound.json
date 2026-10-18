@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.MatchingLowerBound.Challenge",
+  "solution_module": "Audit.MatchingLowerBound.Solution",
+  "theorem_names": ["TotalColoringAudit.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

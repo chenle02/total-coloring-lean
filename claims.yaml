@@ -4,6 +4,7 @@ claims:
 - id: total-coloring-lean/exists-valid-assignment-of-highdegree
   decl: TotalColoring.exists_valid_assignment_of_highDegree
   kind: theorem
+  judged_as: TotalColoringAudit.HighDegree.exists_total_coloring_of_card_le_two_mul_maxDegree
   summary: "Every finite graph G with Fintype.card V <= 2 * G.maxDegree has a valid total assignment with palette ExtensionPalette (G.maxDegree + 1), i.e. G.maxDegree + 3 colors, covering empty and nonempty vertex types with no parity hypothesis."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -15,6 +16,7 @@ claims:
 - id: total-coloring-lean/hasvalidrainbowcoloring-of-inauxiliaryclass
   decl: TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
   kind: theorem
+  judged_as: TotalColoringAudit.AuxiliaryClass.exists_rainbow_edge_coloring_of_auxiliaryClass
   summary: "Every finite member of the matching-plus-star auxiliary class (InAuxiliaryClass D H J) has a proper auxiliary edge coloring with palette Fin (D + 2) that is rainbow on the distinguished set J."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -26,6 +28,7 @@ claims:
 - id: total-coloring-lean/false-of-critical-alld
   decl: TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD
   kind: theorem
+  judged_as: TotalColoringAudit.CriticalAllD.false_of_critical_allD
   summary: "A finite outside-edge-minimal noncolorable auxiliary member is impossible."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -37,6 +40,7 @@ claims:
 - id: total-coloring-lean/decode-valid
   decl: TotalColoring.Auxiliary.Extension.decode_valid
   kind: theorem
+  judged_as: TotalColoringAudit.Decode.decode_valid
   summary: "A proper selector-rainbow auxiliary edge assignment decodes to a valid total assignment."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -48,6 +52,7 @@ claims:
 - id: total-coloring-lean/exists-matchinggraph-edgefinset-card-ge
   decl: TotalColoring.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge
   kind: theorem
+  judged_as: TotalColoringAudit.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge
   summary: "Produces a matching with at least k edges from minimum-degree and order bounds."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -59,6 +64,7 @@ claims:
 - id: total-coloring-lean/isauxiliaryclassmember-of-highdegree
   decl: TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_highDegree
   kind: theorem
+  judged_as: TotalColoringAudit.PairSingleton.isAuxiliaryClassMember_of_highDegree
   summary: "A pair/singleton witness with exact class count G.maxDegree + 1 and Fintype.card V <= 2 * G.maxDegree gives auxiliary-class membership at parameter G.maxDegree + 1."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -70,6 +76,7 @@ claims:
 - id: total-coloring-lean/partialedgeselectorassignment-valid
   decl: TotalColoring.partialEdgeSelectorAssignment_valid
   kind: theorem
+  judged_as: TotalColoringAudit.PartialEdgeSelector.partialEdgeSelectorAssignment_valid
   summary: "An independent fresh vertex class and an avoiding fresh edge matching, with old colors valid only outside the matching, give a valid total assignment."
   aliases: []
   keywords: [graph-theory, total-coloring]
@@ -81,6 +88,7 @@ claims:
 - id: total-coloring-lean/checkextension-sound
   decl: TotalColoring.Certificate.checkExtension_sound
   kind: theorem
+  judged_as: TotalColoringAudit.Certificate.checkExtension_sound
   summary: "An accepted auxiliary certificate (executable checker returns true) decodes to a valid total assignment."
   aliases: []
   keywords: [graph-theory, total-coloring]

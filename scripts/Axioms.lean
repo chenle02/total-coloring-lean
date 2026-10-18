@@ -1,0 +1,16 @@
+import TotalColoring
+
+-- #print axioms for every claim in claims.yaml (read by verify.sh's lower-tier log).
+#print axioms TotalColoring.exists_valid_assignment_of_highDegree
+#print axioms TotalColoring.MinimalExtraction.hasValidRainbowColoring_of_inAuxiliaryClass
+#print axioms TotalColoring.IsOutsideEdgeMinimalNoncolorable.false_of_critical_allD
+#print axioms TotalColoring.Auxiliary.Extension.decode_valid
+#print axioms TotalColoring.MatchingLowerBound.exists_matchingGraph_edgeFinset_card_ge
+#print axioms TotalColoring.Auxiliary.PairSingletonWitness.isAuxiliaryClassMember_of_highDegree
+#print axioms TotalColoring.partialEdgeSelectorAssignment_valid
+#print axioms TotalColoring.Certificate.checkExtension_sound
+#print axioms TotalColoring.Auxiliary.Extension.exists_valid_decode_of_inAuxiliaryClass
+#print axioms TotalColoring.Auxiliary.EquitableIndependentPartition.exists_valid_assignment_of_highDegreePartition
+#print axioms TotalColoring.exists_valid_assignment_of_independentSeedPeel
+#print axioms TotalColoring.exists_valid_assignment_of_totalIndependentSelectorPeel
+#print axioms TotalColoring.exists_valid_assignment_of_alternatingRainbowPathSelector

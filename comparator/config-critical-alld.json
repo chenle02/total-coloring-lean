@@ -1,0 +1,8 @@
+{
+  "challenge_module": "Audit.CriticalAllD.Challenge",
+  "solution_module": "Audit.CriticalAllD.Solution",
+  "theorem_names": ["TotalColoringAudit.CriticalAllD.false_of_critical_allD"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}
