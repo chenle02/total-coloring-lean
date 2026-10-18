@@ -1,0 +1,155 @@
+schema: coverage/1
+package: total-coloring-lean
+kind: library
+summary: "Unconditionally, every finite graph with |V| <= 2 * maxDegree has a total coloring with maxDegree + 3 colors, and every finite auxiliary-class member has a (D + 2)-edge coloring rainbow on J; the D + 2 transfer, the partition entry point and the (q + 1)-color endpoints are conditional on supplied inputs, and the Total Coloring Conjecture is not proved."
+rows:
+  - title: "Total coloring with maxDegree + 3 colors when |V| <= 2 * maxDegree"
+    claims: [total-coloring-lean/exists-valid-assignment-of-highdegree]
+    note: "Unconditional: the only hypotheses are a finite vertex type, decidable adjacency and the order bound; the empty vertex type is included and there is no parity hypothesis. ExtensionPalette (maxDegree + 1) is Fin (maxDegree + 3)."
+    statement: |
+      Let $G$ be a finite simple graph on the vertex set $V$ with
+      $|V| \le 2\Delta(G)$. Then $G$ has a total coloring with the
+      $\Delta(G)+3$ colors $\{0,1,\dots,\Delta(G)+2\}$: adjacent vertices get
+      distinct colors, two distinct edges sharing an endpoint get distinct
+      colors, and every vertex gets a color different from each edge
+      incident with it.
+  - title: "Every finite auxiliary-class member has a (D + 2)-edge coloring rainbow on its distinguished set"
+    claims: [total-coloring-lean/hasvalidrainbowcoloring-of-inauxiliaryclass]
+    note: "Unconditional for every D and every finite member; proved by contradiction from the minimal-counterexample theorem below."
+    statement: |
+      Let $H$ be a finite simple graph and $J$ a finite set of unordered pairs
+      of vertices such that $(H,J)$ is in the auxiliary class
+      $\mathcal{A}_D$: there are a vertex $x$ and a set $M$ of pairwise
+      disjoint pairs with $J = M \cup \{\text{edges of } H \text{ at } x\}$,
+      every pair of $J$ an edge of $H$, no pair of $M$ containing $x$ or a
+      neighbor of $x$, every vertex other than $x$ in exactly one pair of $J$,
+      $|J| = D$, $\Delta(H) \le D$ and $2 \le \deg_H(x) \le D$. Then $H$ has a
+      proper edge coloring with $D+2$ colors in which the edges of $J$ get
+      pairwise distinct colors.
+  - title: "No auxiliary-class member is noncolorable and minimal in the number of edges outside J"
+    claims: [total-coloring-lean/false-of-critical-alld]
+    note: "The minimal-counterexample step behind the rainbow theorem above; the minimality ranges over members on the same vertex type with the same J."
+    statement: |
+      There is no finite $(H,J) \in \mathcal{A}_D$ such that $H$ has no proper
+      $(D+2)$-edge coloring rainbow on $J$, while every $(H',J) \in
+      \mathcal{A}_D$ on the same vertex set, with the same $J$ and with no such
+      coloring, has at least as many edges outside $J$ as $H$.
+  - title: "A proper selector-rainbow auxiliary edge coloring decodes to a valid total coloring"
+    claims: [total-coloring-lean/decode-valid]
+    note: "No finiteness and any color type; the extension data are hypotheses."
+    statement: |
+      Let $G$ and $H$ be simple graphs with an extension datum: a selector
+      edge $s(v)$ of $H$ for each vertex $v$ of $G$ and an edge $\iota(e)$ of
+      $H$ for each edge $e$ of $G$, such that adjacent vertices have distinct
+      selectors, distinct edges of $G$ sharing an endpoint go to distinct edges
+      of $H$ sharing an endpoint, and $s(v)$ and $\iota(e)$ are distinct and
+      share an endpoint whenever $v$ is an endpoint of $e$. If $c$ is a proper
+      edge coloring of $H$ that gives distinct selector edges distinct colors,
+      then coloring each vertex $v$ by $c(s(v))$ and each edge $e$ by
+      $c(\iota(e))$ is a valid total coloring of $G$.
+  - title: "Conditional transfer: a supplied extension into an auxiliary-class member gives a total coloring with D + 2 colors"
+    claims: [total-coloring-lean/exists-valid-decode-of-inauxiliaryclass]
+    note: "Conditional on the supplied extension datum, selector membership in J and the auxiliary-class membership; nothing relates D to the maximum degree of G."
+    statement: |
+      Let $G$ be a simple graph and $H$ a finite simple graph with
+      $(H,J) \in \mathcal{A}_D$. If there is an extension datum from $G$ to $H$
+      (as in the decoding theorem) every selector edge of which belongs to
+      $J$, then $G$ has a valid total coloring with $D+2$ colors.
+  - title: "A matching with at least k edges from minimum degree k and order at least 2k"
+    claims: [total-coloring-lean/exists-matchinggraph-edgefinset-card-ge]
+    statement: |
+      Let $H$ be a finite simple graph on $V$ and $k \ge 0$. If every vertex
+      has degree at least $k$ in $H$ and $2k \le |V|$, then $H$ has a subgraph
+      in which every vertex has at most one neighbor (a matching) with at
+      least $k$ edges.
+  - title: "A pair/singleton partition with maxDegree + 1 classes gives auxiliary-class membership when |V| <= 2 * maxDegree"
+    claims: [total-coloring-lean/isauxiliaryclassmember-of-highdegree]
+    note: "The pair/singleton witness is a hypothesis here; the high-degree theorem above constructs one from a matching in the complement of G."
+    statement: |
+      Let $G$ be a finite simple graph on $V$ and fix a partition of $V$ into
+      singletons and pairs of nonadjacent vertices. On $V \cup \{\ast\}$ take
+      a copy of $G$ together with one selector edge per class: $\ast v$ for a
+      singleton $\{v\}$ and $vw$ for a pair $\{v,w\}$. Let $J$ be the set of
+      selector edges and $M$ the pair selectors. If $|J| = \Delta(G)+1$ and
+      $|V| \le 2\Delta(G)$, then this graph is a member of
+      $\mathcal{A}_{\Delta(G)+1}$ with center $\ast$, distinguished set $J$
+      and matching part $M$.
+  - title: "Conditional: a supplied equitable independent partition gives a total coloring with maxDegree + 3 colors"
+    claims: [total-coloring-lean/exists-valid-assignment-of-highdegreepartition]
+    note: "Conditional on the supplied partition and a nonempty vertex type; retained as an alternate entry point. The high-degree theorem above assumes no partition."
+    statement: |
+      Let $G$ be a finite simple graph on a nonempty vertex set $V$ with
+      $|V| \le 2\Delta(G)$. If $V$ is partitioned into exactly $\Delta(G)+1$
+      nonempty independent sets whose sizes differ by at most one, then $G$
+      has a valid total coloring with $\Delta(G)+3$ colors.
+  - title: "Conditional independent-seed endpoint: q + 1 colors from a proper q-edge coloring, an independent seed and a peel order"
+    claims: [total-coloring-lean/exists-valid-assignment-of-independentseedpeel]
+    note: "Conditional: the edge coloring, the seed and the peel order are hypotheses. Vizing's theorem and the existence of the seed and order are not proved, so the maxDegree + 2 case is not the Total Coloring Conjecture."
+    statement: |
+      Let $G$ be a finite simple graph and $q > 0$. Suppose $G$ has a proper
+      edge coloring with $q$ colors, $A$ is an independent set of vertices,
+      and the vertices outside $A$ are listed without repetition as
+      $v_1,\dots,v_m$ (exactly the vertices outside $A$) so that for every $i$
+      the number of neighbors of $v_i$ among $v_{i+1},\dots,v_m$ is less than
+      $q - \deg_G(v_i)$ (truncated subtraction). Then $G$ has a valid total
+      coloring with $q+1$ colors. For $q = \Delta(G)+1$ this is
+      $\Delta(G)+2$ colors.
+  - title: "Conditional selector decoder: a fresh-color independent set and matching with a peeled core coloring give q + 1 colors"
+    claims: [total-coloring-lean/exists-valid-assignment-of-totalindependentselectorpeel]
+    note: "Conditional: the edge coloring, S, F, the core K, the core coloring g0 and the peel order are hypotheses; none of them is constructed."
+    statement: |
+      Let $G$ be a finite simple graph with a proper edge coloring $\varphi$
+      with $q$ colors. Let $S$ be an independent set, $F$ a matching none of
+      whose edges has an endpoint in $S$, and $K \supseteq S$ a vertex set
+      with $g_0 \colon V \to \{0,\dots,q-1\}$ such that for all
+      $v, w \in K \setminus S$: $g_0(v) \ne \varphi(e)$ for every edge
+      $e \notin F$ at $v$, and $g_0(v) \ne g_0(w)$ when $v$ and $w$ are
+      adjacent. Suppose the vertices outside $K$ are listed without repetition
+      as $v_1,\dots,v_m$ (exactly the vertices outside $K$) so that
+      $|N(v_i) \cap ((K \setminus S) \cup \{v_{i+1},\dots,v_m\})| <
+      q - \deg_G(v_i)$ (truncated subtraction) for every $i$. Then $G$ has a
+      valid total coloring with $q+1$ colors.
+  - title: "Partial-edge selector decoder: old edge colors need only be proper outside the fresh matching"
+    claims: [total-coloring-lean/partialedgeselectorassignment-valid]
+    note: "Every input is a hypothesis; no finiteness is assumed."
+    statement: |
+      Let $G$ be a simple graph, $f \in \{0,\dots,q\}$ a fresh color, $S$
+      an independent set, $F$ a matching none of whose edges has an endpoint
+      in $S$, and $\varphi$ an edge coloring with $q$ colors in which two
+      distinct edges outside $F$ sharing an endpoint get distinct colors. Let
+      $g \colon V \to \{0,\dots,q-1\}$ satisfy, for $v, w \notin S$:
+      $g(v) \ne \varphi(e)$ for every edge $e \notin F$ at $v$, and
+      $g(v) \ne g(w)$ when $v$ and $w$ are adjacent. Color the vertices of $S$
+      and the edges of $F$ with $f$, and every other vertex $v$ and edge $e$
+      with the image of $g(v)$, resp. $\varphi(e)$, under the order-preserving
+      bijection from $q$ colors onto the $q+1$ colors other than $f$. This is
+      a valid total coloring with $q+1$ colors.
+  - title: "Conditional alternating rainbow-path selector: a supplied path certificate gives q + 1 colors"
+    claims: [total-coloring-lean/exists-valid-assignment-of-alternatingrainbowpathselector]
+    note: "Conditional: the proper edge coloring and the whole certificate (path, rainbow, spare color, matchings, core colors, peel order) are hypotheses; the existence of the path is not proved."
+    statement: |
+      Let $G$ be a finite simple graph with a proper edge coloring $\varphi_0$
+      with $q$ colors, and $K$ a vertex set. Suppose there are distinct
+      vertices $u_0,\dots,u_k$, exactly the vertices of $K$, with path edges
+      $e_i = u_i u_{i+1}$ ($0 \le i < k$) whose $\varphi_0$-colors are pairwise
+      distinct; a color $\sigma \in \{0,\dots,q-1\}$ of the same palette
+      that no edge receives under $\varphi_0$; edge sets $L$ and $F$ of $G$,
+      each a matching, such that the path edge $e_i$ lies in $L$ exactly for
+      even $i$ and in $F$ exactly for odd $i$ ($L$ and $F$ may also contain
+      edges off the path), with no edge of $F$ at $u_0$; a function
+      $c \colon V \to \{0,\dots,q-1\}$ with $c(u_{i+1}) = \varphi_0(e_i)$;
+      and a list without repetition of exactly
+      the vertices outside $K$ satisfying the core peel inequality of the
+      selector decoder for $S = \{u_0\}$ and $K$. Then $G$ has a valid total
+      coloring with $q+1$ colors.
+  - title: "Soundness of the executable extension checker"
+    claims: [total-coloring-lean/checkextension-sound]
+    note: "Concerns well-typed Lean values only; parsing external data is outside the theorem."
+    statement: |
+      Let $X$ be an extension datum from a finite graph $G$ to a finite graph
+      $H$ and $c$ an edge coloring of $H$ with a color type with decidable
+      equality. If the Boolean checker checkExtension accepts $(X, c)$, then
+      decoding $c$ through $X$ gives a valid total coloring of $G$. (The
+      checker accepts exactly when $c$ is proper and gives distinct selector
+      edges distinct colors; that equivalence is the separate lemma
+      checkExtension_eq_true_iff, not part of this claim.)
