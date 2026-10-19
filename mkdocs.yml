@@ -49,6 +49,8 @@ nav:
       - Exact proof status: proof-status.md
       - Proof architecture: architecture.md
   - Reference:
+      - Verification: verification.md
+      - Coverage: coverage.md
       - Theorem index: theorem-index.md
       - Trust & reproduction: trust.md
       - For coding agents: for-agents.md
