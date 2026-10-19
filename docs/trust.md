@@ -1,5 +1,20 @@
 # Trust and reproduction
 
+## Summary
+
+- Production Lean modules contain no `sorry`, `admit`, custom `axiom`, or
+  `native_decide`.
+- Executable certificate checkers are connected to semantic predicates by
+  soundness theorems.
+- External solver output is untrusted until a checker accepts a well-typed
+  assignment.
+- A verified positive assignment does not establish completeness of an
+  external graph enumeration.
+- The umbrella `TotalColoring.lean` directly imports every production module.
+
+The receipts of release v0.2.0 (commit `c025d20a1826`, lower tier and
+comparator) were produced on a lab workstation.
+
 ## What is trusted
 
 The formal result is checked by the Lean 4.32.0 kernel using the pinned mathlib

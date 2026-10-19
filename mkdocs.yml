@@ -49,6 +49,8 @@ nav:
       - Exact proof status: proof-status.md
       - Proof architecture: architecture.md
   - Reference:
+      - Verification: verification.md
+      - Coverage: coverage.md
       - Theorem index: theorem-index.md
       - Trust & reproduction: trust.md
       - For coding agents: for-agents.md
@@ -67,6 +69,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
+      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets:
       base_path:
@@ -76,9 +79,15 @@ markdown_extensions:
       alternate_style: true
   - toc:
       permalink: true
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_css:
   - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/math.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js
 
 extra:
   social:
