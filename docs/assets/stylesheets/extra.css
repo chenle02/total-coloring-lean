@@ -119,3 +119,8 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* Typeset TeX statements (see math.js) */
+.tex-statement { margin: 0.6em 0 0.2em; padding: 0.6em 0.9em; border-left: 3px solid #153e63; overflow-x: auto; line-height: 1.6; }
+details.tex-source { margin: 0 0 1em; font-size: 0.85em; }
+details.tex-source > summary { cursor: pointer; opacity: 0.75; }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
