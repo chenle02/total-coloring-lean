@@ -98,6 +98,13 @@
   border-radius: 0.28rem;
 }
 
+/* Keep Lean names whole inside tables; Material's table wrapper scrolls horizontally instead. */
+.md-typeset td code,
+.md-typeset th code {
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
 .md-typeset a:focus-visible,
 .md-button:focus-visible {
   outline: 0.18rem solid var(--tc-focus);
