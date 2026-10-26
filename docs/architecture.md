@@ -175,3 +175,28 @@ exact-tree gate and public CI before PR #8 merged it into `main` as
 `0e938606`. The package theorem still does not lock a manuscript theorem,
 establish novelty, prove an unconditional stronger palette, or settle the
 Total Coloring Conjecture.
+
+## Proof route at a glance
+
+```text
+auxiliary member
+  → finite minimal counterexample
+  → maximal valid rainbow one-hole state
+  → fans, pivots, dominators, and robust columns
+  → k = 1 / 2 / 3 external-source exhaustion
+  → crossing and detachment contradiction
+  → rainbow auxiliary coloring
+  → conditional decode through a supplied compatible extension
+  → valid total assignment
+
+high-degree finite graph
+  → large complement matching
+  → exact-size complement matching
+  → pair/singleton witness in the auxiliary class
+  → auxiliary coloring and conditional decode
+  → valid total assignment with Delta(G) + 3 colors
+```
+
+The proof architecture on this page maps these stages to Lean
+modules. The [curated theorem index](theorem-index.md) lists the public
+definitions, terminal theorems, decoder, and checker soundness entrypoints.
